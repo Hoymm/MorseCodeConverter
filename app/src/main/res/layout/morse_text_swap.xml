@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:gravity="center"
+    android:background="@color/applicationColor"
+    >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/appFontStyle"
+        android:gravity="center"
+        android:text="@string/morse"
+        android:id="@+id/left_text_swap_id"
+        />
+
+    <ImageButton
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/swap_button"
+        android:background="@color/applicationColor"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/appFontStyle"
+        android:gravity="center"
+        android:text="@string/text"
+        android:id="@+id/right_text_swap_id"
+        />
+</LinearLayout>

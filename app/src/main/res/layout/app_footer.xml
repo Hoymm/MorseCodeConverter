@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="center"
+    android:background="@color/applicationColor"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            style="@style/footerImageButtons"
+            android:id="@+id/vibration_button_id"
+            android:src="@drawable/vibration_icon_on"
+            />
+        <ImageButton
+            style="@style/footerImageButtons"
+            android:id="@+id/sound_button_id"
+            android:src="@drawable/sound_on"
+            />
+        <ImageButton
+            style="@style/footerImageButtons"
+            android:id="@+id/flashlight_button_id"
+            android:src="@drawable/flashlight_on"
+            />
+        <ImageButton
+            style="@style/footerImageButtons"
+            android:id="@+id/screen_button_id"
+            android:src="@drawable/screen_on"
+            />
+    </LinearLayout>
+</LinearLayout>

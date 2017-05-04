@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Morse Code Converter</string>
+    <string name="morse_code">Morse Code</string>
+    <string name="speed">Speed</string>
+    <string name="text">Text</string>
+    <string name="morse">Morse</string>
+</resources>
