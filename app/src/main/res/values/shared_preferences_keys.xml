@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversionSpeedKey" translatable="false">com.hoymm.root.morsecodeconverter.conversionSpeedKey</string>
+</resources>

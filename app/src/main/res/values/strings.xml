@@ -4,4 +4,18 @@
     <string name="speed">Speed</string>
     <string name="text">Text</string>
     <string name="morse">Morse</string>
+
+    <string-array name="speedsIntervals">
+        <item>0.1</item>
+        <item>0.3</item>
+        <item>0.5</item>
+        <item>0.7</item>
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+        <item>3.0</item>
+        <item>5.0</item>
+        <item>10.0</item>
+        <item>15.0</item>
+    </string-array>
 </resources>
