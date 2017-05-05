@@ -6,4 +6,5 @@
 
     <color name="applicationColor">#49427C</color>
     <color name="textAppColor">#fafafa</color>
+    <color name="editTextBoxColor">#c2c2c2</color>
 </resources>
