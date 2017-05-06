@@ -13,28 +13,36 @@ import android.widget.Spinner;
  * Created by root on 05.05.17.
  */
 
-public class ConvertSpeedSpinner {
+public class TopBarSpeedSpinner {
+    private static TopBarSpeedSpinner convertSpeedSpinner;
+
     private Context myContext;
     private Spinner speedSpinner;
 
-    public ConvertSpeedSpinner(Context context) {
+    public static TopBarSpeedSpinner initialize(Context context){
+        if(convertSpeedSpinner == null)
+            convertSpeedSpinner = new TopBarSpeedSpinner(context);
+        return convertSpeedSpinner;
+    }
+
+    private TopBarSpeedSpinner(Context context) {
         myContext = context;
-        initSpinnerAndCustomizeAndSetSelectedItem();
+        initAndSetAdapterAndSetSelectedItemOfSpinner();
     }
 
-    private Context getContext(){
-        return myContext;
-    }
-
-    private void initSpinnerAndCustomizeAndSetSelectedItem() {
+    private void initAndSetAdapterAndSetSelectedItemOfSpinner() {
         initSpinner();
         setCustomAdapter();
         setOnItemClickBehavior();
-        setLastSelectedValue(getLastSpeedFromSharedPreferences());
+        setLastSelectedValue(getSpeedFromSharedPreferences());
     }
 
     private void initSpinner() {
         speedSpinner = (Spinner) ((Activity)getContext()).findViewById(R.id.speed_spinner_id);
+    }
+
+    private Context getContext(){
+        return myContext;
     }
 
     private void setCustomAdapter() {
@@ -45,6 +53,11 @@ public class ConvertSpeedSpinner {
         speedSpinner.setAdapter(spinnerAdapter);
     }
 
+    @NonNull
+    private String[] getSpinnerValues() {
+        return getContext().getResources().getStringArray(R.array.speedsIntervals);
+    }
+
     private void setOnItemClickBehavior() {
         speedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -52,18 +65,18 @@ public class ConvertSpeedSpinner {
                 saveSpeedSelectedToSharedPreferences(parent.getItemAtPosition(position).toString());
             }
 
-            private void saveSpeedSelectedToSharedPreferences(String newSpeed) {
-                SharedPreferences sharedPref = ((Activity)getContext()).getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putFloat(getConversionSpeedKey(), Float.parseFloat(newSpeed));
-                editor.apply();
-            }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+    }
+
+    private void saveSpeedSelectedToSharedPreferences(String newSpeed) {
+        SharedPreferences sharedPref = ((Activity)getContext()).getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putFloat(getConversionSpeedKey(), Float.parseFloat(newSpeed));
+        editor.apply();
     }
 
     private String getConversionSpeedKey(){
@@ -80,16 +93,11 @@ public class ConvertSpeedSpinner {
         }
     }
 
-    @NonNull
-    private String[] getSpinnerValues() {
-        return getContext().getResources().getStringArray(R.array.speedsIntervals);
-    }
-
     private boolean ifValuesAreQual(String stringValue, float floatValue) {
         return Float.parseFloat(stringValue) == floatValue;
     }
 
-    private float getLastSpeedFromSharedPreferences() {
+    private float getSpeedFromSharedPreferences() {
         SharedPreferences sharedPref = ((Activity)myContext).getPreferences(Context.MODE_PRIVATE);
         return sharedPref.getFloat(getConversionSpeedKey(), 1.0f);
     }
