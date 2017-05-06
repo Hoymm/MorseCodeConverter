@@ -4,6 +4,8 @@
     <string name="speed">Speed</string>
     <string name="text">Text</string>
     <string name="morse">Morse</string>
+    <string name="text_tag">text</string>
+    <string name="morse_tag">morse</string>
 
     <string-array name="speedsIntervals">
         <item>0.1</item>

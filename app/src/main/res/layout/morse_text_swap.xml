@@ -14,6 +14,7 @@
         android:gravity="center"
         android:text="@string/morse"
         android:id="@+id/left_text_swap_id"
+        android:tag="@string/morse_tag"
         />
 
     <ImageButton
@@ -22,7 +23,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/swap_button"
         android:background="@color/applicationColor"
-        android:id="@+id/swap_icon_id"
+        android:id="@+id/swap_button_id"
         />
 
     <TextView
@@ -33,5 +34,6 @@
         android:gravity="center"
         android:text="@string/text"
         android:id="@+id/right_text_swap_id"
+        android:tag="@string/text_tag"
         />
 </LinearLayout>

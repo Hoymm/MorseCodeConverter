@@ -20,8 +20,7 @@ public class TopBarSpeedSpinner {
     private Spinner speedSpinner;
 
     public static TopBarSpeedSpinner initialize(Context context){
-        if(convertSpeedSpinner == null)
-            convertSpeedSpinner = new TopBarSpeedSpinner(context);
+        convertSpeedSpinner = new TopBarSpeedSpinner(context);
         return convertSpeedSpinner;
     }
 
@@ -34,11 +33,11 @@ public class TopBarSpeedSpinner {
         initSpinner();
         setCustomAdapter();
         setOnItemClickBehavior();
-        setLastSelectedValue(getSpeedFromSharedPreferences());
+        restoreLastSelectedValue(getLastSpeedFromSharedPreferences());
     }
 
     private void initSpinner() {
-        speedSpinner = (Spinner) ((Activity)getContext()).findViewById(R.id.speed_spinner_id);
+        speedSpinner = (Spinner) ((Activity)this.getContext()).findViewById(R.id.speed_spinner_id);
     }
 
     private Context getContext(){
@@ -48,14 +47,14 @@ public class TopBarSpeedSpinner {
     private void setCustomAdapter() {
         String [] spinnerValuesArray = getSpinnerValues();
         ArrayAdapter<String> spinnerAdapter = 
-                new ArrayAdapter<>(getContext(), R.layout.speed_spinner_custom_view, spinnerValuesArray);
+                new ArrayAdapter<>(this.getContext(), R.layout.speed_spinner_custom_view, spinnerValuesArray);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         speedSpinner.setAdapter(spinnerAdapter);
     }
 
     @NonNull
     private String[] getSpinnerValues() {
-        return getContext().getResources().getStringArray(R.array.speedsIntervals);
+        return this.getContext().getResources().getStringArray(R.array.speedsIntervals);
     }
 
     private void setOnItemClickBehavior() {
@@ -73,17 +72,17 @@ public class TopBarSpeedSpinner {
     }
 
     private void saveSpeedSelectedToSharedPreferences(String newSpeed) {
-        SharedPreferences sharedPref = ((Activity)getContext()).getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(getConversionSpeedKey(), Float.parseFloat(newSpeed));
         editor.apply();
     }
 
     private String getConversionSpeedKey(){
-        return getContext().getString(R.string.conversionSpeedKey);
+        return this.getContext().getString(R.string.conversionSpeedKey);
     }
 
-    private void setLastSelectedValue(float lastSelectedValue) {
+    private void restoreLastSelectedValue(float lastSelectedValue) {
         String [] spinnerValues = getSpinnerValues();
         for (int i = 0 ; i < spinnerValues.length; ++i){
             if (ifValuesAreQual(spinnerValues[i], lastSelectedValue)){
@@ -97,7 +96,7 @@ public class TopBarSpeedSpinner {
         return Float.parseFloat(stringValue) == floatValue;
     }
 
-    private float getSpeedFromSharedPreferences() {
+    private float getLastSpeedFromSharedPreferences() {
         SharedPreferences sharedPref = ((Activity)myContext).getPreferences(Context.MODE_PRIVATE);
         return sharedPref.getFloat(getConversionSpeedKey(), 1.0f);
     }
