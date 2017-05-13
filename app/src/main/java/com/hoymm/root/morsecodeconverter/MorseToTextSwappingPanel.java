@@ -11,17 +11,14 @@ import android.widget.TextView;
  * Created by root on 06.05.17.
  */
 
-public class MorseToTextSwappingPanel {
-    private static MorseToTextSwappingPanel morseToTextSwappingPanel;
-
+class MorseToTextSwappingPanel {
     private Context myContext;
 
     private ImageButton swapButton;
     private TextView leftTextView, rightTextView;
 
-    public static MorseToTextSwappingPanel initializate(Context context){
-        morseToTextSwappingPanel = new MorseToTextSwappingPanel(context);
-        return morseToTextSwappingPanel;
+    static MorseToTextSwappingPanel initializate(Context context){
+        return new MorseToTextSwappingPanel(context);
     }
 
     private MorseToTextSwappingPanel(Context context){
@@ -49,32 +46,32 @@ public class MorseToTextSwappingPanel {
     private void restoreTags() {
         String textTag = this.getContext().getString(R.string.text_tag);
         String morseTag = this.getContext().getString(R.string.morse_tag);
-        if(isLastTranslationFromTextToMorse()) {
-            leftTextView.setTag(textTag);
-            rightTextView.setTag(morseTag);
-        }
-        else{
+        if(isLastTranslationFromMorseToText()) {
             leftTextView.setTag(morseTag);
             rightTextView.setTag(textTag);
+        }
+        else{
+            leftTextView.setTag(textTag);
+            rightTextView.setTag(morseTag);
         }
     }
 
     private void restoreTexts() {
         String textText = this.getContext().getString(R.string.text);
         String morseText = this.getContext().getString(R.string.morse);
-        if(isLastTranslationFromTextToMorse()) {
-            leftTextView.setText(textText);
-            rightTextView.setText(morseText);
-        }
-        else{
+        if(isLastTranslationFromMorseToText()) {
             leftTextView.setText(morseText);
             rightTextView.setText(textText);
         }
+        else{
+            leftTextView.setText(textText);
+            rightTextView.setText(morseText);
+        }
     }
 
-    private boolean isLastTranslationFromTextToMorse(){
+    private boolean isLastTranslationFromMorseToText(){
         SharedPreferences sharedPref = ((Activity)myContext).getPreferences(Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true);
+        return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
     private void setSwapButtonAction() {
@@ -105,11 +102,13 @@ public class MorseToTextSwappingPanel {
     private void saveToSharedPreferencesReversedTranslationDirection() {
         SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(getIsTranslationFromTextToMorseKey(), !isTranslationFromTextToMorse());
+
+        boolean putTo = !isTranslationFromTextToMorse();
+        editor.putBoolean(getIsTranslationFromMorseToTextKey(), putTo);
         editor.apply();
     }
 
-    private String getIsTranslationFromTextToMorseKey(){
+    private String getIsTranslationFromMorseToTextKey(){
         return this.getContext().getString(R.string.isTranslationFromTextToMorse);
     }
 
