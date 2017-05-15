@@ -36,9 +36,14 @@
         android:layout_below="@id/inputTextFieldId"
         android:layout_marginTop="-35dp"
         />
-    <include layout="@layout/app_footer"
+    <include layout="@layout/morse_keyboard"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
+        android:layout_above="@id/applicationFooterId"
+        />
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/applicationFooterId"
         />

@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="applicationColor">#49427C</color>
+    <color name="applicationTheme">#49427C</color>
+    <color name="morseKeyboardBackground">#514D84</color>
+
     <color name="textAppColor">#fafafa</color>
     <color name="inputTextBackground">#fcfcfc</color>
 </resources>

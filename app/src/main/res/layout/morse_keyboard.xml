@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/morseKeyboardBackground"
+    >
+    <ImageButton
+        style="@style/morseKeyboardButtons"
+        android:id="@+id/space_button_id"
+        android:src="@drawable/space"
+        />
+    <ImageButton
+        style="@style/morseKeyboardButtons"
+        android:id="@+id/line_button_id"
+        android:src="@drawable/line"
+        />
+    <ImageButton
+        style="@style/morseKeyboardButtons"
+        android:id="@+id/dot_button_id"
+        android:src="@drawable/dot"
+        />
+    <ImageButton
+        style="@style/morseKeyboardButtons"
+        android:id="@+id/backspace_button_id"
+        android:src="@drawable/backspace"
+        />
+</LinearLayout>

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/applicationColor"
+    android:background="@color/applicationTheme"
     >
     <TextView
         android:layout_width="0dp"
@@ -22,7 +22,7 @@
         android:layout_height="19dp"
         android:scaleType="centerInside"
         android:src="@drawable/swap_button"
-        android:background="@color/applicationColor"
+        android:background="@color/applicationTheme"
         android:id="@+id/swap_button_id"
         />
 

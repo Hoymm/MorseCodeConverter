@@ -8,7 +8,7 @@
         android:id="@+id/top_color_id"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/applicationColor"
+        android:background="@color/applicationTheme"
         />
     <View
         android:layout_below="@id/top_color_id"

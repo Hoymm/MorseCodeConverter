@@ -6,7 +6,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
     TopBarSpeedSpinner topBarSpeedSpinner;
     MorseToTextSwappingPanel morseToTextSwappingPanel;
-    TranslatingMiddlePanel translatingMiddlePanel;
+    MiddleTextBoxes middleTextBoxes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeProgramComponents() {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
-        translatingMiddlePanel = new TranslatingMiddlePanel(this);
+        middleTextBoxes = new MiddleTextBoxes(this);
     }
 
     @Override

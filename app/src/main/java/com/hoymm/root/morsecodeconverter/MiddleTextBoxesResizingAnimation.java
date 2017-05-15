@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
  * Created by root on 15.05.17.
  */
 
-public class BoxResizingAnimation {
+public class MiddleTextBoxesResizingAnimation {
     private static final int animationTime = 800;
 
     private Context myContext;
@@ -21,7 +21,7 @@ public class BoxResizingAnimation {
 
     private ValueAnimator animateToSmall, animateToBig;
 
-    public BoxResizingAnimation(Context context, int layoutID){
+    public MiddleTextBoxesResizingAnimation(Context context, int layoutID){
 
         myContext = context;
         box = (RelativeLayout) getActivity().findViewById(layoutID);

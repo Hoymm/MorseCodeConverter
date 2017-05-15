@@ -8,5 +8,5 @@
     android:paddingEnd="2dp"
     android:paddingRight="2dp"
     android:textColor="@color/textAppColor"
-    android:background="@color/applicationColor"
+    android:background="@color/applicationTheme"
     />

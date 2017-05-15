@@ -1,31 +1,22 @@
 package com.hoymm.root.morsecodeconverter;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import static android.R.attr.animationDuration;
 
 /**
  * Created by root on 06.05.17.
  */
 
-public class TranslatingMiddlePanel {
+public class MiddleTextBoxes {
     private Context myContext;
     private RelativeLayout textInput, textOutput;
     private ImageButton copyToClipboardButton, swapTextButton, playButton;
 
-    public TranslatingMiddlePanel(Context context) {
+    public MiddleTextBoxes(Context context) {
         myContext = context;
         initializeImageButtons();
         resizeInputAndOutputTextFields();
@@ -55,11 +46,11 @@ public class TranslatingMiddlePanel {
 
     }
 
-    private BoxResizingAnimation textOutputBox;
+    private MiddleTextBoxesResizingAnimation textOutputBox;
     private void resizeOutputField() {
 
 
-        textOutputBox = new BoxResizingAnimation(getContext(), R.id.outputTextFieldId);
+        textOutputBox = new MiddleTextBoxesResizingAnimation(getContext(), R.id.outputTextFieldId);
 
 
         Toast.makeText(getContext(), "ANIMATIO StaRTED", Toast.LENGTH_SHORT).show();
