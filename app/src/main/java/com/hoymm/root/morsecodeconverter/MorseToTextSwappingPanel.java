@@ -11,17 +11,14 @@ import android.widget.TextView;
  * Created by root on 06.05.17.
  */
 
-class MorseToTextSwappingPanel {
+public class MorseToTextSwappingPanel {
+
     private Context myContext;
 
     private ImageButton swapButton;
     private TextView leftTextView, rightTextView;
 
-    static MorseToTextSwappingPanel initializate(Context context){
-        return new MorseToTextSwappingPanel(context);
-    }
-
-    private MorseToTextSwappingPanel(Context context){
+    public MorseToTextSwappingPanel(Context context){
         myContext = context;
         linkObjectsWithXML();
         restoreLastTextViewsStatus();

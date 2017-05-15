@@ -14,17 +14,11 @@ import android.widget.Spinner;
  */
 
 public class TopBarSpeedSpinner {
-    private static TopBarSpeedSpinner convertSpeedSpinner;
 
     private Context myContext;
     private Spinner speedSpinner;
 
-    public static TopBarSpeedSpinner initialize(Context context){
-        convertSpeedSpinner = new TopBarSpeedSpinner(context);
-        return convertSpeedSpinner;
-    }
-
-    private TopBarSpeedSpinner(Context context) {
+    public TopBarSpeedSpinner(Context context) {
         myContext = context;
         initAndSetAdapterAndSetSelectedItemOfSpinner();
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.hoymm.root.morsecodeconverter.MainActivity"
@@ -7,22 +7,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <LinearLayout
+    <include layout="@layout/app_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include layout="@layout/app_header" />
-        <include layout="@layout/morse_text_swap"/>
-        <include layout="@layout/text_input"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="0.4"
-            />
-        <include layout="@layout/text_output"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="0.6"/>
-        <include layout="@layout/app_footer"/>
-    </LinearLayout>
-
-</RelativeLayout>
+        android:layout_height="60dp"
+        android:id="@+id/headerId"
+        />
+    <include layout="@layout/morse_text_swap"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/headerId"
+        android:id="@+id/swappingPanelId"
+        />
+    <include layout="@layout/text_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/swappingPanelId"
+        android:id="@+id/inputTextFieldId"
+        />
+    <include layout="@layout/text_output"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/inputTextFieldId"
+        android:id="@+id/outputTextFieldId"
+        />
+    <include layout="@layout/middle_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/inputTextFieldId"
+        android:layout_marginTop="-35dp"
+        />
+    <include layout="@layout/app_footer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/applicationFooterId"
+        />
+</android.support.percent.PercentRelativeLayout>
