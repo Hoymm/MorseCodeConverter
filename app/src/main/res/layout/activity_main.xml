@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/MAIN_LAYOUT_ID"
     >
     <include layout="@layout/app_header"
         android:layout_width="match_parent"
@@ -22,18 +23,18 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/swappingPanelId"
-        android:id="@+id/inputTextFieldId"
+        android:id="@+id/inputEditTextFieldId"
         />
     <include layout="@layout/text_output"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/inputTextFieldId"
-        android:id="@+id/outputTextFieldId"
+        android:layout_below="@id/inputEditTextFieldId"
+        android:id="@+id/outputEditTextFieldId"
         />
     <include layout="@layout/middle_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@id/inputTextFieldId"
+        android:layout_below="@id/inputEditTextFieldId"
         android:layout_marginTop="-35dp"
         />
     <include

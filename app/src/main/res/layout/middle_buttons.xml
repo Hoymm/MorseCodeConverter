@@ -10,16 +10,6 @@
         android:layout_height="60dp"
         android:scaleType="fitCenter"
         android:background="#00000000"
-        android:src="@drawable/swap_text_fields_icon"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/swap_circle_button_id"
-        />
-
-    <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="fitCenter"
-        android:background="#00000000"
         android:src="@drawable/play_icon"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
