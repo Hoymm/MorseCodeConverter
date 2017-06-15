@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/morseKeyboardBackground"
+    android:weightSum="1"
     >
     <ImageButton
         style="@style/morseKeyboardButtons"
         android:id="@+id/space_button_id"
-        android:src="@drawable/space"
+        android:src="@drawable/spacebar"
         />
     <ImageButton
         style="@style/morseKeyboardButtons"

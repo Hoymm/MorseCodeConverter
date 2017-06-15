@@ -9,7 +9,7 @@
     <ImageButton
         style="@style/footerImageButtons"
         android:id="@+id/vibration_button_id"
-        android:src="@drawable/vibration_icon_on"
+        android:src="@drawable/vib_on"
         />
     <ImageButton
         style="@style/footerImageButtons"
@@ -19,7 +19,7 @@
     <ImageButton
         style="@style/footerImageButtons"
         android:id="@+id/flashlight_button_id"
-        android:src="@drawable/flashlight_on"
+        android:src="@drawable/flash_on"
         />
     <ImageButton
         style="@style/footerImageButtons"

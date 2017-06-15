@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
  */
 
 public class MiddleTextBoxesResizingAnimation {
-    private static final int animationTime = 800;
+    private static final int animationTime = 1800;
 
     private Context myContext;
     private RelativeLayout box;
@@ -30,13 +30,13 @@ public class MiddleTextBoxesResizingAnimation {
     }
 
     private void initializeAnimations(){
-        smallToBigAnimationInit();
+        smallToBigAnimationInit(params.height, params.height+300);
         bigToSmallAnimInitialize();
     }
 
-    private void smallToBigAnimationInit() {
+    private void resizeAnimation(int fromHeight, int toHeight) {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) box.getLayoutParams();
-        animateToBig = ValueAnimator.ofFloat(params.height, params.height+300);
+        animateToBig = ValueAnimator.ofFloat(fromHeight, toHeight);
         animateToBig.setDuration(animationTime);
         animateToBig.setInterpolator(new AccelerateDecelerateInterpolator());
         animateToBig.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -47,6 +47,7 @@ public class MiddleTextBoxesResizingAnimation {
                 box.setLayoutParams(params);
             }
         });
+        animateToBig.start();
     }
 
     private void bigToSmallAnimInitialize() {
@@ -59,28 +60,19 @@ public class MiddleTextBoxesResizingAnimation {
     }
 
     private int calculateDPHeightOfRestAppElements() {
-        int overallHeight = 0;
+        int height = 0;
+        LinearLayout topSpinnerBar = (LinearLayout) getActivity().findViewById(R.id.headerId);
+        height += topSpinnerBar.getLayoutParams().height;
 
-        LinearLayout topSpinnerBar;
-        topSpinnerBar = (LinearLayout) getActivity().findViewById(R.id.headerId);
-        overallHeight += topSpinnerBar.getLayoutParams().height;
+        LinearLayout swappingTranslatingModePanel = (LinearLayout) getActivity().findViewById(R.id.swappingPanelId);
+        height += swappingTranslatingModePanel.getLayoutParams().height;
 
-        LinearLayout swappingTranslatingModePanel;
-        swappingTranslatingModePanel = (LinearLayout) getActivity().findViewById(R.id.swappingPanelId);
-        overallHeight += swappingTranslatingModePanel.getLayoutParams().height;
+        LinearLayout footerWithButtons = (LinearLayout) getActivity().findViewById(R.id.applicationFooterId);
+        height += footerWithButtons.getLayoutParams().height;
 
-        LinearLayout footerWithButtons;
-        footerWithButtons = (LinearLayout) getActivity().findViewById(R.id.applicationFooterId);
-        overallHeight += footerWithButtons.getLayoutParams().height;
-
-
-        // TODO initialize it.
-        /*RelativeLayout morseCodingPanel
-        morseCodingPanel = (RelativeLayout) getActivity().findViewById(R.id.headerId);
-        overallHeight += morseCodingPanel.getHeight();
-        */
-        Log.e("Overal HEIGHT", " amounts " + overallHeight + " !!!!!!!!!!!!!!!!!!!!!!!!");
-        return overallHeight;
+        LinearLayout morseKeyboard = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
+        height += morseKeyboard.getLayoutParams().height;
+        return height;
     }
 
     private Activity getActivity(){
