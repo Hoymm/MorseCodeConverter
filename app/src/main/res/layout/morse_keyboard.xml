@@ -6,6 +6,7 @@
     android:gravity="center"
     android:background="@color/morseKeyboardBackground"
     android:weightSum="1"
+    android:alpha="0.3"
     >
     <ImageButton
         style="@style/morseKeyboardButtons"

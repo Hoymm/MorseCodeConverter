@@ -21,13 +21,13 @@
         />
     <include layout="@layout/text_input"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="150dp"
         android:layout_below="@id/swappingPanelId"
         android:id="@+id/inputEditTextFieldId"
         />
     <include layout="@layout/text_output"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="75dp"
         android:layout_below="@id/inputEditTextFieldId"
         android:id="@+id/outputEditTextFieldId"
         />

@@ -11,15 +11,15 @@ import com.hoymm.root.morsecodeconverter.R;
  * Created by root on 06.05.17.
  */
 
-public class ConvertingPaneEditTextBoxes {
+public class ConvertingTextFieldsPanel {
     private Context myContext;
     private ImageButton copyToClipboardButton, playButton;
-    private CalculateDataAndPerformAnimationForTextEditMiddleBoxes calculateDataAndPerformAnimationForTextEditMiddleBoxes;
-    private boolean convertingFromTextToMorseDirection = true;
+    private ResizeEditTextFieldsAnimations resizeEditTextFieldsAnimations;
+    private boolean convertingFromTextToMorseDirection = false;
 
-    public ConvertingPaneEditTextBoxes(Context context) {
+    public ConvertingTextFieldsPanel(Context context) {
         myContext = context;
-        calculateDataAndPerformAnimationForTextEditMiddleBoxes = new CalculateDataAndPerformAnimationForTextEditMiddleBoxes(context);
+        resizeEditTextFieldsAnimations = new ResizeEditTextFieldsAnimations(context);
         initializeImageButtons();
 
     }
@@ -45,13 +45,13 @@ public class ConvertingPaneEditTextBoxes {
     }
 
     private void constrictUpperBoxAndExtendLowerBox() {
-        calculateDataAndPerformAnimationForTextEditMiddleBoxes.constrictUpperBox();
-        calculateDataAndPerformAnimationForTextEditMiddleBoxes.extendLowerBox();
+        resizeEditTextFieldsAnimations.constrictUpperBox();
+        resizeEditTextFieldsAnimations.extendLowerBox();
     }
 
     private void extendUpperBoxAndConstrictLowerBox() {
-        calculateDataAndPerformAnimationForTextEditMiddleBoxes.extendUpperBox();
-        calculateDataAndPerformAnimationForTextEditMiddleBoxes.constrictLowerBox();
+        resizeEditTextFieldsAnimations.extendUpperBox();
+        resizeEditTextFieldsAnimations.constrictLowerBox();
     }
 
     private Context getContext(){

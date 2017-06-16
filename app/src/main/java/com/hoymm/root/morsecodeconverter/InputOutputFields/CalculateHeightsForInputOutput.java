@@ -61,15 +61,15 @@ public class CalculateHeightsForInputOutput {
     }
 
     private void whenMorseEnabled() {
-        int freeHeightSpaceWhenMorseEnabled = getFreeSpaceVerticallyForBoxes();
-        upperBoxBigHeight = freeHeightSpaceWhenMorseEnabled/8 *5;
-        lowerBoxSmallHeight = freeHeightSpaceWhenMorseEnabled/8 *2;
+        int freeHeightSpaceWhenMorseEnabled = getFreeSpaceVerticallyForBoxes() - getMorseKeyboardHeight();
+        upperBoxBigHeight = freeHeightSpaceWhenMorseEnabled/3 *2;
+        lowerBoxSmallHeight = freeHeightSpaceWhenMorseEnabled/3;
     }
 
     private void whenMorseDisabled() {
-        int freeHeightSpaceWhenMorseDisabled = getFreeSpaceVerticallyForBoxes() - getMorseKeyboardHeight();
-        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/8 *2;
-        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/8 *5;
+        int freeHeightSpaceWhenMorseDisabled = getFreeSpaceVerticallyForBoxes();
+        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/3;
+        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/3 *2;
     }
 
     private Activity getActivity(){

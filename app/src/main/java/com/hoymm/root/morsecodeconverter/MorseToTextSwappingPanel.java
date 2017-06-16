@@ -14,19 +14,15 @@ import android.widget.TextView;
 public class MorseToTextSwappingPanel {
 
     private Context myContext;
-
-    private ImageButton swapButton;
     private TextView leftTextView, rightTextView;
 
     public MorseToTextSwappingPanel(Context context){
         myContext = context;
         linkObjectsWithXML();
         restoreLastTextViewsStatus();
-        setSwapButtonAction();
     }
 
     private void linkObjectsWithXML() {
-        swapButton = (ImageButton) ((Activity)this.getContext()).findViewById(R.id.swap_button_id);
         leftTextView = (TextView) ((Activity)this.getContext()).findViewById(R.id.left_text_swap_id);
         rightTextView = (TextView) ((Activity)this.getContext()).findViewById(R.id.right_text_swap_id);
     }
@@ -71,32 +67,21 @@ public class MorseToTextSwappingPanel {
         return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
-    private void setSwapButtonAction() {
-        swapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapTags();
-                swapTexts();
-                saveToSharedPreferencesReversedTranslationDirection();
-            }
-        });
-    }
-
-    private void swapTags(){
+    public void swapTags(){
         String leftTag = leftTextView.getTag().toString();
         String rightTag = rightTextView.getTag().toString();
         leftTextView.setTag(rightTag);
         rightTextView.setTag(leftTag);
     }
 
-    private void swapTexts(){
+    public void swapTexts(){
         String leftText = leftTextView.getText().toString();
         String rightText = rightTextView.getText().toString();
         leftTextView.setText(rightText);
         rightTextView.setText(leftText);
     }
 
-    private void saveToSharedPreferencesReversedTranslationDirection() {
+    public void saveToSharedPreferencesReversedTranslationDirection() {
         SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
