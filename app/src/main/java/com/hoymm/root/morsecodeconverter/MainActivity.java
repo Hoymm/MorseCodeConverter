@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeProgramComponents();
         initializateSwapButtonAction();
-        firstAnimationOfTheTextBoxesToSetProperHeights();
+        resizeTextBoxesAnimation();
     }
 
     private void initializeProgramComponents() {
@@ -35,15 +35,17 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                morseToTextSwappingPanel.swapTags();
-                morseToTextSwappingPanel.swapTexts();
-                morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
-                firstAnimationOfTheTextBoxesToSetProperHeights();
+                //morseToTextSwappingPanel.swapTags();
+                //morseToTextSwappingPanel.swapTexts();
+                if(morseToTextSwappingPanel.rotateArrowAnimation()) {
+                    morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
+                    resizeTextBoxesAnimation();
+                }
             }
         });
     }
 
-    private void firstAnimationOfTheTextBoxesToSetProperHeights() {
+    private void resizeTextBoxesAnimation() {
         convertingTextFieldsPanel.swapConvertingDirection();
     }
 

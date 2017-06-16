@@ -18,8 +18,10 @@
         />
 
     <ImageButton
-        android:layout_width="19dp"
-        android:layout_height="19dp"
+        android:layout_width="59dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:src="@drawable/swap_button"
         android:background="@color/applicationTheme"

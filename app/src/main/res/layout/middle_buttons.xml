@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="@dimen/playButtonSize"
+    android:gravity="end"
     >
-
     <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="fitCenter"
-        android:background="#00000000"
-        android:src="@drawable/play_icon"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginEnd="30dp"
-        android:id="@+id/play_button_id"
+        android:id="@+id/playButtonId"
+        android:text="PLAY"
+        android:textColor="#49427C"
+        android:textSize="30sp"
+        android:layout_width="@dimen/playButtonSize"
+        android:layout_height="match_parent"
+        android:background="@drawable/play_button_shape"
         />
-
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/pauseButtonId"
+        android:textColor="#49427C"
+        android:textSize="30sp"
+        android:layout_width="@dimen/playButtonSize"
+        android:layout_height="match_parent"
+        android:background="@drawable/pause_button_shape"
+        />
+    <ImageButton
+        android:id="@+id/stopButtonId"
+        android:textColor="#49427C"
+        android:textSize="30sp"
+        android:layout_width="@dimen/playButtonSize"
+        android:layout_height="match_parent"
+        android:background="@drawable/stop_button_shape"
+        android:layout_marginRight="25dp"
+        />
+</LinearLayout>

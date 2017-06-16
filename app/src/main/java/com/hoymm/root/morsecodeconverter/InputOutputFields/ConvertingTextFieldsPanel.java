@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -15,7 +16,6 @@ public class ConvertingTextFieldsPanel {
     private Context myContext;
     private ImageButton copyToClipboardButton, playButton;
     private ResizeEditTextFieldsAnimations resizeEditTextFieldsAnimations;
-    private boolean convertingFromTextToMorseDirection = false;
 
     public ConvertingTextFieldsPanel(Context context) {
         myContext = context;
@@ -25,7 +25,6 @@ public class ConvertingTextFieldsPanel {
     }
 
     private void initializeImageButtons() {
-        playButton = (ImageButton) getActivity().findViewById(R.id.play_button_id);
         copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
 
         // TODO delete that what's below
@@ -37,8 +36,9 @@ public class ConvertingTextFieldsPanel {
     }
 
     public void swapConvertingDirection(){
-        convertingFromTextToMorseDirection = !convertingFromTextToMorseDirection;
-        if (convertingFromTextToMorseDirection)
+        MorseToTextSwappingPanel.convertingFromTextToMorseDirection
+                = !MorseToTextSwappingPanel.convertingFromTextToMorseDirection;
+        if (MorseToTextSwappingPanel.convertingFromTextToMorseDirection)
             constrictUpperBoxAndExtendLowerBox();
         else
             extendUpperBoxAndConstrictLowerBox();
