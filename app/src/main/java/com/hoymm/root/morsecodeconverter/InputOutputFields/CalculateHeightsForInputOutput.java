@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter.InputOutputFields;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -20,17 +21,32 @@ public class CalculateHeightsForInputOutput {
         calculateAndInitializateBoxHeightsObjects();
     }
 
-    private int getFreeSpaceVerticallyForBoxes() {
-        DisplayMetrics displayMetrics = myContext.getResources().getDisplayMetrics();
-        int deviceHeight = displayMetrics.heightPixels;
-        return deviceHeight - calculateDPHeightOfRestAppElements();
+    private void calculateAndInitializateBoxHeightsObjects() {
+        whenMorseEnabled();
+        whenMorseDisabled();
     }
 
-    private int calculateDPHeightOfRestAppElements() {
+    private void whenMorseEnabled() {
+        int freeHeightSpaceWhenMorseEnabled = getFreeSpaceVerticallyForBoxes() - getMorseKeyboardHeight();
+        upperBoxBigHeight = freeHeightSpaceWhenMorseEnabled/20 *14;
+        lowerBoxSmallHeight = freeHeightSpaceWhenMorseEnabled/20 *5;
+    }
+
+    private void whenMorseDisabled() {
+        int freeHeightSpaceWhenMorseDisabled = getFreeSpaceVerticallyForBoxes();
+        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/20 *5;
+        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/20 *14;
+    }
+
+    private int getFreeSpaceVerticallyForBoxes() {
+        DisplayMetrics displayMetrics = myContext.getResources().getDisplayMetrics();
+        return displayMetrics.heightPixels - calculateHeightOfRestAppElements();
+    }
+
+    private int calculateHeightOfRestAppElements() {
         int height = 0;
         height += getSpinnerPanelHeight();
         height += getSwappingPanelHeight();
-        height += getMorseKeyboardHeight();
         height += getFooterPanelHeight();
         return height;
     }
@@ -53,23 +69,6 @@ public class CalculateHeightsForInputOutput {
     private int getFooterPanelHeight() {
         LinearLayout footerWithButtons = (LinearLayout) getActivity().findViewById(R.id.applicationFooterId);
         return footerWithButtons.getLayoutParams().height;
-    }
-
-    private void calculateAndInitializateBoxHeightsObjects() {
-        whenMorseEnabled();
-        whenMorseDisabled();
-    }
-
-    private void whenMorseEnabled() {
-        int freeHeightSpaceWhenMorseEnabled = getFreeSpaceVerticallyForBoxes() - getMorseKeyboardHeight();
-        upperBoxBigHeight = freeHeightSpaceWhenMorseEnabled/3 *2;
-        lowerBoxSmallHeight = freeHeightSpaceWhenMorseEnabled/3;
-    }
-
-    private void whenMorseDisabled() {
-        int freeHeightSpaceWhenMorseDisabled = getFreeSpaceVerticallyForBoxes();
-        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/3;
-        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/3 *2;
     }
 
     private Activity getActivity(){
