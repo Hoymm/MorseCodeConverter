@@ -41,12 +41,33 @@ public class PlayPauseStopButtons {
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated())
-                    ((ImageButton)v).setImageResource(R.drawable.play_white);
+                    playButton.setImageResource(R.drawable.play_white);
                 else
-                    ((ImageButton)v).setImageResource(R.drawable.play_purple);
-
+                    playButton.setImageResource(R.drawable.play_purple);
+                makePauseButtonNotClicked();
+                makeStopButtonNotClicked();
             }
         });
+    }
+
+    private void makePauseButtonNotClicked() {
+        if(twoOrMoreButtonsActivated())
+            unclickPauseButtonIfActive();
+    }
+
+    private void unclickPauseButtonIfActive() {
+        if(pauseButton.isActivated())
+            pauseButton.callOnClick();
+    }
+
+    private void makeStopButtonNotClicked() {
+        if(twoOrMoreButtonsActivated())
+            unclickStopButtonIfActive();
+    }
+
+    private void unclickStopButtonIfActive() {
+        if(stopButton.isActivated())
+            stopButton.callOnClick();
     }
 
     private void setOnClickBehaviorForPause() {
@@ -55,12 +76,23 @@ public class PlayPauseStopButtons {
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated())
-                    ((ImageButton)v).setImageResource(R.drawable.pause_white);
+                    pauseButton.setImageResource(R.drawable.pause_white);
                 else
-                    ((ImageButton)v).setImageResource(R.drawable.pause_purple);
-
+                    pauseButton.setImageResource(R.drawable.pause_purple);
+                makePlayButtonNotClicked();
+                makeStopButtonNotClicked();
             }
         });
+    }
+
+    private void makePlayButtonNotClicked() {
+        if(twoOrMoreButtonsActivated())
+            unclickPlayButtonIfActive();
+    }
+
+    private void unclickPlayButtonIfActive() {
+        if(playButton.isActivated())
+            playButton.callOnClick();
     }
 
     private void setOnClickBehaviorForStop() {
@@ -69,12 +101,28 @@ public class PlayPauseStopButtons {
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated())
-                    ((ImageButton)v).setImageResource(R.drawable.stop_white);
+                    stopButton.setImageResource(R.drawable.stop_white);
                 else
-                    ((ImageButton)v).setImageResource(R.drawable.stop_purple);
-
+                    stopButton.setImageResource(R.drawable.stop_purple);
+                makePlayButtonNotClicked();
+                makePauseButtonNotClicked();
             }
         });
+    }
+
+    private boolean twoOrMoreButtonsActivated() {
+        int howManyButtonsActivated = 0;
+
+        if (playButton.isActivated())
+            howManyButtonsActivated++;
+
+        if (pauseButton.isActivated())
+            howManyButtonsActivated++;
+
+        if(stopButton.isActivated())
+            howManyButtonsActivated++;
+
+        return howManyButtonsActivated >= 2;
     }
 
     private Activity getActivity(){
