@@ -13,6 +13,15 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20dp</item>
     </style>
+    
+    <style name="playPauseStopButtons">
+        <item name="android:textColor">#49427C</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_width">@dimen/playButtonSize</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:padding">8dp</item>
+    </style>
 
     <style name="footerImageButtons">
         <item name="android:layout_width">0dp</item>

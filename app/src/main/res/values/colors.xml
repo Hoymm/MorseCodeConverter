@@ -11,6 +11,9 @@
     <color name="inputTextBackground">#fcfcfc</color>
 
     <color name="buttonsShadowColor">#f1f1f1</color>
+    <color name="buttonsInactiveBackgroundColor">#FFFFFF</color>
+    <color name="buttonsActiveBackgroundColor">#49427C</color>
+    <color name="buttonsOnHoverBackgroundColor">#ffd000</color>
 
 
 </resources>

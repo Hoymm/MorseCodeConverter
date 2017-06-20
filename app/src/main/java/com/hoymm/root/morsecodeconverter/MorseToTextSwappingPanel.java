@@ -76,14 +76,19 @@ public class MorseToTextSwappingPanel {
         return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
-    public void swapTags(){
+    public void swapTextsAndTags(){
+        swapTags();
+        swapTexts();
+    }
+
+    private void swapTags(){
         String leftTag = leftTextView.getTag().toString();
         String rightTag = rightTextView.getTag().toString();
         leftTextView.setTag(rightTag);
         rightTextView.setTag(leftTag);
     }
 
-    public void swapTexts(){
+    private void swapTexts(){
         String leftText = leftTextView.getText().toString();
         String rightText = rightTextView.getText().toString();
         leftTextView.setText(rightText);
@@ -111,14 +116,14 @@ public class MorseToTextSwappingPanel {
         if(arrowRotateAnimation != null && arrowRotateAnimation.isRunning())
             return false;
 
-        arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotation(), arrowButton.getRotation() + 180F);
+        arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
         arrowRotateAnimation.setDuration(AnimationForEditTextBoxes.animationTime);
         arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         arrowRotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float animatedValue = (float) valueAnimator.getAnimatedValue();
-                arrowButton.setRotation(animatedValue);
+                arrowButton.setRotationY(animatedValue);
             }
         });
         arrowRotateAnimation.start();

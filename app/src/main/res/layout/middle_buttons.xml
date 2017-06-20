@@ -7,28 +7,21 @@
     >
     <ImageButton
         android:id="@+id/playButtonId"
-        android:text="PLAY"
-        android:textColor="#49427C"
-        android:textSize="30sp"
-        android:layout_width="@dimen/playButtonSize"
-        android:layout_height="match_parent"
+        android:src="@drawable/play_purple"
+        style="@style/playPauseStopButtons"
         android:background="@drawable/play_button_shape"
         />
     <ImageButton
         android:id="@+id/pauseButtonId"
-        android:textColor="#49427C"
-        android:textSize="30sp"
-        android:layout_width="@dimen/playButtonSize"
-        android:layout_height="match_parent"
+        android:src="@drawable/pause_purple"
+        style="@style/playPauseStopButtons"
         android:background="@drawable/pause_button_shape"
         />
     <ImageButton
         android:id="@+id/stopButtonId"
-        android:textColor="#49427C"
-        android:textSize="30sp"
-        android:layout_width="@dimen/playButtonSize"
-        android:layout_height="match_parent"
+        android:src="@drawable/stop_purple"
+        style="@style/playPauseStopButtons"
         android:background="@drawable/stop_button_shape"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="30dp"
         />
 </LinearLayout>

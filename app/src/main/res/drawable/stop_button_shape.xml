@@ -1,5 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:state_activated="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <stroke android:width="1dp" android:color="@color/buttonsShadowColor" />
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <padding
+                        android:bottom="@dimen/shadowSize"
+                        android:top="@dimen/shadowSize" />
+                </shape>
+            </item>
+            <item>
+                <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <solid
+                        android:color="@color/buttonsOnHoverBackgroundColor"
+                        />
+                    <size
+                        android:width="250dp"
+                        android:height="80dp"
+                        />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_pressed="true" android:state_activated="false">
+        <layer-list>
+            <item>
+                <shape>
+                    <stroke android:width="1dp" android:color="@color/buttonsShadowColor" />
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <padding
+                        android:bottom="@dimen/shadowSize"
+                        android:top="@dimen/shadowSize" />
+                </shape>
+            </item>
+            <item>
+                <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <solid
+                        android:color="@color/buttonsOnHoverBackgroundColor"
+                        />
+                    <size
+                        android:width="250dp"
+                        android:height="80dp"
+                        />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_activated="true" >
+        <layer-list>
+            <item>
+                <shape>
+                    <stroke android:width="1dp" android:color="@color/buttonsShadowColor" />
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <padding
+                        android:bottom="@dimen/shadowSize"
+                        android:top="@dimen/shadowSize" />
+                </shape>
+            </item>
+            <item>
+                <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+                    <corners
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="8dp"
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="8dp"
+                        />
+                    <solid
+                        android:color="@color/applicationTheme"
+                        />
+                    <size
+                        android:width="250dp"
+                        android:height="80dp"
+                        />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
     <item>
         <layer-list>
             <item>
@@ -12,11 +117,8 @@
                         android:bottomRightRadius="8dp"
                         />
                     <padding
-                        android:left="@dimen/shadowSize"
-                        android:top="@dimen/shadowSize"
-                        android:right="@dimen/shadowSize"
                         android:bottom="@dimen/shadowSize"
-                        />
+                        android:top="@dimen/shadowSize" />
                 </shape>
             </item>
             <item>
@@ -28,7 +130,7 @@
                         android:bottomRightRadius="8dp"
                         />
                     <solid
-                        android:color="#FFFFFF"
+                        android:color="@color/buttonsInactiveBackgroundColor"
                         />
                     <size
                         android:width="250dp"
@@ -38,5 +140,4 @@
             </item>
         </layer-list>
     </item>
-
 </selector>

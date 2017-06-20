@@ -22,7 +22,7 @@
         android:padding="5dp"
         android:scaleType="fitCenter"
         android:background="#00ffffff"
-        android:src="@drawable/copy_to_clipboard_icon"
+        android:src="@drawable/clipboard"
         android:layout_alignBottom="@id/text_output_textFieldId"
         android:layout_alignStart="@id/text_output_textFieldId"
         android:layout_alignLeft="@id/text_output_textFieldId"

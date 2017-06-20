@@ -8,10 +8,12 @@ import android.widget.ImageButton;
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextFieldsPanel;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton swapButton;
     private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
     private ConvertingTextFieldsPanel convertingTextFieldsPanel;
+    private PlayPauseStopButtons playPauseStopButtons;
+
+    private ImageButton swapButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
         convertingTextFieldsPanel = new ConvertingTextFieldsPanel(this);
+        playPauseStopButtons = new PlayPauseStopButtons(this);
     }
 
 
@@ -35,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //morseToTextSwappingPanel.swapTags();
-                //morseToTextSwappingPanel.swapTexts();
                 if(morseToTextSwappingPanel.rotateArrowAnimation()) {
+                    morseToTextSwappingPanel.swapTextsAndTags();
                     morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
                     resizeTextBoxesAnimation();
                 }
