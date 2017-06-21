@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
+                    morseToTextSwappingPanel.rotateArrowAnimation();
                     MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
                     convertingTextFieldsPanel.resizeBoxesAnimation();
                     convertingTextFieldsPanel.swapTextInsideBoxesAnimation();

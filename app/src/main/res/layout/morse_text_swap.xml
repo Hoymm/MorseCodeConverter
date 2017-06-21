@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:src="@drawable/swap_button"
-        android:background="@drawable/switch_arrows_button"
+        android:background="#00FFFFFF"
         android:id="@+id/swap_button_id"
         />
     <TextView

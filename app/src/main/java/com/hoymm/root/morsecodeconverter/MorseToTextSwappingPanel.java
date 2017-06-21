@@ -1,10 +1,14 @@
 package com.hoymm.root.morsecodeconverter;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
 
 /**
  * Created by root on 06.05.17.
@@ -12,6 +16,7 @@ import android.widget.TextView;
 
 public class MorseToTextSwappingPanel {
 
+    private ValueAnimator arrowRotateAnimation;
     private Context myContext;
     private ImageButton arrowButton;
     private TextView leftTextView, rightTextView;
@@ -91,5 +96,24 @@ public class MorseToTextSwappingPanel {
 
     private Activity getActivity(){
         return ((Activity)myContext);
+    }
+
+
+    public boolean rotateArrowAnimation(){
+        if(arrowRotateAnimation != null && arrowRotateAnimation.isRunning())
+            return false;
+
+        arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
+        arrowRotateAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
+        arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        arrowRotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float animatedValue = (float) valueAnimator.getAnimatedValue();
+                arrowButton.setRotationY(animatedValue);
+            }
+        });
+        arrowRotateAnimation.start();
+        return true;
     }
 }

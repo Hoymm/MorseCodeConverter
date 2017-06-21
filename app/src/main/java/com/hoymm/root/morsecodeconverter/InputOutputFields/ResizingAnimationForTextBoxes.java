@@ -14,7 +14,7 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 public class ResizingAnimationForTextBoxes extends EditText {
-    public static final int animationTime = 450;
+    public static final int animationTime = 380;
     private RelativeLayout upperBox, lowerBox;
     private Context myContext;
     public ValueAnimator upperBoxToBig, upperBoxToSmall, lowerBoxToBig, lowerBoxToSmall;
