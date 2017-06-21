@@ -45,9 +45,8 @@
         android:id="@+id/applicationFooterId"
         />
     <include layout="@layout/morse_keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/morseKeyboardId"
         android:layout_above="@id/applicationFooterId"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/morse_keyboard_height"
         />
 </android.support.percent.PercentRelativeLayout>

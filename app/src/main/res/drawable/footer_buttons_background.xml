@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        >
+        <shape>
+            <solid
+                android:color="@color/footerButtonPressed" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/footerButtonPressedStroke" />
+            <corners
+                android:radius="0dp" />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp" />
+        </shape>
+    </item>
+    <item android:state_activated="true"
+        >
+        <shape>
+            <solid
+                android:color="@color/footerButtonActive" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/footerButtonActiveStroke" />
+            <corners
+                android:radius="0dp" />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid
+                android:color="@color/footerButton" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/footerButtonStroke" />
+            <corners
+                android:radius="0dp" />
+            <padding
+                android:left="0dp"
+                android:top="0dp"
+                android:right="0dp"
+                android:bottom="0dp" />
+        </shape>
+    </item>
+
+</selector>

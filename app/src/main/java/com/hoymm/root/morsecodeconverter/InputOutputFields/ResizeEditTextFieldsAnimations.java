@@ -29,4 +29,11 @@ class ResizeEditTextFieldsAnimations {
     void constrictLowerBox() {
         animationForEditTextBoxes.lowerBoxToSmall.start();
     }
+
+    public boolean isAnyAnimationRunning() {
+        return animationForEditTextBoxes.upperBoxToBig.isRunning() ||
+                animationForEditTextBoxes.lowerBoxToBig.isRunning() ||
+                animationForEditTextBoxes.upperBoxToSmall.isRunning() ||
+                animationForEditTextBoxes.lowerBoxToSmall.isRunning();
+    }
 }

@@ -14,7 +14,7 @@ import com.hoymm.root.morsecodeconverter.R;
 
 public class ConvertingTextFieldsPanel {
     private Context myContext;
-    private ImageButton copyToClipboardButton, playButton;
+    private ImageButton copyToClipboardButton;
     private ResizeEditTextFieldsAnimations resizeEditTextFieldsAnimations;
 
     public ConvertingTextFieldsPanel(Context context) {
@@ -35,10 +35,8 @@ public class ConvertingTextFieldsPanel {
         });
     }
 
-    public void swapConvertingDirection(){
-        MorseToTextSwappingPanel.convertingFromTextToMorseDirection
-                = !MorseToTextSwappingPanel.convertingFromTextToMorseDirection;
-        if (MorseToTextSwappingPanel.convertingFromTextToMorseDirection)
+    public void resizeBoxesAnimation(){
+        if (MorseToTextSwappingPanel.convertTextToMorse)
             constrictUpperBoxAndExtendLowerBox();
         else
             extendUpperBoxAndConstrictLowerBox();
@@ -60,5 +58,9 @@ public class ConvertingTextFieldsPanel {
 
     private Activity getActivity(){
         return ((Activity)getContext());
+    }
+
+    public boolean ifNoAnimationCurrentlyRunning() {
+        return !resizeEditTextFieldsAnimations.isAnyAnimationRunning();
     }
 }

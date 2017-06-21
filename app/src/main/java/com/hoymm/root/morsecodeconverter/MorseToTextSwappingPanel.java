@@ -20,7 +20,7 @@ public class MorseToTextSwappingPanel {
     private Context myContext;
     private ImageButton arrowButton;
     private TextView leftTextView, rightTextView;
-    public static boolean convertingFromTextToMorseDirection = false;
+    public static boolean convertTextToMorse = false;
     private ValueAnimator arrowRotateAnimation;
 
 
@@ -76,19 +76,7 @@ public class MorseToTextSwappingPanel {
         return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
-    public void swapTextsAndTags(){
-        swapTags();
-        swapTexts();
-    }
-
-    private void swapTags(){
-        String leftTag = leftTextView.getTag().toString();
-        String rightTag = rightTextView.getTag().toString();
-        leftTextView.setTag(rightTag);
-        rightTextView.setTag(leftTag);
-    }
-
-    private void swapTexts(){
+    public void swapTexts(){
         String leftText = leftTextView.getText().toString();
         String rightText = rightTextView.getText().toString();
         leftTextView.setText(rightText);
@@ -99,35 +87,12 @@ public class MorseToTextSwappingPanel {
         SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        boolean putTo = !isTranslationFromTextToMorse();
-        editor.putBoolean(getIsTranslationFromMorseToTextKey(), putTo);
+        editor.putBoolean(getIsTranslationFromMorseToTextKey(), convertTextToMorse);
         editor.apply();
     }
 
     private String getIsTranslationFromMorseToTextKey(){
         return this.getContext().getString(R.string.isTranslationFromTextToMorse);
-    }
-
-    private boolean isTranslationFromTextToMorse() {
-        return leftTextView.getTag().equals(this.getContext().getString(R.string.text_tag));
-    }
-
-    public boolean rotateArrowAnimation(){
-        if(arrowRotateAnimation != null && arrowRotateAnimation.isRunning())
-            return false;
-
-        arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
-        arrowRotateAnimation.setDuration(AnimationForEditTextBoxes.animationTime);
-        arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        arrowRotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float animatedValue = (float) valueAnimator.getAnimatedValue();
-                arrowButton.setRotationY(animatedValue);
-            }
-        });
-        arrowRotateAnimation.start();
-        return true;
     }
 
     private Activity getActivity(){

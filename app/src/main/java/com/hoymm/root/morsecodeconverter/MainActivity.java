@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
     private ConvertingTextFieldsPanel convertingTextFieldsPanel;
     private PlayPauseStopButtons playPauseStopButtons;
+    private MorseKeyboardPanel morseKeyboardPanel;
+    private FooterPanel footerPanel;
 
     private ImageButton swapButton;
     @Override
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeProgramComponents();
         initializateSwapButtonAction();
-        resizeTextBoxesAnimation();
+        convertingTextFieldsPanel.resizeBoxesAnimation();
     }
 
     private void initializeProgramComponents() {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
         convertingTextFieldsPanel = new ConvertingTextFieldsPanel(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
+        morseKeyboardPanel = new MorseKeyboardPanel(this);
+        footerPanel = new FooterPanel(this);
     }
 
 
@@ -38,17 +42,15 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(morseToTextSwappingPanel.rotateArrowAnimation()) {
-                    morseToTextSwappingPanel.swapTextsAndTags();
+                if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
+                    MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
+                    convertingTextFieldsPanel.resizeBoxesAnimation();
+                    morseToTextSwappingPanel.swapTexts();
                     morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
-                    resizeTextBoxesAnimation();
+                    morseKeyboardPanel.hideOrShowMorsePanel();
                 }
             }
         });
-    }
-
-    private void resizeTextBoxesAnimation() {
-        convertingTextFieldsPanel.swapConvertingDirection();
     }
 
     @Override

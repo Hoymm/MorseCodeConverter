@@ -25,7 +25,7 @@
                         android:bottomRightRadius="8dp"
                         />
                     <solid
-                        android:color="@color/buttonsOnHoverBackgroundColor"
+                        android:color="@color/playPauseStopButtonsPressed"
                         />
                     <size
                         android:width="250dp"
@@ -60,7 +60,7 @@
                         android:bottomRightRadius="8dp"
                         />
                     <solid
-                        android:color="@color/buttonsOnHoverBackgroundColor"
+                        android:color="@color/playPauseStopButtonsPressed"
                         />
                     <size
                         android:width="250dp"
@@ -130,7 +130,7 @@
                         android:bottomRightRadius="8dp"
                         />
                     <solid
-                        android:color="@color/buttonsInactiveBackgroundColor"
+                        android:color="@color/playPauseStopButtonsInactiveBackgroundColor"
                         />
                     <size
                         android:width="250dp"

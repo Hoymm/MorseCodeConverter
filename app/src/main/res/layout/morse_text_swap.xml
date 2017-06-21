@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:src="@drawable/swap_button"
-        android:background="@color/applicationTheme"
+        android:background="@drawable/switch_arrows_button"
         android:id="@+id/swap_button_id"
         />
 

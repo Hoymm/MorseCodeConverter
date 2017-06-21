@@ -2,12 +2,8 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.support.v4.content.ContextCompat;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 /**
  * File created by Damian Muca - Kaizen on 20.06.17.
@@ -52,20 +48,20 @@ public class PlayPauseStopButtons {
 
     private void makePauseButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unclickPauseButtonIfActive();
+            unactivePauseButton();
     }
 
-    private void unclickPauseButtonIfActive() {
+    private void unactivePauseButton() {
         if(pauseButton.isActivated())
             pauseButton.callOnClick();
     }
 
     private void makeStopButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unclickStopButtonIfActive();
+            unactiveStopButton();
     }
 
-    private void unclickStopButtonIfActive() {
+    private void unactiveStopButton() {
         if(stopButton.isActivated())
             stopButton.callOnClick();
     }
@@ -87,10 +83,10 @@ public class PlayPauseStopButtons {
 
     private void makePlayButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unclickPlayButtonIfActive();
+            unactivePlayButton();
     }
 
-    private void unclickPlayButtonIfActive() {
+    private void unactivePlayButton() {
         if(playButton.isActivated())
             playButton.callOnClick();
     }

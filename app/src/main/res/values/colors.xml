@@ -5,15 +5,26 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="applicationTheme">#49427C</color>
-    <color name="morseKeyboardBackground">#514D84</color>
 
     <color name="textAppColor">#fafafa</color>
     <color name="inputTextBackground">#fcfcfc</color>
 
+    <color name="switchButtonButton">#514D84</color>
+    <color name="switchButtonButtonStroke">#16f1f1f1</color>
+    <color name="switchButtonButtonPressed">#49427C</color>
+    <color name="switchButtonButtonActivePressed">#25f1f1f1</color>
+
     <color name="buttonsShadowColor">#f1f1f1</color>
-    <color name="buttonsInactiveBackgroundColor">#FFFFFF</color>
-    <color name="buttonsActiveBackgroundColor">#49427C</color>
-    <color name="buttonsOnHoverBackgroundColor">#ffd000</color>
+    <color name="playPauseStopButtonsInactiveBackgroundColor">#FFFFFF</color>
+    <color name="playPauseStopButtonsPressed">#ffd000</color>
 
+    <color name="morseKeyboardButton">#514D84</color>
+    <color name="morseKeyboardButtonActive">#49427C</color>
 
+    <color name="footerButton">#49427C</color>
+    <color name="footerButtonStroke">#49427C</color>
+    <color name="footerButtonPressed">#3b3569</color>
+    <color name="footerButtonPressedStroke">#6c6794</color>
+    <color name="footerButtonActive">#272454</color>
+    <color name="footerButtonActiveStroke">#8681ac</color>
 </resources>
