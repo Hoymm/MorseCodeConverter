@@ -1,13 +1,20 @@
 package com.hoymm.root.morsecodeconverter.InputOutputFields;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * Created by root on 06.05.17.
@@ -15,6 +22,7 @@ import com.hoymm.root.morsecodeconverter.R;
 
 public class ConvertingTextFieldsPanel {
     private Context myContext;
+    private EditText bottomTextBox;
     private ImageButton copyToClipboardButton;
     private ResizingAnimationForTextBoxes resizingAnimationForTextBoxes;
     private RemovingInsertingTextAnimation removingInsertingTextAnimation;
@@ -24,22 +32,28 @@ public class ConvertingTextFieldsPanel {
         resizingAnimationForTextBoxes = new ResizingAnimationForTextBoxes(context);
         removingInsertingTextAnimation = new RemovingInsertingTextAnimation(context);
         initObjects();
+        setClipboardButtonBehavior();
 
     }
 
     private void initObjects() {
-        initImageButtons();
+        bottomTextBox = (EditText) getActivity().findViewById(R.id.bottom_edit_text_box);
     }
 
-    private void initImageButtons() {
+    private void setClipboardButtonBehavior() {
         copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
-
-        // TODO delete that what's below
         copyToClipboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getActivity(), getActivity().getString(R.string.copied_to_clipboard)
+                        , Toast.LENGTH_SHORT).show();
+
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", bottomTextBox.getText().toString());
+                clipboard.setPrimaryClip(clip);
             }
         });
+
     }
 
     public void resizeBoxesAnimation(){

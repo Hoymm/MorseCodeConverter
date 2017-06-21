@@ -6,6 +6,7 @@
     <string name="morse">Morse</string>
     <string name="text_tag">text</string>
     <string name="morse_tag">morse</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 
     <string-array name="speedsIntervals">
         <item>0.1</item>

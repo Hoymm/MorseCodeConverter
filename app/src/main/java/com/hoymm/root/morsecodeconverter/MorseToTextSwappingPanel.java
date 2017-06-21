@@ -100,9 +100,6 @@ public class MorseToTextSwappingPanel {
 
 
     public boolean rotateArrowAnimation(){
-        if(arrowRotateAnimation != null && arrowRotateAnimation.isRunning())
-            return false;
-
         arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
         arrowRotateAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
         arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());

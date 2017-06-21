@@ -1,8 +1,10 @@
 package com.hoymm.root.morsecodeconverter;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeProgramComponents();
         initializateSwapButtonAction();
-        convertingTextFieldsPanel.resizeBoxesAnimation();
+        swapButton.callOnClick();
     }
 
     private void initializeProgramComponents() {
@@ -44,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
-                    morseToTextSwappingPanel.rotateArrowAnimation();
                     MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
+                    hideKeyboard();
+
+                    morseToTextSwappingPanel.rotateArrowAnimation();
                     convertingTextFieldsPanel.resizeBoxesAnimation();
                     convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
                     morseToTextSwappingPanel.swapTextHeaders();
@@ -54,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     @Override

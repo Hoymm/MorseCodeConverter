@@ -5,9 +5,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -21,16 +23,18 @@ public class MorseKeyboardPanel {
     private Context context;
     private LinearLayout morseKeyboardPanel;
     private ImageButton spaceButton, lineButton, dotButton, backspaceButton;
+    private EditText morseTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
     public MorseKeyboardPanel(Context context) {
         this.context = context;
         initObjects();
+        initAnimation();
+        setButtonsBehavior();
     }
 
     private void initObjects() {
         initXMLObjects();
-        initAnimation();
     }
 
     private void initXMLObjects() {
@@ -39,6 +43,7 @@ public class MorseKeyboardPanel {
         lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         dotButton = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
         backspaceButton = (ImageButton) getActivity().findViewById(R.id.backspace_button_id);
+        morseTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
     private void initAnimation() {
@@ -115,6 +120,49 @@ public class MorseKeyboardPanel {
 
     private boolean isAnyAnimationRunning() {
         return showPanelAnimation.isRunning() || hidePanelAnimation.isRunning();
+    }
+
+
+    private void setButtonsBehavior() {
+        setButtonBehavior(spaceButton, ' ');
+        setlineButtonBehavior();
+        setdotButtonBehavior();
+        setbackspaceButtonBehavior();
+    }
+
+    private void setButtonBehavior(ImageButton imageButton, final char insertChar) {
+        spaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentText = morseTextBox.getText().toString();
+                Log.e("Selected ", morseTextBox.hasSelection() + ".");
+                Log.e("Selection start", getSelectionStart() + ".");
+                Log.e("Selection end", getSelectionEnd() + ".");
+                currentText = currentText.substring(0, getSelectionStart())
+                        + insertChar + currentText.substring(getSelectionEnd());
+                morseTextBox.setText(currentText);
+            }
+
+            private int getSelectionStart() {
+                return morseTextBox.hasSelection() ? morseTextBox.getSelectionStart() : morseTextBox.getText().length();
+            }
+
+            private int getSelectionEnd() {
+                return morseTextBox.hasSelection() ? morseTextBox.getSelectionEnd() : morseTextBox.getText().length();
+            }
+        });
+    }
+
+    private void setlineButtonBehavior() {
+
+    }
+
+    private void setdotButtonBehavior() {
+
+    }
+
+    private void setbackspaceButtonBehavior() {
+
     }
 
     private Activity getActivity() {
