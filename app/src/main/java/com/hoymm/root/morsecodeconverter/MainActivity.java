@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
                     convertingTextFieldsPanel.resizeBoxesAnimation();
-                    morseToTextSwappingPanel.swapTexts();
+                    convertingTextFieldsPanel.swapTextInsideBoxes();
+                    morseToTextSwappingPanel.swapTextHeaders();
                     morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
                     morseKeyboardPanel.hideOrShowMorsePanel();
                 }

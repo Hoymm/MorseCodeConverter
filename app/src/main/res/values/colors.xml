@@ -24,7 +24,8 @@
     <color name="footerButton">#49427C</color>
     <color name="footerButtonStroke">#49427C</color>
     <color name="footerButtonPressed">#3b3569</color>
-    <color name="footerButtonPressedStroke">#6c6794</color>
+    <color name="footerButtonPressedStroke">#3b3569</color>
     <color name="footerButtonActive">#272454</color>
-    <color name="footerButtonActiveStroke">#8681ac</color>
+    <color name="footerButtonActiveStroke">#ffffff</color>
+    <color name="footerButtonActiveUnderscore">#fcfcfc</color>
 </resources>

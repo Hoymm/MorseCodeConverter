@@ -15,11 +15,11 @@ import com.hoymm.root.morsecodeconverter.R;
 public class ConvertingTextFieldsPanel {
     private Context myContext;
     private ImageButton copyToClipboardButton;
-    private ResizeEditTextFieldsAnimations resizeEditTextFieldsAnimations;
+    private AnimationForEditTextBoxes animationForEditTextBoxes;
 
     public ConvertingTextFieldsPanel(Context context) {
         myContext = context;
-        resizeEditTextFieldsAnimations = new ResizeEditTextFieldsAnimations(context);
+        animationForEditTextBoxes = new AnimationForEditTextBoxes(context);
         initializeImageButtons();
 
     }
@@ -43,13 +43,13 @@ public class ConvertingTextFieldsPanel {
     }
 
     private void constrictUpperBoxAndExtendLowerBox() {
-        resizeEditTextFieldsAnimations.constrictUpperBox();
-        resizeEditTextFieldsAnimations.extendLowerBox();
+        animationForEditTextBoxes.upperBoxToSmall.start();
+        animationForEditTextBoxes.lowerBoxToBig.start();
     }
 
     private void extendUpperBoxAndConstrictLowerBox() {
-        resizeEditTextFieldsAnimations.extendUpperBox();
-        resizeEditTextFieldsAnimations.constrictLowerBox();
+        animationForEditTextBoxes.upperBoxToBig.start();
+        animationForEditTextBoxes.lowerBoxToSmall.start();
     }
 
     private Context getContext(){
@@ -61,6 +61,10 @@ public class ConvertingTextFieldsPanel {
     }
 
     public boolean ifNoAnimationCurrentlyRunning() {
-        return !resizeEditTextFieldsAnimations.isAnyAnimationRunning();
+        return !(animationForEditTextBoxes.upperBoxToBig.isRunning() ||
+                animationForEditTextBoxes.lowerBoxToBig.isRunning() ||
+                animationForEditTextBoxes.upperBoxToSmall.isRunning() ||
+                animationForEditTextBoxes.lowerBoxToSmall.isRunning());
     }
+
 }

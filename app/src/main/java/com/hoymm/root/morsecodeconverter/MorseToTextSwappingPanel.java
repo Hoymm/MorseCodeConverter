@@ -76,7 +76,7 @@ public class MorseToTextSwappingPanel {
         return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
-    public void swapTexts(){
+    public void swapTextHeaders(){
         String leftText = leftTextView.getText().toString();
         String rightText = rightTextView.getText().toString();
         leftTextView.setText(rightText);
