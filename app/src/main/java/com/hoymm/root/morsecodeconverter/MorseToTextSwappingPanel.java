@@ -20,8 +20,7 @@ public class MorseToTextSwappingPanel {
     private Context myContext;
     private ImageButton arrowButton;
     private TextView leftTextView, rightTextView;
-    public static boolean convertTextToMorse = false;
-    private ValueAnimator arrowRotateAnimation;
+    public static boolean convertTextToMorse = true;
 
 
     public MorseToTextSwappingPanel(Context context){

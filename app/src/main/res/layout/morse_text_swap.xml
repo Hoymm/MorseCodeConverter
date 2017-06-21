@@ -12,11 +12,10 @@
         android:layout_weight="1"
         style="@style/appFontStyle"
         android:gravity="center"
-        android:text="@string/morse"
-        android:id="@+id/left_text_swap_id"
-        android:tag="@string/morse_tag"
+        android:text="@string/text"
+        android:id="@+id/right_text_swap_id"
+        android:tag="@string/text_tag"
         />
-
     <ImageButton
         android:layout_width="99dp"
         android:paddingLeft="32dp"
@@ -27,15 +26,14 @@
         android:background="@drawable/switch_arrows_button"
         android:id="@+id/swap_button_id"
         />
-
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         style="@style/appFontStyle"
         android:gravity="center"
-        android:text="@string/text"
-        android:id="@+id/right_text_swap_id"
-        android:tag="@string/text_tag"
+        android:text="@string/morse"
+        android:id="@+id/left_text_swap_id"
+        android:tag="@string/morse_tag"
         />
 </LinearLayout>

@@ -67,4 +67,7 @@ public class ConvertingTextFieldsPanel {
                 animationForEditTextBoxes.lowerBoxToSmall.isRunning());
     }
 
+    public void swapTextInsideBoxes() {
+
+    }
 }

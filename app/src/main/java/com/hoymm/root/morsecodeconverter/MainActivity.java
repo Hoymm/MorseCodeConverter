@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextFieldsPanel;
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                     morseToTextSwappingPanel.swapTextHeaders();
                     morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
                     morseKeyboardPanel.hideOrShowMorsePanel();
+                    Toast.makeText(getApplicationContext(),
+                            "TEXT TO MORSE: " + MorseToTextSwappingPanel.convertTextToMorse, Toast.LENGTH_SHORT).show();
                 }
             }
         });
