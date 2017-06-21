@@ -13,14 +13,14 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 15.06.17.
  */
 
-public class AnimationForEditTextBoxes extends EditText {
-    public static final int animationTime = 440;
+public class ResizingAnimationForTextBoxes extends EditText {
+    public static final int animationTime = 450;
     private RelativeLayout upperBox, lowerBox;
     private Context myContext;
     public ValueAnimator upperBoxToBig, upperBoxToSmall, lowerBoxToBig, lowerBoxToSmall;
     private CalculateHeightsForInputOutput heights;
 
-    public AnimationForEditTextBoxes(Context context) {
+    public ResizingAnimationForTextBoxes(Context context) {
         super(context);
         this.myContext = context;
         heights = new CalculateHeightsForInputOutput(myContext);

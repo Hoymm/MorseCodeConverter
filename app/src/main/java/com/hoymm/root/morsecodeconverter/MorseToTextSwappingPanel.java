@@ -1,15 +1,10 @@
 package com.hoymm.root.morsecodeconverter;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import com.hoymm.root.morsecodeconverter.InputOutputFields.AnimationForEditTextBoxes;
 
 /**
  * Created by root on 06.05.17.

@@ -46,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
                     convertingTextFieldsPanel.resizeBoxesAnimation();
-                    convertingTextFieldsPanel.swapTextInsideBoxes();
+                    convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
                     morseToTextSwappingPanel.swapTextHeaders();
                     morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
                     morseKeyboardPanel.hideOrShowMorsePanel();
-                    Toast.makeText(getApplicationContext(),
-                            "TEXT TO MORSE: " + MorseToTextSwappingPanel.convertTextToMorse, Toast.LENGTH_SHORT).show();
                 }
             }
         });

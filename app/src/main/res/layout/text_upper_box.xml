@@ -25,34 +25,17 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
 
-        android:text="Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-Example to write on the something
-"
+        android:text="This is example text"
 
         android:paddingBottom="22dp"
-        android:paddingTop="3dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingTop="5dp"
 
         android:gravity="center"
         android:background="@drawable/input_edit_text_shape"
+        android:id="@+id/upper_edit_text_box"
         />
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter.InputOutputFields;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
@@ -15,16 +16,22 @@ import com.hoymm.root.morsecodeconverter.R;
 public class ConvertingTextFieldsPanel {
     private Context myContext;
     private ImageButton copyToClipboardButton;
-    private AnimationForEditTextBoxes animationForEditTextBoxes;
+    private ResizingAnimationForTextBoxes resizingAnimationForTextBoxes;
+    private RemovingInsertingTextAnimation removingInsertingTextAnimation;
 
     public ConvertingTextFieldsPanel(Context context) {
         myContext = context;
-        animationForEditTextBoxes = new AnimationForEditTextBoxes(context);
-        initializeImageButtons();
+        resizingAnimationForTextBoxes = new ResizingAnimationForTextBoxes(context);
+        removingInsertingTextAnimation = new RemovingInsertingTextAnimation(context);
+        initObjects();
 
     }
 
-    private void initializeImageButtons() {
+    private void initObjects() {
+        initImageButtons();
+    }
+
+    private void initImageButtons() {
         copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
 
         // TODO delete that what's below
@@ -42,14 +49,18 @@ public class ConvertingTextFieldsPanel {
             extendUpperBoxAndConstrictLowerBox();
     }
 
+    public void swapTextInsideBoxesAnimation() {
+        removingInsertingTextAnimation.startAnimation();
+    }
+
     private void constrictUpperBoxAndExtendLowerBox() {
-        animationForEditTextBoxes.upperBoxToSmall.start();
-        animationForEditTextBoxes.lowerBoxToBig.start();
+        resizingAnimationForTextBoxes.upperBoxToSmall.start();
+        resizingAnimationForTextBoxes.lowerBoxToBig.start();
     }
 
     private void extendUpperBoxAndConstrictLowerBox() {
-        animationForEditTextBoxes.upperBoxToBig.start();
-        animationForEditTextBoxes.lowerBoxToSmall.start();
+        resizingAnimationForTextBoxes.upperBoxToBig.start();
+        resizingAnimationForTextBoxes.lowerBoxToSmall.start();
     }
 
     private Context getContext(){
@@ -61,13 +72,14 @@ public class ConvertingTextFieldsPanel {
     }
 
     public boolean ifNoAnimationCurrentlyRunning() {
-        return !(animationForEditTextBoxes.upperBoxToBig.isRunning() ||
-                animationForEditTextBoxes.lowerBoxToBig.isRunning() ||
-                animationForEditTextBoxes.upperBoxToSmall.isRunning() ||
-                animationForEditTextBoxes.lowerBoxToSmall.isRunning());
-    }
-
-    public void swapTextInsideBoxes() {
-
+        return !(resizingAnimationForTextBoxes.upperBoxToBig.isRunning() ||
+                resizingAnimationForTextBoxes.lowerBoxToBig.isRunning() ||
+                resizingAnimationForTextBoxes.upperBoxToSmall.isRunning() ||
+                resizingAnimationForTextBoxes.lowerBoxToSmall.isRunning() ||
+                removingInsertingTextAnimation.upperRemoveText.isRunning() ||
+                removingInsertingTextAnimation.upperAddText.isRunning() ||
+                removingInsertingTextAnimation.bottomRemoveText.isRunning() ||
+                removingInsertingTextAnimation.bottomAddText.isRunning()
+        );
     }
 }

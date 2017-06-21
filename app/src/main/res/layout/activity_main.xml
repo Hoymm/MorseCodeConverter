@@ -19,13 +19,13 @@
         android:layout_below="@id/headerId"
         android:id="@+id/swappingPanelId"
         />
-    <include layout="@layout/text_input"
+    <include layout="@layout/text_upper_box"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@id/swappingPanelId"
         android:id="@+id/inputEditTextFieldId"
         />
-    <include layout="@layout/text_output"
+    <include layout="@layout/text_bottom_box"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_below="@id/inputEditTextFieldId"

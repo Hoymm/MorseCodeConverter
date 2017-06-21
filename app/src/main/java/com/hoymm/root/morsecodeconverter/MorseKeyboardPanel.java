@@ -11,7 +11,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.AnimationForEditTextBoxes;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 20.06.17.
@@ -50,7 +50,7 @@ public class MorseKeyboardPanel {
         final ViewGroup.LayoutParams params = morseKeyboardPanel.getLayoutParams();
         hidePanelAnimation = ValueAnimator.ofFloat(
                 getActivity().getResources().getDimension(R.dimen.morse_keyboard_height), 1);
-        hidePanelAnimation.setDuration(AnimationForEditTextBoxes.animationTime);
+        hidePanelAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
         hidePanelAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         hidePanelAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -76,7 +76,7 @@ public class MorseKeyboardPanel {
         final ViewGroup.LayoutParams params = morseKeyboardPanel.getLayoutParams();
         showPanelAnimation = ValueAnimator.ofFloat(1,
                 getActivity().getResources().getDimension(R.dimen.morse_keyboard_height));
-        showPanelAnimation.setDuration(AnimationForEditTextBoxes.animationTime);
+        showPanelAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
         showPanelAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         showPanelAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
