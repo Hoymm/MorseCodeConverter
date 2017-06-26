@@ -20,7 +20,7 @@ public class MorseToTextSwappingPanel {
     private Context myContext;
     private ImageButton arrowButton;
     private TextView leftTextView, rightTextView;
-    public static boolean convertTextToMorse = true;
+    public static boolean isConvertingTextToMorse = true;
 
 
     public MorseToTextSwappingPanel(Context context){
@@ -86,7 +86,7 @@ public class MorseToTextSwappingPanel {
         SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putBoolean(getIsTranslationFromMorseToTextKey(), convertTextToMorse);
+        editor.putBoolean(getIsTranslationFromMorseToTextKey(), isConvertingTextToMorse);
         editor.apply();
     }
 

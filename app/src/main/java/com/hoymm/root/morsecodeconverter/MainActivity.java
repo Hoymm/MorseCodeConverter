@@ -1,14 +1,15 @@
 package com.hoymm.root.morsecodeconverter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextFieldsPanel;
+import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
@@ -17,8 +18,18 @@ public class MainActivity extends AppCompatActivity {
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanel morseKeyboardPanel;
     private FooterPanel footerPanel;
+    private ConvertingMorseDynamically convertingMorseDynamically;
 
     private ImageButton swapButton;
+
+    public static void hideSystemKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
+        convertingMorseDynamically = new ConvertingMorseDynamically(this);
     }
 
 
@@ -45,31 +57,61 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
-                    MorseToTextSwappingPanel.convertTextToMorse = !MorseToTextSwappingPanel.convertTextToMorse;
-                    hideKeyboard();
-
-                    morseToTextSwappingPanel.rotateArrowAnimation();
-                    convertingTextFieldsPanel.resizeBoxesAnimation();
-                    convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
-                    morseToTextSwappingPanel.swapTextHeaders();
-                    morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
-                    morseKeyboardPanel.hideOrShowMorsePanel();
+                if (noAnimationIsWorkingRightNow()) {
+                    MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
+                    hideSystemKeyboard(getActivity());
+                    rotateArrowButton();
+                    swapTexts();
+                    resizeBoxes();
+                    showHideMorseKeyboard();
+                    disableSystemKeyboardWhenMorse();
+                    saveInfo_SharedPreferences();
                 }
             }
         });
     }
+    private boolean noAnimationIsWorkingRightNow() {
+        return convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning();
+    }
 
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+    private void rotateArrowButton() {
+        morseToTextSwappingPanel.rotateArrowAnimation();
+    }
+
+    private void resizeBoxes() {
+        convertingTextFieldsPanel.resizeBoxesAnimation();
+    }
+
+    private void swapTexts() {
+        morseToTextSwappingPanel.swapTextHeaders();
+        convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
+    }
+
+    private void showHideMorseKeyboard() {
+        morseKeyboardPanel.hideOrShowMorsePanel();
+    }
+
+    private void disableSystemKeyboardWhenMorse() {
+        morseKeyboardPanel.disableOrEnableSystemKeyboardWhenEditTextSelected();
+    }
+
+    private void saveInfo_SharedPreferences() {
+        morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
+    }
+
+    private Activity getActivity() {
+        return this;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        convertingMorseDynamically.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        convertingMorseDynamically.pause();
     }
 }

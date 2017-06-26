@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <EditText
+    <TextView
         android:inputType="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:text="This is example text"
+        android:text="--.- . - .-.- ---. --.-- ---. --.-- ----.- . - .-.- ---. --.-- ---. --.-- --"
         android:layout_marginRight="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
@@ -22,9 +22,11 @@
         android:paddingEnd="5dp"
         android:paddingTop="22dp"
 
-        android:gravity="center"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:gravity="top|center"
         android:background="@drawable/input_edit_text_shape"
-        android:id="@+id/bottom_edit_text_box"
+        android:id="@+id/bottom_text_view_box"
         />
     <ImageButton
         android:layout_width="45dp"
@@ -34,9 +36,9 @@
         android:background="#00ffffff"
         android:src="@drawable/clipboard_behavior"
 
-        android:layout_alignBottom="@id/bottom_edit_text_box"
-        android:layout_alignStart="@id/bottom_edit_text_box"
-        android:layout_alignLeft="@id/bottom_edit_text_box"
+        android:layout_alignBottom="@id/bottom_text_view_box"
+        android:layout_alignStart="@id/bottom_text_view_box"
+        android:layout_alignLeft="@id/bottom_text_view_box"
         android:layout_marginBottom="1dp"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"

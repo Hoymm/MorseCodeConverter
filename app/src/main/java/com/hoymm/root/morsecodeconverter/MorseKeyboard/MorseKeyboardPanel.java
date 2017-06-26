@@ -1,11 +1,11 @@
-package com.hoymm.root.morsecodeconverter;
+package com.hoymm.root.morsecodeconverter.MorseKeyboard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -14,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
+import com.hoymm.root.morsecodeconverter.MainActivity;
+import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
+import com.hoymm.root.morsecodeconverter.R;
 
 /**
  * File created by Damian Muca - Kaizen on 20.06.17.
@@ -22,8 +25,9 @@ import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForT
 public class MorseKeyboardPanel {
     private Context context;
     private LinearLayout morseKeyboardPanel;
-    private ImageButton spaceButton, lineButton, dotButton, backspaceButton;
-    private EditText morseTextBox;
+    private ImageButton spaceButton, lineButton, dotButton;
+    private BackspaceButton backspaceButton;
+    private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
     public MorseKeyboardPanel(Context context) {
@@ -42,8 +46,8 @@ public class MorseKeyboardPanel {
         spaceButton = (ImageButton) getActivity().findViewById(R.id.space_button_id);
         lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         dotButton = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
-        backspaceButton = (ImageButton) getActivity().findViewById(R.id.backspace_button_id);
-        morseTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
+        backspaceButton = (BackspaceButton) getActivity().findViewById(R.id.backspace_button_id);
+        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
     private void initAnimation() {
@@ -102,7 +106,7 @@ public class MorseKeyboardPanel {
     }
 
     public void hideOrShowMorsePanel(){
-        if(MorseToTextSwappingPanel.convertTextToMorse)
+        if(MorseToTextSwappingPanel.isConvertingTextToMorse)
             hidePanel();
         else
             showPanel();
@@ -118,52 +122,78 @@ public class MorseKeyboardPanel {
             hidePanelAnimation.start();
     }
 
+    public void disableOrEnableSystemKeyboardWhenEditTextSelected() {
+        if(MorseToTextSwappingPanel.isConvertingTextToMorse)
+            enableSystemKeyboard();
+        else
+            disableSystemKeyboard();
+    }
+
+    private void enableSystemKeyboard() {
+        upperTextBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+    }
+
+    private void disableSystemKeyboard() {
+        upperTextBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.hideSystemKeyboard(getActivity());
+            }
+        });
+    }
+
     private boolean isAnyAnimationRunning() {
         return showPanelAnimation.isRunning() || hidePanelAnimation.isRunning();
     }
 
 
     private void setButtonsBehavior() {
-        setButtonBehavior(spaceButton, ' ');
-        setlineButtonBehavior();
-        setdotButtonBehavior();
-        setbackspaceButtonBehavior();
+        setWriteButtonBehavior(spaceButton, ' ');
+        setWriteButtonBehavior(lineButton, '-');
+        setWriteButtonBehavior(dotButton, '.');
+        setBackspaceButtonBehavior();
     }
 
-    private void setButtonBehavior(ImageButton imageButton, final char insertChar) {
-        spaceButton.setOnClickListener(new View.OnClickListener() {
+    private void setWriteButtonBehavior(ImageButton imageButton, final char insertChar) {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentText = morseTextBox.getText().toString();
-                Log.e("Selected ", morseTextBox.hasSelection() + ".");
-                Log.e("Selection start", getSelectionStart() + ".");
-                Log.e("Selection end", getSelectionEnd() + ".");
-                currentText = currentText.substring(0, getSelectionStart())
-                        + insertChar + currentText.substring(getSelectionEnd());
-                morseTextBox.setText(currentText);
-            }
-
-            private int getSelectionStart() {
-                return morseTextBox.hasSelection() ? morseTextBox.getSelectionStart() : morseTextBox.getText().length();
-            }
-
-            private int getSelectionEnd() {
-                return morseTextBox.hasSelection() ? morseTextBox.getSelectionEnd() : morseTextBox.getText().length();
+                String currentText = upperTextBox.getText().toString();
+                int selectionStart = upperTextBox.getSelectionStart();
+                int selectionEnd = upperTextBox.getSelectionEnd();
+                currentText =
+                        currentText.substring(0, selectionStart)
+                        + insertChar
+                        + currentText.substring(selectionEnd);
+                upperTextBox.setText(currentText);
+                upperTextBox.setSelection(selectionStart+1);
             }
         });
     }
 
-    private void setlineButtonBehavior() {
 
+    private void setBackspaceButtonBehavior() {
+        backspaceButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        backspaceButton.startRemoving();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        backspaceButton.stopRemoving();
+                        break;
+
+                }
+                return false;
+            }
+        });
     }
 
-    private void setdotButtonBehavior() {
-
-    }
-
-    private void setbackspaceButtonBehavior() {
-
-    }
 
     private Activity getActivity() {
         return (Activity)context;

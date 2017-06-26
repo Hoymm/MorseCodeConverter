@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.hoymm.root.morsecodeconverter.R;
 
@@ -17,7 +18,8 @@ import com.hoymm.root.morsecodeconverter.R;
 public class RemovingInsertingTextAnimation {
     private Context context;
     public ValueAnimator upperRemoveText, upperAddText, bottomRemoveText, bottomAddText;
-    private EditText upperBox, bottomBox;
+    private EditText upperBox;
+    private TextView bottomBox;
     private static String prevUpperBoxText, prevBottomBoxText;
 
     public RemovingInsertingTextAnimation(Context context) {
@@ -34,12 +36,11 @@ public class RemovingInsertingTextAnimation {
 
     private void initEditText() {
         upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
-        bottomBox = (EditText) getActivity().findViewById(R.id.bottom_edit_text_box);
+        bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
     private void setSelectionOnTheEnd() {
         upperBox.setSelection(upperBox.getText().toString().length());
-        bottomBox.setSelection(bottomBox.getText().toString().length());
     }
 
     private void saveBoxStringContentToVariables() {
@@ -100,7 +101,6 @@ public class RemovingInsertingTextAnimation {
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float animatedValue = (float) valueAnimator.getAnimatedValue();
                 bottomBox.setText(upperBoxString.substring(0,(int) animatedValue));
-                bottomBox.setSelection((int) animatedValue);
             }
         });
 
@@ -121,7 +121,6 @@ public class RemovingInsertingTextAnimation {
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float animatedValue = (float) valueAnimator.getAnimatedValue();
                 bottomBox.setText(prevUpperBoxText.substring(0,(int) animatedValue));
-                bottomBox.setSelection((int) animatedValue);
             }
         });
     }

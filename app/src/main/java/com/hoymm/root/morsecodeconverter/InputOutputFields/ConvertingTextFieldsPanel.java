@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
@@ -22,7 +20,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class ConvertingTextFieldsPanel {
     private Context myContext;
-    private EditText bottomTextBox;
+    private TextView bottomTextBox;
     private ImageButton copyToClipboardButton;
     private ResizingAnimationForTextBoxes resizingAnimationForTextBoxes;
     private RemovingInsertingTextAnimation removingInsertingTextAnimation;
@@ -37,7 +35,7 @@ public class ConvertingTextFieldsPanel {
     }
 
     private void initObjects() {
-        bottomTextBox = (EditText) getActivity().findViewById(R.id.bottom_edit_text_box);
+        bottomTextBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
     private void setClipboardButtonBehavior() {
@@ -57,7 +55,7 @@ public class ConvertingTextFieldsPanel {
     }
 
     public void resizeBoxesAnimation(){
-        if (MorseToTextSwappingPanel.convertTextToMorse)
+        if (MorseToTextSwappingPanel.isConvertingTextToMorse)
             constrictUpperBoxAndExtendLowerBox();
         else
             extendUpperBoxAndConstrictLowerBox();

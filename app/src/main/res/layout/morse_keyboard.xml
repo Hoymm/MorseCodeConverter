@@ -15,16 +15,17 @@
         />
     <ImageButton
         style="@style/morseKeyboardButtons"
-        android:id="@+id/line_button_id"
-        android:src="@drawable/line"
-        />
-    <ImageButton
-        style="@style/morseKeyboardButtons"
         android:id="@+id/dot_button_id"
         android:src="@drawable/dot"
         />
     <ImageButton
         style="@style/morseKeyboardButtons"
+        android:id="@+id/line_button_id"
+        android:src="@drawable/line"
+        />
+    <com.hoymm.root.morsecodeconverter.MorseKeyboard.BackspaceButton
+        style="@style/morseKeyboardButtons"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/backspace_button_id"
         android:src="@drawable/backspace"
         />
