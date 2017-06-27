@@ -8,7 +8,7 @@
     android:id="@+id/morseKeyboardId"
     android:weightSum="1"
     >
-    <ImageButton
+    <com.hoymm.root.morsecodeconverter.MorseKeyboard.SpaceButton
         style="@style/morseKeyboardButtons"
         android:id="@+id/space_button_id"
         android:src="@drawable/spacebar"

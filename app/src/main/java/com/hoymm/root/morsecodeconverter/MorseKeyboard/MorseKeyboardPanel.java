@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
 import com.hoymm.root.morsecodeconverter.MainActivity;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
@@ -25,7 +27,8 @@ import com.hoymm.root.morsecodeconverter.R;
 public class MorseKeyboardPanel {
     private Context context;
     private LinearLayout morseKeyboardPanel;
-    private ImageButton spaceButton, lineButton, dotButton;
+    private ImageButton lineButton, dotButton;
+    private SpaceButton spaceButton;
     private BackspaceButton backspaceButton;
     private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
@@ -43,9 +46,9 @@ public class MorseKeyboardPanel {
 
     private void initXMLObjects() {
         morseKeyboardPanel = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
-        spaceButton = (ImageButton) getActivity().findViewById(R.id.space_button_id);
         lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         dotButton = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
+        spaceButton = (SpaceButton) getActivity().findViewById(R.id.space_button_id);
         backspaceButton = (BackspaceButton) getActivity().findViewById(R.id.backspace_button_id);
         upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
@@ -152,9 +155,9 @@ public class MorseKeyboardPanel {
 
 
     private void setButtonsBehavior() {
-        setWriteButtonBehavior(spaceButton, ' ');
         setWriteButtonBehavior(lineButton, '-');
         setWriteButtonBehavior(dotButton, '.');
+        setSpaceButtonBehavior();
         setBackspaceButtonBehavior();
     }
 
@@ -175,6 +178,9 @@ public class MorseKeyboardPanel {
         });
     }
 
+    private void setSpaceButtonBehavior() {
+
+    }
 
     private void setBackspaceButtonBehavior() {
         backspaceButton.setOnTouchListener(new View.OnTouchListener() {

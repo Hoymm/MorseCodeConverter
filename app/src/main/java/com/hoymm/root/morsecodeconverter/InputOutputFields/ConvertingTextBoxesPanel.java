@@ -18,14 +18,14 @@ import static android.content.Context.CLIPBOARD_SERVICE;
  * Created by root on 06.05.17.
  */
 
-public class ConvertingTextFieldsPanel {
+public class ConvertingTextBoxesPanel {
     private Context myContext;
     private TextView bottomTextBox;
     private ImageButton copyToClipboardButton;
     private ResizingAnimationForTextBoxes resizingAnimationForTextBoxes;
     private RemovingInsertingTextAnimation removingInsertingTextAnimation;
 
-    public ConvertingTextFieldsPanel(Context context) {
+    public ConvertingTextBoxesPanel(Context context) {
         myContext = context;
         resizingAnimationForTextBoxes = new ResizingAnimationForTextBoxes(context);
         removingInsertingTextAnimation = new RemovingInsertingTextAnimation(context);

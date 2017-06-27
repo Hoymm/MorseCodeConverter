@@ -32,10 +32,6 @@ public class BackspaceButton extends ImageButton {
         activity = (Activity)context;
     }
 
-    private Activity getActivity(){
-        return activity;
-    }
-
     private void removeCharFromEditText() {
         final EditText upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
         getActivity().runOnUiThread(new Runnable() {
@@ -96,6 +92,9 @@ public class BackspaceButton extends ImageButton {
 
     public void stopRemoving() {
         isPressed = false;
-        Log.e("BackspaceButton", "interrupt() method invoke");
+    }
+
+    private Activity getActivity(){
+        return activity;
     }
 }

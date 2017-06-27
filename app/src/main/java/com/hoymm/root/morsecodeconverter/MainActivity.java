@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextFieldsPanel;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseDynamically;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
-    private ConvertingTextFieldsPanel convertingTextFieldsPanel;
+    private ConvertingTextBoxesPanel convertingTextFieldsPanel;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanel morseKeyboardPanel;
     private FooterPanel footerPanel;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeProgramComponents() {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
-        convertingTextFieldsPanel = new ConvertingTextFieldsPanel(this);
+        convertingTextFieldsPanel = new ConvertingTextBoxesPanel(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
