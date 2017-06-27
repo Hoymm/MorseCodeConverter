@@ -3,27 +3,22 @@ package com.hoymm.root.morsecodeconverter.MorseToTextConversion;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
- * File created by Damian Muca - Kaizen on 26.06.17.
+ * File created by Damian Muca - Kaizen on 27.06.17.
  */
 
-public class ConvertingMorseDynamically implements Runnable {
-    private boolean convertingEnabled;
-    private Thread thread;
+public class ConvertingMorseTextProgram {
     private Activity activity;
-    private EditText upperBox;
     private TextView bottomBox;
+    private EditText upperBox;
 
-
-    public ConvertingMorseDynamically(Context context) {
-        activity = (Activity) context;
+    public ConvertingMorseTextProgram(Context context) {
+        this.activity = (Activity)context;
         initXMLObjects();
     }
 
@@ -32,22 +27,7 @@ public class ConvertingMorseDynamically implements Runnable {
         bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
-    @Override
-    public void run() {
-        while(convertingEnabled) {
-            try {
-                Thread.sleep(750);
-                if (MorseToTextSwappingPanel.isConvertingTextToMorse)
-                    translateToMorse_SetText();
-                else
-                    translateToText_SetText();
-            } catch (InterruptedException e) {
-                Log.e("ConvertingMorseDyn", " thread stopped.");
-            }
-        }
-    }
-
-    private void translateToMorse_SetText() {
+    public void translateToMorse_SetText() {
         final String text = String.valueOf(upperBox.getText());
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -74,7 +54,7 @@ public class ConvertingMorseDynamically implements Runnable {
     }
 
 
-    private void translateToText_SetText() {
+    public void translateToText_SetText() {
         final String morse = String.valueOf(upperBox.getText());
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -98,14 +78,9 @@ public class ConvertingMorseDynamically implements Runnable {
     }
 
     @NonNull
-    private String removeSpaceFromTheEndOfText(String textResult) {
-        return textResult.substring(0, textResult.length()-1);
-    }
-
-    @NonNull
     private String[] splitTextToArrayOfWords(String morse) {
         return morse.split(MorseCodeCipher.getInstance().convertToMorse(' ')
-                + MorseCodeCipher.getCharSeparator() 
+                + MorseCodeCipher.getCharSeparator()
                 + MorseCodeCipher.getCharSeparator());
     }
 
@@ -118,21 +93,9 @@ public class ConvertingMorseDynamically implements Runnable {
         return textWord;
     }
 
-    public void start() {
-        convertingEnabled = true;
-        thread = new Thread(this);
-        thread.start();
-    }
-
-    public void pause() {
-        convertingEnabled = false;
-        try {
-            thread.join();
-        }
-        catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-        thread = null;
+    @NonNull
+    private String removeSpaceFromTheEndOfText(String textResult) {
+        return textResult.substring(0, textResult.length()-1);
     }
 
     private Activity getActivity(){

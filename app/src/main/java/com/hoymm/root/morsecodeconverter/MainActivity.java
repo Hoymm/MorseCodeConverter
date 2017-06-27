@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
-import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseDynamically;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseRunningThread;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanel morseKeyboardPanel;
     private FooterPanel footerPanel;
-    private ConvertingMorseDynamically convertingMorseDynamically;
+    private ConvertingMorseRunningThread convertingMorseRunningThread;
 
     private ImageButton swapButton;
 
@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
-        convertingMorseDynamically = new ConvertingMorseDynamically(this);
+
+        convertingMorseRunningThread = new ConvertingMorseRunningThread(this);
+
     }
-
-
 
     private void initializateSwapButtonAction() {
         swapButton = (ImageButton) findViewById(R.id.swap_button_id);
@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        convertingMorseDynamically.start();
+        convertingMorseRunningThread.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        convertingMorseDynamically.pause();
+        convertingMorseRunningThread.pause();
     }
 }
