@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
 
-        convertingMorseRunningThread = new ConvertingMorseRunningThread(this);
+        convertingMorseRunningThread = ConvertingMorseRunningThread.getInstance(this);
 
     }
 

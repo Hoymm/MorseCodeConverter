@@ -13,10 +13,17 @@ public class ConvertingMorseRunningThread implements Runnable {
     private boolean convertingEnabled;
     private Thread thread;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
+    private static ConvertingMorseRunningThread convertingMorseRunningThread = null;
 
 
-    public ConvertingMorseRunningThread(Context context) {
+    private ConvertingMorseRunningThread(Context context) {
         convertingMorseTextProgram = new ConvertingMorseTextProgram(context);
+    }
+
+    public static ConvertingMorseRunningThread getInstance(Context context){
+        if (convertingMorseRunningThread == null)
+            convertingMorseRunningThread = new ConvertingMorseRunningThread(context);
+        return convertingMorseRunningThread;
     }
 
     @Override
