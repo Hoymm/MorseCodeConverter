@@ -15,7 +15,7 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 public class ConvertingMorseDynamically implements Runnable {
-    private boolean connvertingEnabled;
+    private boolean convertingEnabled;
     private Thread thread;
     private Activity activity;
     private EditText upperBox;
@@ -34,9 +34,9 @@ public class ConvertingMorseDynamically implements Runnable {
 
     @Override
     public void run() {
-        while(connvertingEnabled) {
+        while(convertingEnabled) {
             try {
-                Thread.sleep(700);
+                Thread.sleep(750);
                 if (MorseToTextSwappingPanel.isConvertingTextToMorse)
                     translateToMorse_SetText();
                 else
@@ -65,17 +65,12 @@ public class ConvertingMorseDynamically implements Runnable {
             for (int index = 0; index < textLength; ++index) {
                 char currentCharToTranslate = text.charAt(0);
                 text = text.substring(1);
-                morse += getMorseEquivalent(currentCharToTranslate) + " ";
+                morse += MorseCodeCipher.getInstance().convertToMorse(currentCharToTranslate) + " ";
             }
-            return morse.substring(0, morse.length() - 1);
+            return removeSpaceFromTheEndOfText(morse);
         }
         else
             return "";
-    }
-
-    private String getMorseEquivalent(char text) {
-        String morseCode = MorseCodeCipher.getInstance().getMorse(text);
-        return morseCode;
     }
 
 
@@ -93,51 +88,49 @@ public class ConvertingMorseDynamically implements Runnable {
     private String translateMorseToText(String morse) {
         if (morse.length() > 0) {
             String textResult = "";
-            String [] morseWords = splitTextToArrrayOfWords(morse);
-            for (int i = 0; i < morseWords.length; ++i) {
-                textResult += translateSingleWord_MorseToText(morseWords[i]) + MorseCodeCipher.getCharSeparator();
-            }
-            return textResult.substring(0, textResult.length()-1);
+            String [] morseWords = splitTextToArrayOfWords(morse);
+            for (String word : morseWords)
+                textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.getCharSeparator();
+            return removeSpaceFromTheEndOfText(textResult);
         }
         else
             return "";
     }
 
     @NonNull
-    private String[] splitTextToArrrayOfWords(String morse) {
-        return morse.split(MorseCodeCipher.getInstance().getMorse(' ') 
+    private String removeSpaceFromTheEndOfText(String textResult) {
+        return textResult.substring(0, textResult.length()-1);
+    }
+
+    @NonNull
+    private String[] splitTextToArrayOfWords(String morse) {
+        return morse.split(MorseCodeCipher.getInstance().convertToMorse(' ')
                 + MorseCodeCipher.getCharSeparator() 
                 + MorseCodeCipher.getCharSeparator());
     }
 
     private String translateSingleWord_MorseToText(String morseWord) {
         String textWord = "";
-        String [] morseChars = morseWord.split(MorseCodeCipher.getCharSeparator());
-        for (int i = 0; i < morseChars.length; ++i){
-            textWord += MorseCodeCipher.getInstance().getText(morseChars[i]);
+        String [] morseCharacters = morseWord.split(MorseCodeCipher.getCharSeparator());
+        for (String morseChar : morseCharacters) {
+            textWord += MorseCodeCipher.getInstance().convertToText(morseChar);
         }
         return textWord;
     }
 
     public void start() {
-        connvertingEnabled = true;
+        convertingEnabled = true;
         thread = new Thread(this);
         thread.start();
     }
 
     public void pause() {
-        connvertingEnabled = false;
-        while(true)
-        {
-            try
-            {
-                thread.join();
-            }
-            catch(InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-            break;
+        convertingEnabled = false;
+        try {
+            thread.join();
+        }
+        catch(InterruptedException e) {
+            e.printStackTrace();
         }
         thread = null;
     }

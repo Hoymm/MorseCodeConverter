@@ -126,12 +126,12 @@ public class MorseCodeCipher {
         morseToTextCoding.put(".-.-", "\n");
     }
 
-    public String getMorse(char textChar){
+    public String convertToMorse(char textChar){
         String morse = textToMorseCoding.get(textChar);
         return morse == null ? "#" : morse;
     }
 
-    public String getText(String morseCode){
+    public String convertToText(String morseCode){
         String text = morseToTextCoding.get(morseCode);
         return text == null ? "#" : text;
     }

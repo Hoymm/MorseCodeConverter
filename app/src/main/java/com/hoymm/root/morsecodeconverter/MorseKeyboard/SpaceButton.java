@@ -130,12 +130,12 @@ public class SpaceButton extends ImageButton {
 
         currentText =
                 currentText.substring(0, selectionStart)
-                        + MorseCodeCipher.getInstance().getMorse(' ')
+                        + MorseCodeCipher.getInstance().convertToMorse(' ')
                         + MorseCodeCipher.getCharSeparator()
                         + MorseCodeCipher.getCharSeparator()
                         + currentText.substring(selectionEnd);
         upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart + MorseCodeCipher.getInstance().getMorse(' ').length() + 2);
+        upperTextBox.setSelection(selectionStart + MorseCodeCipher.getInstance().convertToMorse(' ').length() + 2);
     }
 
     private void insertShortSpace() {
