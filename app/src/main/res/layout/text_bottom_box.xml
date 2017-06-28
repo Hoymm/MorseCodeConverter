@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     >
     <TextView
-        android:inputType="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -13,14 +12,16 @@
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-
         android:paddingBottom="5dp"
         android:paddingLeft="40dp"
         android:paddingStart="40dp"
         android:paddingRight="5dp"
         android:paddingEnd="5dp"
         android:paddingTop="22dp"
+        android:scrollbars="vertical"
+        android:textIsSelectable="true"
 
+        android:text="sadasjkdjkdhdaskasdhaskasjasdjkasasdkasdjasdjshassjasdjasdhksadjksadasjkdjkdhdaskasdhaskasjasdjkasasdkasdjasdjshassjasdjasdhksadjk"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="top|left"
@@ -44,4 +45,5 @@
 
         android:id="@+id/clipboard_button_id"
         />
+
 </RelativeLayout>

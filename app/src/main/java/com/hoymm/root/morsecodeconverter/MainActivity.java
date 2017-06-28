@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
-
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
                     refreshAppLastStateAppearance();
                     convertingTextFieldsPanel.swapTextInsideBoxesAnimation();

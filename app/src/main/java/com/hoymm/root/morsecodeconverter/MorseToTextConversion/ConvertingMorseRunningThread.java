@@ -42,7 +42,6 @@ public class ConvertingMorseRunningThread implements Runnable {
     }
 
     public void start(Context context) {
-        Log.e("App Main Thread", " thread started.");
         convertingMorseTextProgram = new ConvertingMorseTextProgram(context);
         convertingEnabled = true;
         thread = new Thread(this);
@@ -50,7 +49,6 @@ public class ConvertingMorseRunningThread implements Runnable {
     }
 
     public void pause() {
-        Log.e("App Main Thread", "thread stopped");
         convertingEnabled = false;
         try {
             thread.join();
