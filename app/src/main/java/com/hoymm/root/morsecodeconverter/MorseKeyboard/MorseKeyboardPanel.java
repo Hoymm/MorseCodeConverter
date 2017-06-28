@@ -5,14 +5,19 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
 import com.hoymm.root.morsecodeconverter.MainActivity;
@@ -136,17 +141,22 @@ public class MorseKeyboardPanel {
         upperTextBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager mImm = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                mImm.showSoftInput(upperTextBox, InputMethodManager.SHOW_IMPLICIT);
             }
         });
+        Log.e("System keyboard", "enabled.");
     }
 
     private void disableSystemKeyboard() {
+        upperTextBox.setTextIsSelectable(true);
         upperTextBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.hideSystemKeyboard(getActivity());
             }
         });
+        Log.e("System keyboard", "disabled.");
     }
 
     private boolean isAnyAnimationRunning() {

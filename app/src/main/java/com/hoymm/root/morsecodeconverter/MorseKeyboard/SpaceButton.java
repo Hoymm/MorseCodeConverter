@@ -79,14 +79,12 @@ public class SpaceButton extends ImageButton {
 
         int howManySpacesDeleted = 0;
         while(ifSpaceIsOnTheLeftSelectionSide()){
-            Log.e("Delete space", " LEFT");
             deleteSpaceOnLeft();
             howManySpacesDeleted++;
         }
 
         while(ifSpaceIsOnTheRightSelectionSide()){
             deleteSpaceOnRight();
-            Log.e("Delete space", " RIGHT");
             howManySpacesDeleted++;
         }
 

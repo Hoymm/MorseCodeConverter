@@ -31,7 +31,10 @@ public class ConvertingMorseTextProgram {
     private void initXMLObjects() {
         upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
         bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
+        enableTranslation();
+    }
 
+    private void enableTranslation() {
         upperBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -44,6 +47,24 @@ public class ConvertingMorseTextProgram {
                     translateToMorse_SetText();
                 else
                     translateToText_SetText();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public void disableTranslation() {
+        upperBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
