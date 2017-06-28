@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter.MorseToTextConversion;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +30,10 @@ public class ConvertingMorseTextProgram {
 
     public void translateToMorse_SetText() {
         final String text = String.valueOf(upperBox.getText());
+
+        Log.e("App Main Thread", "thread is converting text " + upperBox.getText() + " to "
+        + translateTextToMorse(text));
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

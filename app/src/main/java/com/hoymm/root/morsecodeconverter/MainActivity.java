@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
-
         convertingMorseRunningThread = ConvertingMorseRunningThread.getInstance(this);
-
     }
 
     private void initializateSwapButtonAction() {
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
+
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
                     refreshAppLastStateAppearance();
                     convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshAppLastStateAppearance() {
+
         hideSystemKeyboard(getActivity());
         morseToTextSwappingPanel.rotateArrowAnimation();
         morseToTextSwappingPanel.swapTextHeaders();
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshAppLastStateAppearance();
-        convertingMorseRunningThread.start();
+        convertingMorseRunningThread.start(this);
     }
 
     @Override
