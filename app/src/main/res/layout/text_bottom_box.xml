@@ -21,7 +21,6 @@
         android:scrollbars="vertical"
         android:textIsSelectable="true"
 
-        android:text="sadasjkdjkdhdaskasdhaskasjasdjkasasdkasdjasdjshassjasdjasdhksadjksadasjkdjkdhdaskasdhaskasjasdjkasasdkasdjasdjshassjasdjasdhksadjk"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="top|left"

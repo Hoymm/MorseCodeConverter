@@ -3,11 +3,15 @@ package com.hoymm.root.morsecodeconverter.MorseToTextConversion;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -27,9 +31,29 @@ public class ConvertingMorseTextProgram {
     private void initXMLObjects() {
         upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
         bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
+
+        upperBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (MorseToTextSwappingPanel.isConvertingTextToMorse)
+                    translateToMorse_SetText();
+                else
+                    translateToText_SetText();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
-    public void translateToMorse_SetText() {
+    private void translateToMorse_SetText() {
         final String text = String.valueOf(upperBox.getText());
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -56,7 +80,7 @@ public class ConvertingMorseTextProgram {
     }
 
 
-    public void translateToText_SetText() {
+    private void translateToText_SetText() {
         final String morse = String.valueOf(upperBox.getText());
         getActivity().runOnUiThread(new Runnable() {
             @Override

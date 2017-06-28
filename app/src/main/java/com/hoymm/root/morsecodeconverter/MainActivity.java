@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
-import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseRunningThread;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
@@ -19,15 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanel morseKeyboardPanel;
     private FooterPanel footerPanel;
-    private ConvertingMorseRunningThread convertingMorseRunningThread;
-
-    private ImageButton swapButton;
+    private ConvertingMorseTextProgram convertingMorseTextProgram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initializeProgramComponents();
         initializateSwapButtonAction();
     }
@@ -39,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
-        convertingMorseRunningThread = ConvertingMorseRunningThread.getInstance(this);
+        convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
     }
 
     private void initializateSwapButtonAction() {
-        swapButton = (ImageButton) findViewById(R.id.swap_button_id);
+        ImageButton swapButton = (ImageButton) findViewById(R.id.swap_button_id);
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +84,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshAppLastStateAppearance();
-        convertingMorseRunningThread.start(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        convertingMorseRunningThread.pause();
     }
 
     @Override
