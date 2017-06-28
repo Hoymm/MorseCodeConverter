@@ -121,7 +121,9 @@ public class ConvertingMorseTextProgram {
 
     @NonNull
     private String removeSpaceFromTheEndOfText(String textResult) {
-        return textResult.substring(0, textResult.length()-1);
+        if (textResult.length() > 0 && textResult.substring(textResult.length()-1).equals(" "))
+            return textResult.substring(0, textResult.length()-1);
+        return textResult;
     }
 
     private Activity getActivity(){
