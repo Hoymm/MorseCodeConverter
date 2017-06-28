@@ -23,14 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton swapButton;
 
-    public static void hideSystemKeyboard(Activity activity) {
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         initializeProgramComponents();
         initializateSwapButtonAction();
-        swapButton.callOnClick();
     }
 
     private void initializeProgramComponents() {
@@ -58,42 +49,31 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (noAnimationIsWorkingRightNow()) {
+                if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
-                    hideSystemKeyboard(getActivity());
-                    rotateArrowButton();
-                    swapTexts();
-                    resizeBoxes();
-                    showHideMorseKeyboard();
-                    disableSystemKeyboardWhenMorse();
+                    refreshAppLastStateAppearance();
+                    convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
                     saveInfo_SharedPreferences();
                 }
             }
         });
     }
-    private boolean noAnimationIsWorkingRightNow() {
-        return convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning();
-    }
 
-    private void rotateArrowButton() {
+    private void refreshAppLastStateAppearance() {
+        hideSystemKeyboard(getActivity());
         morseToTextSwappingPanel.rotateArrowAnimation();
-    }
-
-    private void resizeBoxes() {
-        convertingTextFieldsPanel.resizeBoxesAnimation();
-    }
-
-    private void swapTexts() {
         morseToTextSwappingPanel.swapTextHeaders();
-        convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
-    }
-
-    private void showHideMorseKeyboard() {
+        convertingTextFieldsPanel.resizeBoxesAnimation();
         morseKeyboardPanel.hideOrShowMorsePanel();
+        morseKeyboardPanel.disableOrEnableSystemKeyboard();
     }
 
-    private void disableSystemKeyboardWhenMorse() {
-        morseKeyboardPanel.disableOrEnableSystemKeyboardWhenEditTextSelected();
+    public static void hideSystemKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     private void saveInfo_SharedPreferences() {
@@ -107,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshAppLastStateAppearance();
         convertingMorseRunningThread.start();
     }
 
@@ -114,5 +95,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         convertingMorseRunningThread.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

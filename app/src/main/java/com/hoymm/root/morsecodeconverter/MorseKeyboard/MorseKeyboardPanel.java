@@ -125,7 +125,7 @@ public class MorseKeyboardPanel {
             hidePanelAnimation.start();
     }
 
-    public void disableOrEnableSystemKeyboardWhenEditTextSelected() {
+    public void disableOrEnableSystemKeyboard() {
         if(MorseToTextSwappingPanel.isConvertingTextToMorse)
             enableSystemKeyboard();
         else
@@ -155,8 +155,8 @@ public class MorseKeyboardPanel {
 
 
     private void setButtonsBehavior() {
-        setWriteButtonBehavior(lineButton, '-');
-        setWriteButtonBehavior(dotButton, '.');
+        setWriteButtonBehavior(lineButton, '−');// this is not a minus
+        setWriteButtonBehavior(dotButton, '·');// and this is not a dot
         setSpaceButtonBehavior();
         setBackspaceButtonBehavior();
     }

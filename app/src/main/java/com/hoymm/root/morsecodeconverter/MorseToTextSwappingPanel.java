@@ -76,10 +76,14 @@ public class MorseToTextSwappingPanel {
     }
 
     public void swapTextHeaders(){
-        String leftText = leftTextView.getText().toString();
-        String rightText = rightTextView.getText().toString();
-        leftTextView.setText(rightText);
-        rightTextView.setText(leftText);
+        if (isConvertingTextToMorse) {
+            leftTextView.setText(getActivity().getString(R.string.text));
+            rightTextView.setText(getActivity().getString(R.string.morse));
+        }
+        else{
+            leftTextView.setText(getActivity().getString(R.string.morse));
+            rightTextView.setText(getActivity().getString(R.string.text));
+        }
     }
 
     public void saveToSharedPreferencesReversedTranslationDirection() {
