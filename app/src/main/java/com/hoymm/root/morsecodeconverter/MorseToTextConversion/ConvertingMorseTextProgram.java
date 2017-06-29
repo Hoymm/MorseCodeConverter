@@ -135,15 +135,19 @@ public class ConvertingMorseTextProgram {
 
     @NonNull
     private String removeSpacesOnTheRight(String morse) {
-        while (morse.length() > 0 && morse.substring(morse.length()-1).equals(" "))
-            morse = morse.substring(morse.length()-1);
+        while (morse.length() > 0 && morse.substring(morse.length()-1).equals(" ")) {
+            morse = morse.substring(0, morse.length() - 1);
+            Log.i("Loop", morse.length() + ".");
+        }
         return morse;
     }
 
     @NonNull
     private String removeSpacesOnTheLeft(String morse) {
-        while (morse.length() > 0 && morse.substring(0, 1).equals(" "))
+        while (morse.length() > 0 && morse.substring(0, 1).equals(" ")) {
             morse = morse.substring(1);
+            Log.i("Loop", morse.length() + ".");
+        }
         return morse;
     }
 
