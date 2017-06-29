@@ -58,7 +58,7 @@ public class RemovingInsertingTextAnimation {
     private void upperRemoveTextInit() {
         final String upperBoxString = upperBox.getText().toString();
         upperRemoveText = ValueAnimator.ofFloat(upperBox.getText().toString().length(), 0);
-        upperRemoveText.setDuration(ResizingAnimationForTextBoxes.animationTime/2);
+        upperRemoveText.setDuration(ResizingTextBoxesAnimation.animationTime/2);
         upperRemoveText.setInterpolator(new AccelerateDecelerateInterpolator());
         upperRemoveText.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -79,7 +79,7 @@ public class RemovingInsertingTextAnimation {
 
     private void upperAddTextInit() {
         upperAddText = ValueAnimator.ofFloat(0, prevBottomBoxText.length());
-        upperAddText.setDuration(ResizingAnimationForTextBoxes.animationTime/2);
+        upperAddText.setDuration(ResizingTextBoxesAnimation.animationTime/2);
         upperAddText.setInterpolator(new AccelerateDecelerateInterpolator());
         upperAddText.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -94,7 +94,7 @@ public class RemovingInsertingTextAnimation {
     private void bottomRemoveTextInit() {
         final String upperBoxString = bottomBox.getText().toString();
         bottomRemoveText = ValueAnimator.ofFloat(bottomBox.getText().toString().length(), 0);
-        bottomRemoveText.setDuration(ResizingAnimationForTextBoxes.animationTime/2);
+        bottomRemoveText.setDuration(ResizingTextBoxesAnimation.animationTime/2);
         bottomRemoveText.setInterpolator(new AccelerateDecelerateInterpolator());
         bottomRemoveText.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -114,7 +114,7 @@ public class RemovingInsertingTextAnimation {
 
     private void bottomAddTextInit() {
         bottomAddText = ValueAnimator.ofFloat(0, prevUpperBoxText.length());
-        bottomAddText.setDuration(ResizingAnimationForTextBoxes.animationTime/2);
+        bottomAddText.setDuration(ResizingTextBoxesAnimation.animationTime/2);
         bottomAddText.setInterpolator(new AccelerateDecelerateInterpolator());
         bottomAddText.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

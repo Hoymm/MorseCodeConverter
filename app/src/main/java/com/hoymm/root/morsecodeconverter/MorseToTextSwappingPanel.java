@@ -8,7 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
 
 /**
  * Created by root on 06.05.17.
@@ -105,7 +105,7 @@ public class MorseToTextSwappingPanel {
 
     public boolean rotateArrowAnimation(){
         arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
-        arrowRotateAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
+        arrowRotateAnimation.setDuration(ResizingTextBoxesAnimation.animationTime);
         arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         arrowRotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

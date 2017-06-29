@@ -28,10 +28,13 @@ public class MorseCodeCipher {
         textToMorseCoding.put(' ',"   ");
         textToMorseCoding.put('.',"·−·−·−");
         textToMorseCoding.put('A',"·−");
+        textToMorseCoding.put('Ą',"·−");
         textToMorseCoding.put('B',"−···");
         textToMorseCoding.put('C',"−·−·");
+        textToMorseCoding.put('Ć',"−·−·");
         textToMorseCoding.put('D',"−··");
         textToMorseCoding.put('E',"·");
+        textToMorseCoding.put('Ę',"·");
         textToMorseCoding.put('F',"··−·");
         textToMorseCoding.put('G',"−−·");
         textToMorseCoding.put('H',"····");
@@ -42,6 +45,7 @@ public class MorseCodeCipher {
         textToMorseCoding.put('M',"−−");
         textToMorseCoding.put('N',"−·");
         textToMorseCoding.put('O',"−−−");
+        textToMorseCoding.put('Ó',"−−−");
         textToMorseCoding.put('P',"·−−·");
         textToMorseCoding.put('Q',"−−·−");
         textToMorseCoding.put('R',"·−·");
@@ -52,6 +56,9 @@ public class MorseCodeCipher {
         textToMorseCoding.put('W',"·−−");
         textToMorseCoding.put('X',"−··−");
         textToMorseCoding.put('Y',"−·−−");
+        textToMorseCoding.put('Z',"−−··");
+        textToMorseCoding.put('Ź',"−−··");
+        textToMorseCoding.put('Ż',"−−··");
         textToMorseCoding.put('Z',"−−··");
         textToMorseCoding.put('0',"−−−−−");
         textToMorseCoding.put('1',"·−−−−");
@@ -82,7 +89,6 @@ public class MorseCodeCipher {
 
         textToMorseCoding.put('\'',"·−−−−·");
         textToMorseCoding.put('\"',"·−··−·");
-        textToMorseCoding.put('\n',"·−·−");
     }
 
     private void initMorseToTextCoding() {
@@ -144,7 +150,6 @@ public class MorseCodeCipher {
 
         morseToTextCoding.put("·−−−−·", "\'");
         morseToTextCoding.put("·−··−·", "\"");
-        morseToTextCoding.put("·−·−", "\n");
     }
 
     public String convertToMorse(char textChar){

@@ -18,28 +18,27 @@ import static android.content.Context.CLIPBOARD_SERVICE;
  * Created by root on 06.05.17.
  */
 
-public class ConvertingTextBoxesPanel {
+public class ConvertingTextBoxesPanelAndCopyToClipboard {
     private Context myContext;
     private TextView bottomTextBox;
-    private ImageButton copyToClipboardButton;
-    private ResizingAnimationForTextBoxes resizingAnimationForTextBoxes;
+    private ResizingTextBoxesAnimation resizingTextBoxesAnimation;
     private RemovingInsertingTextAnimation removingInsertingTextAnimation;
 
-    public ConvertingTextBoxesPanel(Context context) {
+    public ConvertingTextBoxesPanelAndCopyToClipboard(Context context) {
         myContext = context;
-        resizingAnimationForTextBoxes = new ResizingAnimationForTextBoxes(context);
+        resizingTextBoxesAnimation = new ResizingTextBoxesAnimation(context);
         removingInsertingTextAnimation = new RemovingInsertingTextAnimation(context);
-        initObjects();
+        initBottomTextViewBox();
         setClipboardButtonBehavior();
 
     }
 
-    private void initObjects() {
+    private void initBottomTextViewBox() {
         bottomTextBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
     private void setClipboardButtonBehavior() {
-        copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
+        ImageButton copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
         copyToClipboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,16 +62,17 @@ public class ConvertingTextBoxesPanel {
 
     public void swapTextInsideBoxesAnimation() {
         removingInsertingTextAnimation.startAnimation();
+
     }
 
     private void constrictUpperBoxAndExtendLowerBox() {
-        resizingAnimationForTextBoxes.upperBoxToSmall.start();
-        resizingAnimationForTextBoxes.lowerBoxToBig.start();
+        resizingTextBoxesAnimation.upperBoxToSmall.start();
+        resizingTextBoxesAnimation.lowerBoxToBig.start();
     }
 
     private void extendUpperBoxAndConstrictLowerBox() {
-        resizingAnimationForTextBoxes.upperBoxToBig.start();
-        resizingAnimationForTextBoxes.lowerBoxToSmall.start();
+        resizingTextBoxesAnimation.upperBoxToBig.start();
+        resizingTextBoxesAnimation.lowerBoxToSmall.start();
     }
 
     private Context getContext(){
@@ -84,10 +84,10 @@ public class ConvertingTextBoxesPanel {
     }
 
     public boolean ifNoAnimationCurrentlyRunning() {
-        return !(resizingAnimationForTextBoxes.upperBoxToBig.isRunning() ||
-                resizingAnimationForTextBoxes.lowerBoxToBig.isRunning() ||
-                resizingAnimationForTextBoxes.upperBoxToSmall.isRunning() ||
-                resizingAnimationForTextBoxes.lowerBoxToSmall.isRunning() ||
+        return !(resizingTextBoxesAnimation.upperBoxToBig.isRunning() ||
+                resizingTextBoxesAnimation.lowerBoxToBig.isRunning() ||
+                resizingTextBoxesAnimation.upperBoxToSmall.isRunning() ||
+                resizingTextBoxesAnimation.lowerBoxToSmall.isRunning() ||
                 removingInsertingTextAnimation.upperRemoveText.isRunning() ||
                 removingInsertingTextAnimation.upperAddText.isRunning() ||
                 removingInsertingTextAnimation.bottomRemoveText.isRunning() ||

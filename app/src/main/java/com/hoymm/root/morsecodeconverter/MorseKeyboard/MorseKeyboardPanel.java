@@ -5,10 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.text.InputType;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingAnimationForTextBoxes;
-import com.hoymm.root.morsecodeconverter.MainActivity;
-import com.hoymm.root.morsecodeconverter.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
@@ -67,7 +61,7 @@ public class MorseKeyboardPanel {
         final ViewGroup.LayoutParams params = morseKeyboardPanel.getLayoutParams();
         hidePanelAnimation = ValueAnimator.ofFloat(
                 getActivity().getResources().getDimension(R.dimen.morse_keyboard_height), 1);
-        hidePanelAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
+        hidePanelAnimation.setDuration(ResizingTextBoxesAnimation.animationTime);
         hidePanelAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         hidePanelAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -93,7 +87,7 @@ public class MorseKeyboardPanel {
         final ViewGroup.LayoutParams params = morseKeyboardPanel.getLayoutParams();
         showPanelAnimation = ValueAnimator.ofFloat(1,
                 getActivity().getResources().getDimension(R.dimen.morse_keyboard_height));
-        showPanelAnimation.setDuration(ResizingAnimationForTextBoxes.animationTime);
+        showPanelAnimation.setDuration(ResizingTextBoxesAnimation.animationTime);
         showPanelAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
         showPanelAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -146,7 +140,7 @@ public class MorseKeyboardPanel {
                 mImm.showSoftInput(upperTextBox, InputMethodManager.SHOW_IMPLICIT);
             }
         });
-        Log.e("System keyboard", "enabled.");
+        Log.i("System keyboard", "enabled (when converting text-> morse).");
     }
 
     private void disableSystemKeyboard() {
@@ -156,7 +150,7 @@ public class MorseKeyboardPanel {
             public void onClick(View v) {
             }
         });
-        Log.e("System keyboard", "disabled.");
+        Log.i("System keyboard", "disabled (when converting morse-> text)..");
     }
 
     private boolean isAnyAnimationRunning() {

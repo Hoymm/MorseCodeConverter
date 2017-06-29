@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter.InputOutputFields;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -12,11 +11,11 @@ import com.hoymm.root.morsecodeconverter.R;
  * Created by root on 15.06.17.
  */
 
-public class CalculateHeightsForInputOutput {
+class CalculateHeightsForInputOutput {
     private Context myContext;
-    public int lowerBoxBigHeight, upperBoxSmallHeight, lowerBoxSmallHeight, upperBoxBigHeight;
+    int lowerBoxBigHeight, upperBoxSmallHeight, lowerBoxSmallHeight, upperBoxBigHeight;
 
-    public CalculateHeightsForInputOutput(Context context) {
+    CalculateHeightsForInputOutput(Context context) {
         myContext = context;
         calculateAndInitializateBoxHeightsObjects();
     }
@@ -61,14 +60,14 @@ public class CalculateHeightsForInputOutput {
         return swappingTranslatingModePanel.getLayoutParams().height;
     }
 
-    private int getMorseKeyboardHeight() {
-        LinearLayout morseKeyboard = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
-        return morseKeyboard.getLayoutParams().height;
-    }
-
     private int getFooterPanelHeight() {
         LinearLayout footerWithButtons = (LinearLayout) getActivity().findViewById(R.id.applicationFooterId);
         return footerWithButtons.getLayoutParams().height;
+    }
+
+    private int getMorseKeyboardHeight() {
+        LinearLayout morseKeyboard = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
+        return morseKeyboard.getLayoutParams().height;
     }
 
     private Activity getActivity(){

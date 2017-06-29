@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanelAndCopyToClipboard;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
-    private ConvertingTextBoxesPanel convertingTextFieldsPanel;
+    private ConvertingTextBoxesPanelAndCopyToClipboard convertingTextBoxesPanelAndCopyToClipboard;
+    private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanel morseKeyboardPanel;
     private FooterPanel footerPanel;
-    private ConvertingMorseTextProgram convertingMorseTextProgram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private void initializeProgramComponents() {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
-        convertingTextFieldsPanel = new ConvertingTextBoxesPanel(this);
+        convertingTextBoxesPanelAndCopyToClipboard = new ConvertingTextBoxesPanelAndCopyToClipboard(this);
+        convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanel = new MorseKeyboardPanel(this);
         footerPanel = new FooterPanel(this);
-        convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
     }
 
     private void initializateSwapButtonAction() {
@@ -44,22 +44,23 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (convertingTextFieldsPanel.ifNoAnimationCurrentlyRunning()) {
+                if (convertingTextBoxesPanelAndCopyToClipboard.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
-                    refreshAppLastStateAppearance();
-                    convertingTextFieldsPanel.swapTextInsideBoxesAnimation();
+                    convertingTextBoxesPanelAndCopyToClipboard.swapTextInsideBoxesAnimation();
+                    convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
+                    refreshAndAdjustApplicationComponentsState();
                     saveInfo_SharedPreferences();
                 }
             }
         });
     }
 
-    private void refreshAppLastStateAppearance() {
+    private void refreshAndAdjustApplicationComponentsState() {
 
         hideSystemKeyboard(getActivity());
         morseToTextSwappingPanel.rotateArrowAnimation();
         morseToTextSwappingPanel.swapTextHeaders();
-        convertingTextFieldsPanel.resizeBoxesAnimation();
+        convertingTextBoxesPanelAndCopyToClipboard.resizeBoxesAnimation();
         morseKeyboardPanel.hideOrShowMorsePanel();
         morseKeyboardPanel.disableOrEnableSystemKeyboard();
     }
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refreshAppLastStateAppearance();
+        refreshAndAdjustApplicationComponentsState();
     }
 
     @Override

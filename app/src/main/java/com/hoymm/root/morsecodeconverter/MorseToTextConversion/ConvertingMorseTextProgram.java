@@ -5,12 +5,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
 import com.hoymm.root.morsecodeconverter.R;
 
@@ -31,36 +30,47 @@ public class ConvertingMorseTextProgram {
     private void initXMLObjects() {
         upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
         bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
-        enableTranslation();
+        enableConversion();
     }
 
-    private void enableTranslation() {
+    public void disableTranslationTemporaryForAnimationTime(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("Code Translation", "temporary disabled");
+                disableConversion();
+                try {
+                    Thread.sleep(ResizingTextBoxesAnimation.animationTime + 50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Log.i("Code Translation", "enabled");
+                enableConversion();
+            }
+        }).start();
+    }
+
+    private void enableConversion() {
         upperBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (MorseToTextSwappingPanel.isConvertingTextToMorse)
-                    translateToMorse_SetText();
-                else
-                    translateToText_SetText();
+                translateStringAndInsertToBottomBox();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
-    public void disableTranslation() {
+    private void disableConversion() {
         upperBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -69,50 +79,38 @@ public class ConvertingMorseTextProgram {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
-    private void translateToMorse_SetText() {
+    private void translateStringAndInsertToBottomBox() {
         final String text = String.valueOf(upperBox.getText());
+        translateAndInsertToBottomBox(text);
+    }
+
+    private void translateAndInsertToBottomBox(final String text) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                bottomBox.setText(translateTextToMorse(text));
+                bottomBox.setText(MorseToTextSwappingPanel.isConvertingTextToMorse ? toMorse(text) : toText(text));
             }
         });
     }
 
-    private String translateTextToMorse(String text) {
-        if (text.length() > 0) {
-            text = text.toUpperCase();
-            String morse = "";
-            int textLength =  text.length();
-            for (int index = 0; index < textLength; ++index) {
-                char currentCharToTranslate = text.charAt(0);
-                text = text.substring(1);
-                morse += MorseCodeCipher.getInstance().convertToMorse(currentCharToTranslate) + " ";
-            }
-            return removeSpaceFromTheEndOfText(morse);
+    @NonNull
+    private String toMorse(String text) {
+        text = text.toUpperCase();
+        String morse = "";
+        int textLength =  text.length();
+        for (int index = 0; index < textLength; ++index) {
+            char currentCharToTranslate = text.charAt(0);
+            text = text.substring(1);
+            morse += MorseCodeCipher.getInstance().convertToMorse(currentCharToTranslate) + " ";
         }
-        else
-            return "";
+        return removeSpaceFromTheEndOfText(morse);
     }
 
-
-    private void translateToText_SetText() {
-        final String morse = String.valueOf(upperBox.getText());
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                bottomBox.setText(translateMorseToText(morse));
-                translateMorseToText(morse);
-            }
-        });
-    }
-
-    private String translateMorseToText(String morse) {
+    private String toText(String morse) {
         if (morse.length() > 0) {
             String textResult = "";
             String [] morseWords = splitTextToArrayOfWords(morse);
