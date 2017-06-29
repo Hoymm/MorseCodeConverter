@@ -102,24 +102,58 @@ public class ConvertingMorseTextProgram {
         text = text.toUpperCase();
         String morse = "";
         int textLength =  text.length();
-        for (int index = 0; index < textLength; ++index) {
-            char currentCharToTranslate = text.charAt(0);
-            text = text.substring(1);
-            morse += MorseCodeCipher.getInstance().convertToMorse(currentCharToTranslate) + " ";
+        for (int i = 0; i < textLength; ++i) {
+            char charToTranslate = getCharFromTheLeft(text);
+            text = removeCharOnTheLeft(text);
+            morse += MorseCodeCipher.getInstance().convertToMorse(charToTranslate) + " ";
         }
         return removeSpaceFromTheEndOfText(morse);
     }
 
+    @NonNull
+    private String removeCharOnTheLeft(String text) {
+        return text.substring(1);
+    }
+
+    private char getCharFromTheLeft(String text) {
+        return text.charAt(0);
+    }
+
     private String toText(String morse) {
-        if (morse.length() > 0) {
-            String textResult = "";
-            String [] morseWords = splitTextToArrayOfWords(morse);
-            for (String word : morseWords)
-                textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.getCharSeparator();
-            return removeSpaceFromTheEndOfText(textResult);
-        }
+        morse = removeSpacesFromBothSides(morse);
+        if (morse.length() > 0)
+            return convertMorseCodeToText(morse);
         else
             return "";
+    }
+
+    private String removeSpacesFromBothSides(String morse) {
+        morse = removeSpacesOnTheRight(morse);
+        morse = removeSpacesOnTheLeft(morse);
+        return morse;
+    }
+
+    @NonNull
+    private String removeSpacesOnTheRight(String morse) {
+        while (morse.length() > 0 && morse.substring(morse.length()-1).equals(" "))
+            morse = morse.substring(morse.length()-1);
+        return morse;
+    }
+
+    @NonNull
+    private String removeSpacesOnTheLeft(String morse) {
+        while (morse.length() > 0 && morse.substring(0, 1).equals(" "))
+            morse = morse.substring(1);
+        return morse;
+    }
+
+    @NonNull
+    private String convertMorseCodeToText(String morse) {
+        String textResult = "";
+        String [] morseWords = splitTextToArrayOfWords(morse);
+        for (String word : morseWords)
+            textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.getCharSeparator();
+        return removeSpaceFromTheEndOfText(textResult);
     }
 
     @NonNull
@@ -131,8 +165,8 @@ public class ConvertingMorseTextProgram {
 
     private String translateSingleWord_MorseToText(String morseWord) {
         String textWord = "";
-        String [] morseCharacters = morseWord.split(MorseCodeCipher.getCharSeparator());
-        for (String morseChar : morseCharacters) {
+        String [] morseLetter = morseWord.split(MorseCodeCipher.getCharSeparator());
+        for (String morseChar : morseLetter) {
             textWord += MorseCodeCipher.getInstance().convertToText(morseChar);
         }
         return textWord;
