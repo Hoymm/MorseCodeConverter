@@ -79,4 +79,8 @@ public class ConvertingTextBoxesPanelAndCopyToClipboard {
                 removingInsertingTextAnimation.bottomAddText.isRunning()
         );
     }
+
+    public void clearSelection() {
+        upperTextBox.clearFocus();
+    }
 }
