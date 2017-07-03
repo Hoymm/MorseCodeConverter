@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanelAndCopyToClipboard;
-import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanel;
+import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ConvertingTextBoxesPanelAndCopyToClipboard convertingTextBoxesPanelAndCopyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
-    private MorseKeyboardPanel morseKeyboardPanel;
+    private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
     private FooterPanel footerPanel;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         convertingTextBoxesPanelAndCopyToClipboard = new ConvertingTextBoxesPanelAndCopyToClipboard(this);
         convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
-        morseKeyboardPanel = new MorseKeyboardPanel(this);
+        morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(this);
         footerPanel = new FooterPanel(this);
     }
 
@@ -46,23 +46,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (convertingTextBoxesPanelAndCopyToClipboard.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
-                    convertingTextBoxesPanelAndCopyToClipboard.swapTextInsideBoxesAnimation();
-                    convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
                     refreshAndAdjustApplicationComponentsState();
-                    saveInfo_SharedPreferences();
                 }
             }
         });
     }
 
     private void refreshAndAdjustApplicationComponentsState() {
-
         hideSystemKeyboard(getActivity());
-        morseToTextSwappingPanel.rotateArrowAnimation();
+        adjustCompomentsViaAnimation();
+        convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
         morseToTextSwappingPanel.swapTextHeaders();
+        morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
+        morseToTextSwappingPanel.saveDataToSharedPreferences();
+    }
+
+    private void adjustCompomentsViaAnimation() {
+        convertingTextBoxesPanelAndCopyToClipboard.swapTextInsideBoxesAnimation();
+        morseToTextSwappingPanel.rotateArrowAnimation();
         convertingTextBoxesPanelAndCopyToClipboard.resizeBoxesAnimation();
-        morseKeyboardPanel.hideOrShowMorsePanel();
-        morseKeyboardPanel.disableOrEnableSystemKeyboard();
+        morseKeyboardPanelAndDisableSoftKeyboard.hideOrShowMorsePanelAnimation();
     }
 
     public static void hideSystemKeyboard(Activity activity) {
@@ -71,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-    }
-
-    private void saveInfo_SharedPreferences() {
-        morseToTextSwappingPanel.saveToSharedPreferencesReversedTranslationDirection();
     }
 
     private Activity getActivity() {

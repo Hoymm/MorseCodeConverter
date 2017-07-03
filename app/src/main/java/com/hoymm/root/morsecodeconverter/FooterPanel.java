@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 /**
  * File created by Damian Muca - Kaizen on 21.06.17.
@@ -17,7 +16,7 @@ public class FooterPanel {
     public FooterPanel(Context context) {
         this.context = context;
         initObjects();
-        setBehaviorToButtons();
+        setButttonsBehavior();
     }
 
     private void initObjects() {
@@ -31,7 +30,7 @@ public class FooterPanel {
         screenButton = (ImageButton) getActivity().findViewById(R.id.screen_button_id);
     }
 
-    private void setBehaviorToButtons() {
+    private void setButttonsBehavior() {
         toVibrate();
         toSound();
         toFlashlight();

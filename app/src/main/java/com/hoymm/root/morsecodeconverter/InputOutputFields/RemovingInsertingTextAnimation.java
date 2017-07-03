@@ -25,7 +25,7 @@ public class RemovingInsertingTextAnimation {
     public RemovingInsertingTextAnimation(Context context) {
         this.context = context;
         initEditTextsAndPlaceSelectionOnTheEnd();
-        saveBoxStringContentToVariables();
+        saveUppercaseTextToVariables();
         initializateAnimations();
     }
 
@@ -43,9 +43,9 @@ public class RemovingInsertingTextAnimation {
         upperBox.setSelection(upperBox.getText().toString().length());
     }
 
-    private void saveBoxStringContentToVariables() {
-        prevBottomBoxText = bottomBox.getText().toString();
-        prevUpperBoxText = upperBox.getText().toString();
+    private void saveUppercaseTextToVariables() {
+        prevBottomBoxText = bottomBox.getText().toString().toUpperCase();
+        prevUpperBoxText = upperBox.getText().toString().toUpperCase();
     }
 
     private void initializateAnimations() {
@@ -129,8 +129,8 @@ public class RemovingInsertingTextAnimation {
         return (Activity)context;
     }
 
-    public void startAnimation(){
-        saveBoxStringContentToVariables();
+    void startAnimation(){
+        saveUppercaseTextToVariables();
         initializateAnimations();
         upperRemoveText.start();
         bottomRemoveText.start();

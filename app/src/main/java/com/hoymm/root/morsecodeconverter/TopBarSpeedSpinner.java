@@ -13,12 +13,12 @@ import android.widget.Spinner;
  * Created by root on 05.05.17.
  */
 
-public class TopBarSpeedSpinner {
+class TopBarSpeedSpinner {
 
     private Context myContext;
     private Spinner speedSpinner;
 
-    public TopBarSpeedSpinner(Context context) {
+    TopBarSpeedSpinner(Context context) {
         myContext = context;
         initAndSetAdapterAndSetSelectedItemOfSpinner();
     }

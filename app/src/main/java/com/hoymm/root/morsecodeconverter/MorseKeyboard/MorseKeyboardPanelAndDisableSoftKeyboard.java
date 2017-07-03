@@ -23,7 +23,7 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 20.06.17.
  */
 
-public class MorseKeyboardPanel {
+public class MorseKeyboardPanelAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
     private ImageButton lineButton, dotButton;
@@ -32,7 +32,7 @@ public class MorseKeyboardPanel {
     private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
-    public MorseKeyboardPanel(Context context) {
+    public MorseKeyboardPanelAndDisableSoftKeyboard(Context context) {
         this.context = context;
         initObjects();
         initAnimation();
@@ -107,7 +107,7 @@ public class MorseKeyboardPanel {
         });
     }
 
-    public void hideOrShowMorsePanel(){
+    public void hideOrShowMorsePanelAnimation(){
         if(MorseToTextSwappingPanel.isConvertingTextToMorse)
             hidePanel();
         else
