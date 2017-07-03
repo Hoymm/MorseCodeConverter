@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
     private ConvertingTextBoxesPanelAndCopyToClipboard convertingTextBoxesPanelAndCopyToClipboard;
+    private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;

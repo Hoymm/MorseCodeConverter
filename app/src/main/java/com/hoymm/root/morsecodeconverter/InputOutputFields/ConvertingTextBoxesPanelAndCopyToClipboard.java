@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,8 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class ConvertingTextBoxesPanelAndCopyToClipboard {
     private Context myContext;
-    private TextView bottomTextBox;
+    private EditText upperTextBox;
+
     private ResizingTextBoxesAnimation resizingTextBoxesAnimation;
     private RemovingInsertingTextAnimation removingInsertingTextAnimation;
 
@@ -28,29 +30,12 @@ public class ConvertingTextBoxesPanelAndCopyToClipboard {
         myContext = context;
         resizingTextBoxesAnimation = new ResizingTextBoxesAnimation(context);
         removingInsertingTextAnimation = new RemovingInsertingTextAnimation(context);
-        initBottomTextViewBox();
-        setClipboardButtonBehavior();
+        initXMLObjects();
 
     }
 
-    private void initBottomTextViewBox() {
-        bottomTextBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
-    }
-
-    private void setClipboardButtonBehavior() {
-        ImageButton copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
-        copyToClipboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), getActivity().getString(R.string.copied_to_clipboard)
-                        , Toast.LENGTH_SHORT).show();
-
-                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("label", bottomTextBox.getText().toString());
-                clipboard.setPrimaryClip(clip);
-            }
-        });
-
+    private void initXMLObjects() {
+        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
     public void resizeBoxesAnimation(){
