@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter.FooterPanel.FooterPanelBehaviorAndFeatures;
+import com.hoymm.root.morsecodeconverter.FooterPanel.FlashlightButton;
+import com.hoymm.root.morsecodeconverter.FooterPanel.ScreenButton;
+import com.hoymm.root.morsecodeconverter.FooterPanel.SoundButton;
+import com.hoymm.root.morsecodeconverter.FooterPanel.VibrationButton;
 import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
@@ -21,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
-    private FooterPanelBehaviorAndFeatures footerPanelBehaviorAndFeatures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,14 @@ public class MainActivity extends AppCompatActivity {
         convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(this);
-        footerPanelBehaviorAndFeatures = new FooterPanelBehaviorAndFeatures(this);
+        initializateFooterButtons();
+    }
+
+    private void initializateFooterButtons() {
+        VibrationButton.initializateAndGetInstance(this);
+        SoundButton.initializateAndGetInstance(this);
+        FlashlightButton.initializateAndGetInstance(this);
+        ScreenButton.initializateAndGetInstance(this);
     }
 
     private void initializateSwapButtonAction() {

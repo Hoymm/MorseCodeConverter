@@ -71,14 +71,26 @@ public class PlayPauseStopButtons {
             @Override
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
-                if(v.isActivated())
-                    pauseButton.setImageResource(R.drawable.pause_white);
-                else
-                    pauseButton.setImageResource(R.drawable.pause_purple);
+
+                if(v.isActivated()) {
+                    onPauseActivatedAction();
+                }
+                else {
+                    onPauseDeactivatedAction();
+                }
+
                 makePlayButtonNotClicked();
                 makeStopButtonNotClicked();
             }
         });
+    }
+
+    private void onPauseDeactivatedAction() {
+        pauseButton.setImageResource(R.drawable.pause_purple);
+    }
+
+    private void onPauseActivatedAction() {
+        pauseButton.setImageResource(R.drawable.pause_white);
     }
 
     private void makePlayButtonNotClicked() {
