@@ -1,26 +1,42 @@
-package com.hoymm.root.morsecodeconverter;
+package com.hoymm.root.morsecodeconverter.FooterPanel;
 
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.hoymm.root.morsecodeconverter.R;
 
 /**
  * File created by Damian Muca - Kaizen on 21.06.17.
  */
 
-public class FooterPanel {
+public class FooterPanelBehaviorAndFeatures {
     private Context context;
     private ImageButton vibrateButton, soundButton, flashlightButton, screenButton;
 
-    public FooterPanel(Context context) {
+    public VibrationFeature vibrationFeature;
+    public SoundFeature soundFeature;
+    public FlashlightFeature flashlightFeature;
+    public ScreenFeature screenFeature;
+
+    public FooterPanelBehaviorAndFeatures(Context context) {
         this.context = context;
         initObjects();
         setButttonsBehavior();
     }
 
     private void initObjects() {
+        initFooterButtonsFeatureObjects();
         initXMLObjects();
+    }
+
+    private void initFooterButtonsFeatureObjects() {
+        vibrationFeature = new VibrationFeature(getActivity());
+        soundFeature = new SoundFeature();
+        flashlightFeature = new FlashlightFeature();
+        screenFeature = new ScreenFeature();
     }
 
     private void initXMLObjects() {
@@ -42,6 +58,10 @@ public class FooterPanel {
             @Override
             public void onClick(View v) {
                 vibrateButton.setActivated(!vibrateButton.isActivated());
+                if (vibrateButton.isActivated())
+                    Toast.makeText(getActivity(), "Vibration Activated", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity(), "Vibration Deactivated", Toast.LENGTH_SHORT).show();
             }
         });
     }

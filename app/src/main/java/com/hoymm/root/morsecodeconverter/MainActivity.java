@@ -8,19 +8,20 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanelAndCopyToClipboard;
+import com.hoymm.root.morsecodeconverter.FooterPanel.FooterPanelBehaviorAndFeatures;
+import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextSwappingPanel morseToTextSwappingPanel;
-    private ConvertingTextBoxesPanelAndCopyToClipboard convertingTextBoxesPanelAndCopyToClipboard;
+    private ConvertingTextBoxesPanel convertingTextBoxesPanel;
     private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
-    private FooterPanel footerPanel;
+    private FooterPanelBehaviorAndFeatures footerPanelBehaviorAndFeatures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private void initializeProgramComponents() {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
         morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
-        convertingTextBoxesPanelAndCopyToClipboard = new ConvertingTextBoxesPanelAndCopyToClipboard(this);
+        convertingTextBoxesPanel = new ConvertingTextBoxesPanel(this);
         convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
         playPauseStopButtons = new PlayPauseStopButtons(this);
         morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(this);
-        footerPanel = new FooterPanel(this);
+        footerPanelBehaviorAndFeatures = new FooterPanelBehaviorAndFeatures(this);
     }
 
     private void initializateSwapButtonAction() {
@@ -45,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (convertingTextBoxesPanelAndCopyToClipboard.ifNoAnimationCurrentlyRunning()) {
+                if (convertingTextBoxesPanel.ifNoAnimationCurrentlyRunning()) {
                     MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
+                    convertingTextBoxesPanel.swapTextInsideBoxes();
+                    morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
                 }
             }
@@ -54,18 +57,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshAndAdjustApplicationComponentsState() {
-        hideSystemKeyboard(getActivity());
         adjustCompomentsViaAnimation();
+        hideSystemKeyboard(getActivity());
         convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
         morseToTextSwappingPanel.swapTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         morseToTextSwappingPanel.saveDataToSharedPreferences();
+
     }
 
     private void adjustCompomentsViaAnimation() {
-        convertingTextBoxesPanelAndCopyToClipboard.swapTextInsideBoxesAnimation();
-        morseToTextSwappingPanel.rotateArrowAnimation();
-        convertingTextBoxesPanelAndCopyToClipboard.resizeBoxesAnimation();
+        convertingTextBoxesPanel.resizeBoxesAnimation();
         morseKeyboardPanelAndDisableSoftKeyboard.hideOrShowMorsePanelAnimation();
     }
 
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        convertingTextBoxesPanelAndCopyToClipboard.clearSelection();
+        convertingTextBoxesPanel.clearSelection();
         super.onPause();
     }
 

@@ -20,7 +20,6 @@
         android:paddingTop="22dp"
         android:scrollbars="vertical"
         android:textIsSelectable="true"
-
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="top|left"

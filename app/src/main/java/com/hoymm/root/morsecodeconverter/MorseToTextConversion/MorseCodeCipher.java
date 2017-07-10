@@ -44,6 +44,7 @@ public class MorseCodeCipher {
         textToMorseCoding.put('L',"·−··");
         textToMorseCoding.put('M',"−−");
         textToMorseCoding.put('N',"−·");
+        textToMorseCoding.put('Ń',"−·");
         textToMorseCoding.put('O',"−−−");
         textToMorseCoding.put('Ó',"−−−");
         textToMorseCoding.put('P',"·−−·");
