@@ -8,17 +8,24 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter.FooterPanel.FlashlightButton;
-import com.hoymm.root.morsecodeconverter.FooterPanel.ScreenButton;
-import com.hoymm.root.morsecodeconverter.FooterPanel.SoundButton;
-import com.hoymm.root.morsecodeconverter.FooterPanel.VibrationButton;
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ConvertingTextBoxesPanel;
-import com.hoymm.root.morsecodeconverter.MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
-import com.hoymm.root.morsecodeconverter.MorseToTextConversion.ConvertingMorseTextProgram;
+import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_Header.TopBarSpeedSpinner;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PauseButton;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PlayButton;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.StopButton;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.SetToClipboardButtonBehavior;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.FlashlightButton;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.ScreenButton;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.SoundButton;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.VibrationButton;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ConvertingTextBoxesPanel;
+import com.hoymm.root.morsecodeconverter._3_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
+import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
-    private MorseToTextSwappingPanel morseToTextSwappingPanel;
+    private MorseToTextSwappingPanelConversion morseToTextSwappingPanel;
     private ConvertingTextBoxesPanel convertingTextBoxesPanel;
     private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
@@ -35,12 +42,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeProgramComponents() {
         topBarSpeedSpinner = new TopBarSpeedSpinner(this);
-        morseToTextSwappingPanel = new MorseToTextSwappingPanel(this);
+        morseToTextSwappingPanel = new MorseToTextSwappingPanelConversion(this);
         convertingTextBoxesPanel = new ConvertingTextBoxesPanel(this);
         convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
-        playPauseStopButtons = new PlayPauseStopButtons(this);
+        initializateControlPanelButtons();
         morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(this);
         initializateFooterButtons();
+    }
+
+    private void initializateControlPanelButtons() {
+        PlayPauseStopButtons.initAndGetInstance(this);
+        PlayButton.initAndGetInstance(this);
+        PauseButton.initAndGetInstance(this);
+        StopButton.initAndGetInstance(this);
     }
 
     private void initializateFooterButtons() {
@@ -56,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (convertingTextBoxesPanel.ifNoAnimationCurrentlyRunning()) {
-                    MorseToTextSwappingPanel.isConvertingTextToMorse = !MorseToTextSwappingPanel.isConvertingTextToMorse;
+                    MorseToTextSwappingPanelConversion.isConvertingTextToMorse = !MorseToTextSwappingPanelConversion.isConvertingTextToMorse;
                     convertingTextBoxesPanel.swapTextInsideBoxes();
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();

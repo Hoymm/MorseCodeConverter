@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter;
+package com.hoymm.root.morsecodeconverter._1_Header;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,16 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.hoymm.root.morsecodeconverter.R;
+
 /**
  * Created by root on 05.05.17.
  */
 
-class TopBarSpeedSpinner {
+public class TopBarSpeedSpinner {
 
     private Context myContext;
     private Spinner speedSpinner;
 
-    TopBarSpeedSpinner(Context context) {
+    public TopBarSpeedSpinner(Context context) {
         myContext = context;
         initAndSetAdapterAndSetSelectedItemOfSpinner();
     }

@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.FooterPanel;
+package com.hoymm.root.morsecodeconverter._4_FooterPanel;
 
 import android.app.Activity;
 import android.view.View;
@@ -27,8 +27,7 @@ public class ScreenButton implements FooterButtons{
         setButtonBehavior();
     }
 
-    @Override
-    public void initObjects() {
+    private void initObjects() {
         screenButton = (ImageButton) getActivity().findViewById(R.id.screen_button_id);
     }
 
@@ -42,8 +41,7 @@ public class ScreenButton implements FooterButtons{
         return false;
     }
 
-    @Override
-    public void setButtonBehavior() {
+    private void setButtonBehavior() {
         screenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,8 +50,7 @@ public class ScreenButton implements FooterButtons{
         });
     }
 
-    @Override
-    public Activity getActivity() {
+    private Activity getActivity() {
         return activity;
     }
 }

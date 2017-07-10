@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter;
+package com.hoymm.root.morsecodeconverter._1_Header;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -8,13 +8,14 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
 
 /**
  * Created by root on 06.05.17.
  */
 
-public class MorseToTextSwappingPanel {
+public class MorseToTextSwappingPanelConversion {
 
     private Context myContext;
     private ImageButton arrowButton;
@@ -22,7 +23,7 @@ public class MorseToTextSwappingPanel {
     public static boolean isConvertingTextToMorse = true;
 
 
-    MorseToTextSwappingPanel(Context context){
+    public MorseToTextSwappingPanelConversion(Context context){
         myContext = context;
         linkObjectsWithXML();
         restoreLastTextViewsStatus();
@@ -74,7 +75,7 @@ public class MorseToTextSwappingPanel {
         return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
     }
 
-    void swapTextHeaders(){
+    public void swapTextHeaders(){
         if (isConvertingTextToMorse) {
             leftTextView.setText(getActivity().getString(R.string.text));
             rightTextView.setText(getActivity().getString(R.string.morse));
@@ -85,7 +86,7 @@ public class MorseToTextSwappingPanel {
         }
     }
 
-    void saveDataToSharedPreferences() {
+    public void saveDataToSharedPreferences() {
         SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -106,7 +107,7 @@ public class MorseToTextSwappingPanel {
     }
 
 
-    boolean rotateArrowAnimation(){
+    public boolean rotateArrowAnimation(){
         ValueAnimator arrowRotateAnimation = ValueAnimator.ofFloat(arrowButton.getRotationY(), arrowButton.getRotationY() + 180F);
         arrowRotateAnimation.setDuration(ResizingTextBoxesAnimation.animationTime);
         arrowRotateAnimation.setInterpolator(new AccelerateDecelerateInterpolator());

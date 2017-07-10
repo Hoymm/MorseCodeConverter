@@ -1,9 +1,8 @@
-package com.hoymm.root.morsecodeconverter.MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 

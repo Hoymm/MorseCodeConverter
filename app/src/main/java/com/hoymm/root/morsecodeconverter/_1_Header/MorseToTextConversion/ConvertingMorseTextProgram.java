@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.MorseToTextConversion;
+package com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -92,7 +92,7 @@ public class ConvertingMorseTextProgram {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                bottomBox.setText(MorseToTextSwappingPanel.isConvertingTextToMorse ? toMorse(text) : toText(text));
+                bottomBox.setText(MorseToTextSwappingPanelConversion.isConvertingTextToMorse ? toMorse(text) : toText(text));
             }
         });
     }

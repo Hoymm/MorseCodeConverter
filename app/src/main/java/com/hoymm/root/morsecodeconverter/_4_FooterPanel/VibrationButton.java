@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.FooterPanel;
+package com.hoymm.root.morsecodeconverter._4_FooterPanel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,8 +31,7 @@ public class VibrationButton implements FooterButtons {
         setButtonBehavior();
     }
 
-    @Override
-    public void initObjects() {
+    private void initObjects() {
         vibrateButton = (ImageButton) getActivity().findViewById(R.id.vibration_button_id);
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
     }
@@ -42,8 +41,7 @@ public class VibrationButton implements FooterButtons {
         vibrator.vibrate(time);
     }
 
-    @Override
-    public void setButtonBehavior() {
+    private void setButtonBehavior() {
         vibrateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,11 +56,11 @@ public class VibrationButton implements FooterButtons {
 
     @Override
     public boolean isPermissionGranted() {
+        // vibration is a permission always granting statically
         return true;
     }
 
-    @Override
-    public Activity getActivity() {
+    private Activity getActivity() {
         return activity;
     }
 }

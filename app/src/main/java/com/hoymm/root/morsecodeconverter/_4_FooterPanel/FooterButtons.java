@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.FooterPanel;
+package com.hoymm.root.morsecodeconverter._4_FooterPanel;
 
 import android.app.Activity;
 
@@ -9,7 +9,4 @@ import android.app.Activity;
 public interface FooterButtons {
     void start(int time);
     boolean isPermissionGranted();
-    void setButtonBehavior();
-    void initObjects();
-    Activity getActivity();
 }

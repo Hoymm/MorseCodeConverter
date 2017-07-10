@@ -1,6 +1,4 @@
-package com.hoymm.root.morsecodeconverter.MorseToTextConversion;
-
-import android.util.Log;
+package com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion;
 
 import java.util.HashMap;
 

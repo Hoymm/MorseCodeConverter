@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,8 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.hoymm.root.morsecodeconverter.InputOutputFields.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter.MorseToTextSwappingPanel;
+import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -108,7 +108,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void hideOrShowMorsePanelAnimation(){
-        if(MorseToTextSwappingPanel.isConvertingTextToMorse)
+        if(MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
             hidePanel();
         else
             showPanel();
@@ -125,7 +125,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void disableOrEnableSystemKeyboard() {
-        if(MorseToTextSwappingPanel.isConvertingTextToMorse)
+        if(MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
             enableSystemKeyboard();
         else
             disableSystemKeyboard();

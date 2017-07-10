@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter.InputOutputFields;
+package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
 
 import android.app.Activity;
 import android.content.Context;

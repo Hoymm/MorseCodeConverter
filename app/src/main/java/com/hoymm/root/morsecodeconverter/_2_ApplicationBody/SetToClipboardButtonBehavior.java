@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter;
+package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hoymm.root.morsecodeconverter.R;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
