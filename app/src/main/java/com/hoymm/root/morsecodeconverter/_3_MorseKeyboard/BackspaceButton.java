@@ -17,7 +17,7 @@ public class BackspaceButton extends ImageButton {
     private static Activity activity;
     private static boolean isPressed = false;
 
-    public static ImageButton initAndGetInstance(Activity activity){
+    static ImageButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new BackspaceButton(activity);
         return instance;
@@ -52,7 +52,7 @@ public class BackspaceButton extends ImageButton {
         });
     }
 
-    public static void startRemoving() {
+    static void startRemoving() {
         isPressed = true;
         startANewThreadToRemoveCharsFromUpperBox();
     }
@@ -110,7 +110,7 @@ public class BackspaceButton extends ImageButton {
         });
     }
 
-    public static void stopRemoving() {
+    static void stopRemoving() {
         isPressed = false;
     }
 

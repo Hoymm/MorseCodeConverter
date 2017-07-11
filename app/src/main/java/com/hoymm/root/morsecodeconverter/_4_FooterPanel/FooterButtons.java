@@ -9,4 +9,5 @@ import android.app.Activity;
 public interface FooterButtons {
     void start(int time);
     boolean isPermissionGranted();
+    create here abstract class :)))
 }

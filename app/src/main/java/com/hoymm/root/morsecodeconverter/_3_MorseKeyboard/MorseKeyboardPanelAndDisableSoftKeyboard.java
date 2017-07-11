@@ -25,7 +25,7 @@ import com.hoymm.root.morsecodeconverter.R;
 public class MorseKeyboardPanelAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
-    private ImageButton lineButton, dotButton;
+    private ImageButton lineButton;
     private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
@@ -43,13 +43,15 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
     private void initializateButtons() {
         SpaceButton.initAndGetInstance(getActivity());
+        DotButton.initAndGetInstance(getActivity());
+        LineButton.initAndGetInstance(getActivity());
         BackspaceButton.initAndGetInstance(getActivity());
+
     }
 
     private void initXMLObjects() {
         morseKeyboardPanel = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
         lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
-        dotButton = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
         upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
@@ -160,30 +162,10 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
 
     private void changeButtonsBehavior() {
-        setWriteButtonBehavior(lineButton, '−');// this is not a minus
-        setWriteButtonBehavior(dotButton, '·');// and this is not a dot
         BackspaceButton.setNewBackspaceButtonBehavior();
-    }
-
-    private void setWriteButtonBehavior(ImageButton imageButton, final char insertChar) {
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String currentText = upperTextBox.getText().toString();
-                int selectionStart = upperTextBox.getSelectionStart();
-                int selectionEnd = upperTextBox.getSelectionEnd();
-                currentText =
-                        currentText.substring(0, selectionStart)
-                        + insertChar
-                        + currentText.substring(selectionEnd);
-                upperTextBox.setText(currentText);
-                upperTextBox.setSelection(selectionStart+1);
-            }
-        });
     }
 
     private Activity getActivity() {
         return (Activity)context;
     }
-
 }

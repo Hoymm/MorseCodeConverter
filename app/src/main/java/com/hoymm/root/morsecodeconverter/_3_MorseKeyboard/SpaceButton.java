@@ -19,7 +19,7 @@ public class SpaceButton extends ImageButton {
     private EditText upperTextBox;
     private Activity activity;
 
-    public static ImageButton initAndGetInstance(Activity activity){
+    static ImageButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new SpaceButton(activity);
         return instance;
@@ -46,7 +46,7 @@ public class SpaceButton extends ImageButton {
         });
     }
 
-     private void onClickAction(){
+    private void onClickAction(){
         removeSelectedTextIfAnythingSelected();
         insertShortOrLongSpace();
     }

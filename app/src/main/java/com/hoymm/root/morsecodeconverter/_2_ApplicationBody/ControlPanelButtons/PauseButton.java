@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons
 import android.app.Activity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
@@ -12,10 +11,8 @@ import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PauseButton implements ControlPanelButton{
+public class PauseButton extends ControlButtonsBehavior{
     private static PauseButton instance = null;
-    private ImageButton pauseButton;
-    private Activity activity;
 
     public static PauseButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -24,21 +21,15 @@ public class PauseButton implements ControlPanelButton{
     }
 
     private PauseButton(Activity activity) {
-        this.activity = activity;
-        initObjects();
+        super(activity, R.id.pauseButtonId);
         setButtonBehavior();
     }
 
-    private void initObjects() {
-        pauseButton = (ImageButton) getActivity().findViewById(R.id.pauseButtonId);
-    }
-
     private void setButtonBehavior() {
-        pauseButton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
-
                 if(v.isActivated()) {
                     onPauseActivatedAction();
                 }
@@ -52,23 +43,10 @@ public class PauseButton implements ControlPanelButton{
     }
 
     private void onPauseDeactivatedAction() {
-        pauseButton.setImageResource(R.drawable.pause_purple);
+        button.setImageResource(R.drawable.pause_purple);
     }
 
     private void onPauseActivatedAction() {
-        pauseButton.setImageResource(R.drawable.pause_white);
-    }
-
-    private Activity getActivity() {
-        return activity;
-    }
-
-    public boolean isActive() {
-        return pauseButton.isActivated();
-    }
-
-    @Override
-    public void callOnClick() {
-        pauseButton.callOnClick();
+        button.setImageResource(R.drawable.pause_white);
     }
 }
