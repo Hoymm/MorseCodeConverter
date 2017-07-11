@@ -1,11 +1,6 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
+package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.widget.Toast;
-
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PauseButton;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PlayButton;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 20.06.17.
@@ -25,17 +20,17 @@ public class PlayPauseStopButtons {
         PlayPauseStopButtons.activity = activity;
     }
 
-    public void makePlayButtonNotClicked() {
+    void makePlayButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
             unactivePlayButton();
     }
 
-    public void makePauseButtonNotClicked() {
+    void makePauseButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
             unactivePauseButton();
     }
 
-    public void makeStopButtonNotClicked() {
+    void makeStopButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
             unactiveStopButton();
     }

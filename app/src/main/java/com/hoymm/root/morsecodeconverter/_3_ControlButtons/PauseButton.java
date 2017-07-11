@@ -1,11 +1,10 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons;
+package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.

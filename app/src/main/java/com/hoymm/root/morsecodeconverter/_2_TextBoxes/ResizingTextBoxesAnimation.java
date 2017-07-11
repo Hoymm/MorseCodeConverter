@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
+package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;

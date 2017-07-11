@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
 import android.view.MotionEvent;

@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -25,7 +24,6 @@ import com.hoymm.root.morsecodeconverter.R;
 public class MorseKeyboardPanelAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
-    private ImageButton lineButton;
     private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
@@ -51,7 +49,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
     private void initXMLObjects() {
         morseKeyboardPanel = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
-        lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 

@@ -8,20 +8,20 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
-import com.hoymm.root.morsecodeconverter._1_Header.TopBarSpeedSpinner;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PauseButton;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.PlayButton;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.StopButton;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.SetToClipboardButtonBehavior;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.FlashlightButtons;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.ScreenButtons;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.SoundButtons;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.VibrationButtons;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ConvertingTextBoxesPanel;
-import com.hoymm.root.morsecodeconverter._3_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion.ConvertingMorseTextProgram;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayPauseStopButtons;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.SetToClipboardButtonBehavior;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.ConvertingTextBoxesPanel;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeProgramComponents() {
-        topBarSpeedSpinner = new TopBarSpeedSpinner(this);
-        morseToTextSwappingPanel = new MorseToTextSwappingPanelConversion(this);
-        convertingTextBoxesPanel = new ConvertingTextBoxesPanel(this);
-        convertingMorseTextProgram = new ConvertingMorseTextProgram(this);
+        topBarSpeedSpinner = new TopBarSpeedSpinner(getActivity());
+        morseToTextSwappingPanel = new MorseToTextSwappingPanelConversion(getActivity());
+        convertingTextBoxesPanel = new ConvertingTextBoxesPanel(getActivity());
+        convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());
+        morseKeyboardPanelAndDisableSoftKeyboard =
+                        new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
         initializateControlPanelButtons();
-        morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(this);
         initializateFooterButtons();
     }
 
@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializateFooterButtons() {
-        VibrationButtons.initializateAndGetInstance(this);
-        SoundButtons.initializateAndGetInstance(this);
-        FlashlightButtons.initializateAndGetInstance(this);
-        ScreenButtons.initializateAndGetInstance(this);
+        VibrationButton.initializateAndGetInstance(this);
+        SoundButton.initializateAndGetInstance(this);
+        FlashlightButton.initializateAndGetInstance(this);
+        ScreenButton.initializateAndGetInstance(this);
     }
 
     private void initializateSwapButtonAction() {

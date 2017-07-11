@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_FooterPanel;
+package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,17 +13,17 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class VibrationButtons extends ButtonsTemplate implements FooterButtonsInterface {
-    private static VibrationButtons instance = null;
+public class VibrationButton extends ButtonsTemplate implements FooterButtonsInterface {
+    private static VibrationButton instance = null;
     private Vibrator vibrator;
 
-    public static VibrationButtons initializateAndGetInstance(Activity activity){
+    public static VibrationButton initializateAndGetInstance(Activity activity){
         if (instance == null)
-            instance = new VibrationButtons(activity);
+            instance = new VibrationButton(activity);
         return instance;
     }
 
-    private VibrationButtons(Activity activity) {
+    private VibrationButton(Activity activity) {
         super(activity, R.id.vibration_button_id);
         initObjects();
         setButtonBehavior();
@@ -49,6 +49,11 @@ public class VibrationButtons extends ButtonsTemplate implements FooterButtonsIn
     @Override
     public void start(int time) {
         vibrator.vibrate(time);
+    }
+
+    @Override
+    public boolean isButtonActive() {
+        return button.isActivated();
     }
 
     @Override

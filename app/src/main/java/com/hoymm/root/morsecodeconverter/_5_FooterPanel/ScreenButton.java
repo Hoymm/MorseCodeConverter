@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_FooterPanel;
+package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.view.View;
@@ -10,17 +10,17 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class FlashlightButtons extends ButtonsTemplate implements FooterButtonsInterface {
-    private static FlashlightButtons instance;
+public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterface {
+    private static ScreenButton instance;
 
-    public static FlashlightButtons initializateAndGetInstance(Activity activity){
+    public static ScreenButton initializateAndGetInstance(Activity activity){
         if (instance == null)
-            instance = new FlashlightButtons(activity);
+            instance = new ScreenButton(activity);
         return instance;
     }
 
-    private FlashlightButtons(Activity activity) {
-        super(activity, R.id.flashlight_button_id);
+    private ScreenButton(Activity activity) {
+        super(activity, R.id.screen_button_id);
         setButtonBehavior();
     }
 
@@ -39,7 +39,12 @@ public class FlashlightButtons extends ButtonsTemplate implements FooterButtonsI
     }
 
     @Override
+    public boolean isButtonActive() {
+        return button.isActivated();
+    }
+
+    @Override
     public boolean isPermissionGranted() {
-        return false;
+        return true;
     }
 }

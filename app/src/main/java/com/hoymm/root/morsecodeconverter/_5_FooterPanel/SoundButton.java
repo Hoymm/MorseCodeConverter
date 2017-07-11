@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_FooterPanel;
+package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.view.View;
@@ -10,17 +10,17 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class ScreenButtons extends ButtonsTemplate implements FooterButtonsInterface {
-    private static ScreenButtons instance;
+public class SoundButton extends ButtonsTemplate implements FooterButtonsInterface {
+    private static SoundButton instance;
 
-    public static ScreenButtons initializateAndGetInstance(Activity activity){
+    public static SoundButton initializateAndGetInstance(Activity activity){
         if (instance == null)
-            instance = new ScreenButtons(activity);
+            instance = new SoundButton(activity);
         return instance;
     }
 
-    private ScreenButtons(Activity activity) {
-        super(activity, R.id.screen_button_id);
+    private SoundButton(Activity activity) {
+        super(activity, R.id.sound_button_id);
         setButtonBehavior();
     }
 
@@ -39,7 +39,13 @@ public class ScreenButtons extends ButtonsTemplate implements FooterButtonsInter
     }
 
     @Override
-    public boolean isPermissionGranted() {
-        return true;
+    public boolean isButtonActive() {
+        return button.isActivated();
     }
+
+    @Override
+    public boolean isPermissionGranted() {
+        return false;
+    }
+
 }

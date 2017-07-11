@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion;
+package com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -105,9 +105,16 @@ public class ConvertingMorseTextProgram {
         for (int i = 0; i < textLength; ++i) {
             char charToTranslate = getCharFromTheLeft(text);
             text = removeCharOnTheLeft(text);
-            morse += MorseCodeCipher.getInstance().convertToMorse(charToTranslate) + " ";
+
+
+            if (notTheFirstCharConvertingCurrently(morse)
+                    && !lastCharIsAGap(MorseCodeCipher.getInstance().convertToMorse(charToTranslate))
+                    && !lastCharIsAGap(morse)
+                    )
+                morse += " ";
+            morse += MorseCodeCipher.getInstance().convertToMorse(charToTranslate);
         }
-        return removeSpaceFromTheEndOfText(morse);
+        return morse;
     }
 
     @NonNull
@@ -117,6 +124,14 @@ public class ConvertingMorseTextProgram {
 
     private char getCharFromTheLeft(String text) {
         return text.charAt(0);
+    }
+
+    private boolean lastCharIsAGap(String morse) {
+        return morse.substring(morse.length() - 1, morse.length()).equals(MorseCodeCipher.SHORT_GAP);
+    }
+
+    private boolean notTheFirstCharConvertingCurrently(String morse) {
+        return morse.length()>1;
     }
 
     private String toText(String morse) {
@@ -152,20 +167,18 @@ public class ConvertingMorseTextProgram {
         String textResult = "";
         String [] morseWords = splitTextToArrayOfWords(morse);
         for (String word : morseWords)
-            textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.getCharSeparator();
+            textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.SHORT_GAP;
         return removeSpaceFromTheEndOfText(textResult);
     }
 
     @NonNull
     private String[] splitTextToArrayOfWords(String morse) {
-        return morse.split(MorseCodeCipher.getInstance().convertToMorse(' ')
-                + MorseCodeCipher.getCharSeparator()
-                + MorseCodeCipher.getCharSeparator());
+        return morse.split(MorseCodeCipher.MEDIUM_GAP);
     }
 
     private String translateSingleWord_MorseToText(String morseWord) {
         String textWord = "";
-        String [] morseLetter = morseWord.split(MorseCodeCipher.getCharSeparator());
+        String [] morseLetter = morseWord.split(MorseCodeCipher.SHORT_GAP);
         for (String morseChar : morseLetter) {
             textWord += MorseCodeCipher.getInstance().convertToText(morseChar);
         }

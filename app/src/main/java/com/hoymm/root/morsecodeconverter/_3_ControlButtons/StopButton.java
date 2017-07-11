@@ -1,27 +1,26 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons;
+package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PlayButton extends ButtonsTemplate {
-    private static PlayButton instance = null;
+public class StopButton extends ButtonsTemplate {
+    private static StopButton instance = null;
 
-    public static PlayButton initAndGetInstance(Activity activity){
+    public static StopButton initAndGetInstance(Activity activity){
         if (instance == null)
-            instance = new PlayButton(activity);
+            instance = new StopButton(activity);
         return instance;
     }
 
-    private PlayButton(Activity activity) {
-        super(activity, R.id.playButtonId);
+    private StopButton(Activity activity) {
+        super(activity, R.id.stopButtonId);
         setButtonBehavior();
     }
 
@@ -31,11 +30,11 @@ public class PlayButton extends ButtonsTemplate {
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated())
-                    button.setImageResource(R.drawable.play_white);
+                    button.setImageResource(R.drawable.stop_white);
                 else
-                    button.setImageResource(R.drawable.play_purple);
+                    button.setImageResource(R.drawable.stop_purple);
+                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
                 PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
             }
         });
     }

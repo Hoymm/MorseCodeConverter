@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_FooterPanel;
+package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
@@ -7,4 +7,5 @@ package com.hoymm.root.morsecodeconverter._4_FooterPanel;
 interface FooterButtonsInterface {
     boolean isPermissionGranted();
     void start(int time);
+    boolean isButtonActive();
 }

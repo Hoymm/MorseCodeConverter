@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion;
+package com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion;
 
 import java.util.HashMap;
 
@@ -8,13 +8,14 @@ import java.util.HashMap;
 
 public class MorseCodeCipher {
 
-    private static final String CHAR_SEPARATOR = " ";
-    private static final MorseCodeCipher ourInstance = new MorseCodeCipher();
+    public static final String SHORT_GAP = " ";
+    public static final String MEDIUM_GAP = "   ";
+    private static final MorseCodeCipher instance = new MorseCodeCipher();
     private HashMap<Character, String> textToMorseCoding = new HashMap<>();
     private HashMap<String, String> morseToTextCoding = new HashMap<>();
 
     public static MorseCodeCipher getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     private MorseCodeCipher() {
@@ -23,7 +24,7 @@ public class MorseCodeCipher {
     }
 
     private void initTextToMorseCoding() {
-        textToMorseCoding.put(' ',"   ");
+        textToMorseCoding.put(' ', MEDIUM_GAP);
         textToMorseCoding.put('.',"·−·−·−");
         textToMorseCoding.put('A',"·−");
         textToMorseCoding.put('Ą',"·−");
@@ -92,7 +93,7 @@ public class MorseCodeCipher {
 
     private void initMorseToTextCoding() {
 
-        morseToTextCoding.put("   ", " ");
+        morseToTextCoding.put(MEDIUM_GAP, " ");
         morseToTextCoding.put("·−·−·−", ".");
         morseToTextCoding.put("·−", "A");
         morseToTextCoding.put("−···", "B");
@@ -159,9 +160,5 @@ public class MorseCodeCipher {
     public String convertToText(String morseCode){
         String text = morseToTextCoding.get(morseCode);
         return text == null ? "#" : text;
-    }
-
-    public static String getCharSeparator() {
-        return CHAR_SEPARATOR;
     }
 }

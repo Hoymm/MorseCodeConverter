@@ -1,13 +1,11 @@
-package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
 
 /**
@@ -124,11 +122,9 @@ public class SpaceButton extends ImageButton {
         currentText =
                 currentText.substring(0, selectionStart)
                         + MorseCodeCipher.getInstance().convertToMorse(' ')
-                        + MorseCodeCipher.getCharSeparator()
-                        + MorseCodeCipher.getCharSeparator()
                         + currentText.substring(selectionEnd);
         upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart + MorseCodeCipher.getInstance().convertToMorse(' ').length() + 2);
+        upperTextBox.setSelection(selectionStart + MorseCodeCipher.getInstance().convertToMorse(' ').length());
     }
 
     private void insertShortSpace() {
@@ -138,7 +134,7 @@ public class SpaceButton extends ImageButton {
 
         currentText =
                 currentText.substring(0, selectionStart)
-                        + MorseCodeCipher.getCharSeparator()
+                        + MorseCodeCipher.SHORT_GAP
                         + currentText.substring(selectionEnd);
         upperTextBox.setText(currentText);
         upperTextBox.setSelection(selectionStart + 1);

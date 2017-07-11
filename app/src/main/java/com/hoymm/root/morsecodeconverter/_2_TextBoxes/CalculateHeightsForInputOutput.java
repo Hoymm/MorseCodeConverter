@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
+package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.app.Activity;
 import android.content.Context;

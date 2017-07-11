@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._1_Header;
+package com.hoymm.root.morsecodeconverter._1_TopBar;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ResizingTextBoxesAnimation;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 
 /**
  * Created by root on 06.05.17.

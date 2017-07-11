@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody;
+package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
 /**
  * Created by root on 06.05.17.
