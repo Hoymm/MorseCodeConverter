@@ -1,8 +1,8 @@
 package com.hoymm.root.morsecodeconverter._3_MorseKeyboard;
 
 import android.app.Activity;
-import android.content.Context;
-import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -13,25 +13,85 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 public class BackspaceButton extends ImageButton {
-    private Activity activity;
-    private boolean isPressed = false;
+    private static ImageButton instance = null;
+    private static Activity activity;
+    private static boolean isPressed = false;
 
-    public BackspaceButton(Context context) {
-        super(context);
-        activity = (Activity)context;
+    public static ImageButton initAndGetInstance(Activity activity){
+        if (instance == null)
+            instance = new BackspaceButton(activity);
+        return instance;
     }
 
-    public BackspaceButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        activity = (Activity)context;
+    private BackspaceButton(Activity activity) {
+        super(activity);
+        BackspaceButton.activity = activity;
+        initObjects();
+        setNewBackspaceButtonBehavior();
     }
 
-    public BackspaceButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        activity = (Activity)context;
+    private void initObjects() {
+        instance = (ImageButton) getActivity().findViewById(R.id.backspace_button_id);
     }
 
-    private void removeCharFromEditText() {
+    static void setNewBackspaceButtonBehavior() {
+        instance.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        startRemoving();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopRemoving();
+                        break;
+
+                }
+                return false;
+            }
+        });
+    }
+
+    public static void startRemoving() {
+        isPressed = true;
+        startANewThreadToRemoveCharsFromUpperBox();
+    }
+
+    private static void startANewThreadToRemoveCharsFromUpperBox() {
+        new Thread(new Runnable() {
+            public void run()
+            {
+                deletionBeforeLongPress();
+                deletionWhenLongPress();
+            }}).start();
+    }
+
+    private static void deletionBeforeLongPress() {
+        removeCharFromEditText();
+        long sleepTime = 700;
+        while(isPressed && sleepTime > 0){
+            try {
+                Thread.sleep(30);
+                sleepTime -= 30;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void deletionWhenLongPress() {
+        long removingCharIntervalSpeedWhenLongPress = 30;
+        while (isPressed) {
+            removeCharFromEditText();
+            try {
+                Thread.sleep(removingCharIntervalSpeedWhenLongPress);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void removeCharFromEditText() {
         final EditText upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -50,50 +110,11 @@ public class BackspaceButton extends ImageButton {
         });
     }
 
-    public void startRemoving() {
-        isPressed = true;
-        startANewThreadToRemoveCharsFromUpperBox();
-    }
-
-    private void startANewThreadToRemoveCharsFromUpperBox() {
-        new Thread(new Runnable() {
-            public void run()
-            {
-                deletionBeforeLongPress();
-                deletionWhenLongPress();
-            }}).start();
-    }
-
-    private void deletionBeforeLongPress() {
-        removeCharFromEditText();
-        long sleepTime = 700;
-        while(isPressed && sleepTime > 0){
-            try {
-                Thread.sleep(30);
-                sleepTime -= 30;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void deletionWhenLongPress() {
-        long removingCharIntervalSpeedWhenLongPress = 30;
-        while (isPressed) {
-            removeCharFromEditText();
-            try {
-                Thread.sleep(removingCharIntervalSpeedWhenLongPress);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void stopRemoving() {
+    public static void stopRemoving() {
         isPressed = false;
     }
 
-    private Activity getActivity(){
+    private static Activity getActivity(){
         return activity;
     }
 }

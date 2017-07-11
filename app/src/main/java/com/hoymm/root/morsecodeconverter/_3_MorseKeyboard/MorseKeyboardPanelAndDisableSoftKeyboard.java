@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -27,8 +26,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
     private ImageButton lineButton, dotButton;
-    private SpaceButton spaceButton;
-    private BackspaceButton backspaceButton;
     private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
@@ -36,19 +33,23 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
         this.context = context;
         initObjects();
         initAnimation();
-        setButtonsBehavior();
+        changeButtonsBehavior();
     }
 
     private void initObjects() {
+        initializateButtons();
         initXMLObjects();
+    }
+
+    private void initializateButtons() {
+        SpaceButton.initAndGetInstance(getActivity());
+        BackspaceButton.initAndGetInstance(getActivity());
     }
 
     private void initXMLObjects() {
         morseKeyboardPanel = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
         lineButton = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         dotButton = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
-        spaceButton = (SpaceButton) getActivity().findViewById(R.id.space_button_id);
-        backspaceButton = (BackspaceButton) getActivity().findViewById(R.id.backspace_button_id);
         upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
@@ -158,11 +159,10 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
 
-    private void setButtonsBehavior() {
+    private void changeButtonsBehavior() {
         setWriteButtonBehavior(lineButton, '−');// this is not a minus
         setWriteButtonBehavior(dotButton, '·');// and this is not a dot
-        setSpaceButtonBehavior();
-        setBackspaceButtonBehavior();
+        BackspaceButton.setNewBackspaceButtonBehavior();
     }
 
     private void setWriteButtonBehavior(ImageButton imageButton, final char insertChar) {
@@ -181,29 +181,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
             }
         });
     }
-
-    private void setSpaceButtonBehavior() {
-
-    }
-
-    private void setBackspaceButtonBehavior() {
-        backspaceButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        backspaceButton.startRemoving();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        backspaceButton.stopRemoving();
-                        break;
-
-                }
-                return false;
-            }
-        });
-    }
-
 
     private Activity getActivity() {
         return (Activity)context;

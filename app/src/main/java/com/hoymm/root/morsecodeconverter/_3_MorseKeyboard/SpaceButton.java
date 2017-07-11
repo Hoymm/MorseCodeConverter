@@ -15,37 +15,35 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 public class SpaceButton extends ImageButton {
+    private static ImageButton instance = null;
     private EditText upperTextBox;
     private Activity activity;
 
-    public SpaceButton(Context context) {
-        super(context);
+    public static ImageButton initAndGetInstance(Activity activity){
+        if (instance == null)
+            instance = new SpaceButton(activity);
+        return instance;
     }
 
-    public SpaceButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initializateObjects((Activity) context);
+    private SpaceButton(Activity activity) {
+        super(activity);
+        this.activity = activity;
+        initObjects();
+        setBackspaceButtonBehavior();
     }
 
-    public SpaceButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initializateObjects((Activity) context);
+    private void initObjects() {
+        instance = (ImageButton) getActivity().findViewById(R.id.space_button_id);
+        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
-    private void initializateObjects(Activity context) {
-        activity = context;
-        initXMLObjects();
-        this.setOnClickListener(new OnClickListener() {
+    private void setBackspaceButtonBehavior() {
+        instance.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickAction();
             }
         });
-    }
-
-    private void initXMLObjects() {
-        if(upperTextBox == null)
-            upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
      private void onClickAction(){
@@ -54,8 +52,6 @@ public class SpaceButton extends ImageButton {
     }
 
     private void removeSelectedTextIfAnythingSelected() {
-        initXMLObjects();
-
         String originalText = upperTextBox.getText().toString();
         int selStart = upperTextBox.getSelectionStart();
         int selEnd = upperTextBox.getSelectionEnd();

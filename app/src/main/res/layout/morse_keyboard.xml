@@ -8,7 +8,7 @@
     android:id="@+id/morseKeyboardId"
     android:weightSum="1"
     >
-    <com.hoymm.root.morsecodeconverter._3_MorseKeyboard.SpaceButton
+    <ImageButton
         style="@style/morseKeyboardButtons"
         android:id="@+id/space_button_id"
         android:src="@drawable/spacebar"
@@ -23,9 +23,8 @@
         android:id="@+id/line_button_id"
         android:src="@drawable/line"
         />
-    <com.hoymm.root.morsecodeconverter._3_MorseKeyboard.BackspaceButton
+    <ImageButton
         style="@style/morseKeyboardButtons"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/backspace_button_id"
         android:src="@drawable/backspace"
         />
