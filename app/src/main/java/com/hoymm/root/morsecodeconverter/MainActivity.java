@@ -15,10 +15,10 @@ import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons.StopButton;
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.SetToClipboardButtonBehavior;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.FlashlightButton;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.ScreenButton;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.SoundButton;
-import com.hoymm.root.morsecodeconverter._4_FooterPanel.VibrationButton;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.FlashlightButtons;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.ScreenButtons;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.SoundButtons;
+import com.hoymm.root.morsecodeconverter._4_FooterPanel.VibrationButtons;
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.ConvertingTextBoxesPanel;
 import com.hoymm.root.morsecodeconverter._3_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter._1_Header.MorseToTextConversion.ConvertingMorseTextProgram;
@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializateFooterButtons() {
-        VibrationButton.initializateAndGetInstance(this);
-        SoundButton.initializateAndGetInstance(this);
-        FlashlightButton.initializateAndGetInstance(this);
-        ScreenButton.initializateAndGetInstance(this);
+        VibrationButtons.initializateAndGetInstance(this);
+        SoundButtons.initializateAndGetInstance(this);
+        FlashlightButtons.initializateAndGetInstance(this);
+        ScreenButtons.initializateAndGetInstance(this);
     }
 
     private void initializateSwapButtonAction() {

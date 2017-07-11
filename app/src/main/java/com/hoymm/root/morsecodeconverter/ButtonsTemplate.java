@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons;
+package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.widget.ImageButton;
@@ -7,11 +7,11 @@ import android.widget.ImageButton;
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public abstract class ControlButtonsBehavior {
+public abstract class ButtonsTemplate {
     private Activity activity;
     protected ImageButton button;
 
-    ControlButtonsBehavior(Activity activity, int buttonResourceId) {
+    public ButtonsTemplate(Activity activity, int buttonResourceId) {
         this.activity = activity;
         button = (ImageButton) getActivity().findViewById(buttonResourceId);
     }

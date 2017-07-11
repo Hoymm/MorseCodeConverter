@@ -2,8 +2,8 @@ package com.hoymm.root.morsecodeconverter._2_ApplicationBody.ControlPanelButtons
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.ImageButton;
 
+import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons;
 
@@ -11,7 +11,7 @@ import com.hoymm.root.morsecodeconverter._2_ApplicationBody.PlayPauseStopButtons
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class StopButton extends ControlButtonsBehavior {
+public class StopButton extends ButtonsTemplate {
     private static StopButton instance = null;
 
     public static StopButton initAndGetInstance(Activity activity){
