@@ -31,12 +31,12 @@ public class PauseButton extends ButtonsTemplate {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated()) {
                     onPauseActivatedAction();
+                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
+                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
                 }
                 else {
                     onPauseDeactivatedAction();
                 }
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
             }
         });
     }

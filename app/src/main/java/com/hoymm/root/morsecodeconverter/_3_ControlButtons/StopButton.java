@@ -29,12 +29,13 @@ public class StopButton extends ButtonsTemplate {
             @Override
             public void onClick(View v) {
                 v.setActivated(!v.isActivated());
-                if(v.isActivated())
+                if(v.isActivated()) {
                     button.setImageResource(R.drawable.stop_white);
+                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
+                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
+                }
                 else
                     button.setImageResource(R.drawable.stop_purple);
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
             }
         });
     }

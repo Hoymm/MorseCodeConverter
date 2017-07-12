@@ -40,7 +40,6 @@ public class PlayButton extends ButtonsTemplate {
             @Override
             public void run() {
                 broadcastMorse();
-                deactivatePlayButton();
             }
         });
     }
@@ -50,28 +49,32 @@ public class PlayButton extends ButtonsTemplate {
             @Override
             public void onClick(View v) {
                 if (atLeastOneFooterButtonActivated())
-                    ifThreadDeadThenStartItAndChangePlayButtonToActivatedAndDeactiveTwoOthers(v);
+                    changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(v);
                 else
                     showMessageToTheUserToActivateAtLeastBroadcastOneMode();
             }
         });
     }
 
-    private void ifThreadDeadThenStartItAndChangePlayButtonToActivatedAndDeactiveTwoOthers(View playButton) {
+    private void changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(View playButton) {
         if (isBroadcastThreadDead()) {
             playButton.setActivated(!playButton.isActivated());
-            if (playButton.isActivated())
+            if (playButton.isActivated()) {
+                deactivateStopButton();
                 changeButtonImageToActivatedAndRunBroadcastThread();
-            else
+                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
+                PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
+            }
+            else {
+                activateStopButton();
                 changeButtonImageToDeactivated();
+            }
 
-            PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
-            PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
         }
     }
 
     private boolean isBroadcastThreadDead() {
-        return broadcastMorseCode.getState() != Thread.State.NEW;
+        return !broadcastMorseCode.isAlive();
     }
 
     private void changeButtonImageToActivatedAndRunBroadcastThread() {
@@ -194,6 +197,16 @@ public class PlayButton extends ButtonsTemplate {
         button.setImageResource(R.drawable.play_purple);
     }
 
+    private void deactivateStopButton() {
+        if(StopButton.initAndGetInstance(getActivity()).isActive())
+            StopButton.initAndGetInstance(getActivity()).callOnClick();
+    }
+
+    private void activateStopButton() {
+        if(!StopButton.initAndGetInstance(getActivity()).isActive())
+            StopButton.initAndGetInstance(getActivity()).callOnClick();
+    }
+
     private void showMessageToTheUserToActivateAtLeastBroadcastOneMode() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -202,14 +215,4 @@ public class PlayButton extends ButtonsTemplate {
                         R.string.please_activate_at_least_one_broadcast_mode, Toast.LENGTH_SHORT).show();
             }
         });}
-
-    private void deactivatePlayButton() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (PlayButton.initAndGetInstance(getActivity()).isActive())
-                    PlayButton.initAndGetInstance(getActivity()).callOnClick();
-            }
-        });
-    }
 }

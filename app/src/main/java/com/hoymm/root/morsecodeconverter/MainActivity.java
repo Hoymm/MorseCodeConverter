@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
         PlayPauseStopButtons.initAndGetInstance(this);
         PlayButton.initAndGetInstance(this);
         PauseButton.initAndGetInstance(this);
-        StopButton.initAndGetInstance(this);
+        initAndActivateStopButton();
+    }
+
+    private void initAndActivateStopButton() {
+        StopButton.initAndGetInstance(this).callOnClick();
     }
 
     private void initializateFooterButtons() {

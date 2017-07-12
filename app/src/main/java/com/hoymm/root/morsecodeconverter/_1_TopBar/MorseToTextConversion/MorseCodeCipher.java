@@ -50,6 +50,7 @@ public class MorseCodeCipher {
         textToMorseCoding.put('Q',"−−·−");
         textToMorseCoding.put('R',"·−·");
         textToMorseCoding.put('S',"···");
+        textToMorseCoding.put('Ś',"···");
         textToMorseCoding.put('T',"−");
         textToMorseCoding.put('U',"··−");
         textToMorseCoding.put('V',"···−");
