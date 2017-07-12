@@ -13,6 +13,6 @@ public class FooterButtons {
                 SoundButton.initializateAndGetInstance(activity).isActive() ||
                 FlashlightButton.initializateAndGetInstance(activity).isActive() ||
                 ScreenButton.initializateAndGetInstance(activity).isActive();
-
     }
+
 }

@@ -1,18 +1,12 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
-import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
-import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
-import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
-import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
@@ -50,35 +44,23 @@ public class PlayButton extends ButtonsTemplate {
         if (broadcastMorseSignals.isThreadDead()) {
             playButton.setActivated(!playButton.isActivated());
             if (playButton.isActivated()) {
-                deactivateStopButton();
-                changeButtonImageToActivatedAndRunBroadcastThread();
+                changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton();
                 PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
                 PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
             }
             else {
-                activateStopButton();
                 changeButtonImageToDeactivated();
             }
 
         }
     }
 
-    private void changeButtonImageToActivatedAndRunBroadcastThread() {
+    private void changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton() {
         button.setImageResource(R.drawable.play_white);
-        broadcastMorseSignals.start();
+        broadcastMorseSignals.run();
     }
     private void changeButtonImageToDeactivated() {
         button.setImageResource(R.drawable.play_purple);
-    }
-
-    private void deactivateStopButton() {
-        if(StopButton.initAndGetInstance(getActivity()).isActive())
-            StopButton.initAndGetInstance(getActivity()).callOnClick();
-    }
-
-    private void activateStopButton() {
-        if(!StopButton.initAndGetInstance(getActivity()).isActive())
-            StopButton.initAndGetInstance(getActivity()).callOnClick();
     }
 
     private void showMessageToTheUserToActivateAtLeastBroadcastOneMode() {

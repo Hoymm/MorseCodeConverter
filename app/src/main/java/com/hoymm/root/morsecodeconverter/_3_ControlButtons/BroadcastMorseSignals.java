@@ -48,6 +48,7 @@ class BroadcastMorseSignals {
             pushToSleep(time + getOneUnitMultipliedTime());
             ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
         }
+        StopButton.initAndGetInstance(getActivity()).activateByOnClickIfNotYetActivated();
     }
 
     private int calculateCurrentPlayTime() {
@@ -144,7 +145,7 @@ class BroadcastMorseSignals {
         return !broadcastMorseThread.isAlive();
     }
 
-    void start() {
+    void run() {
         broadcastMorseThread.start();
     }
 }

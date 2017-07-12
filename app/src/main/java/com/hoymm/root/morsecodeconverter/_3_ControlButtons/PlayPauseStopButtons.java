@@ -22,32 +22,17 @@ public class PlayPauseStopButtons {
 
     void makePlayButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unactivePlayButton();
+            PlayButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
     }
 
     void makePauseButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unactivePauseButton();
+            PauseButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
     }
 
     void makeStopButtonNotClicked() {
         if(twoOrMoreButtonsActivated())
-            unactiveStopButton();
-    }
-
-    private void unactivePlayButton() {
-        if(PlayButton.initAndGetInstance(getActivity()).isActive())
-            PlayButton.initAndGetInstance(getActivity()).callOnClick();
-    }
-
-    private void unactivePauseButton() {
-        if(PauseButton.initAndGetInstance(getActivity()).isActive())
-            PauseButton.initAndGetInstance(getActivity()).callOnClick();
-    }
-
-    private void unactiveStopButton() {
-        if(StopButton.initAndGetInstance(getActivity()).isActive())
-            StopButton.initAndGetInstance(getActivity()).callOnClick();
+            StopButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
     }
 
     private static boolean twoOrMoreButtonsActivated() {

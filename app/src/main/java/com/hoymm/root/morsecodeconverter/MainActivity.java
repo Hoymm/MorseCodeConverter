@@ -49,21 +49,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializateControlPanelButtons() {
-        PlayPauseStopButtons.initAndGetInstance(this);
-        PlayButton.initAndGetInstance(this);
-        PauseButton.initAndGetInstance(this);
+        PlayPauseStopButtons.initAndGetInstance(getActivity());
+        PlayButton.initAndGetInstance(getActivity());
+        PauseButton.initAndGetInstance(getActivity());
         initAndActivateStopButton();
     }
 
     private void initAndActivateStopButton() {
-        StopButton.initAndGetInstance(this).callOnClick();
+        StopButton.initAndGetInstance(getActivity()).callOnClick();
     }
 
     private void initializateFooterButtons() {
-        VibrationButton.initializateAndGetInstance(this);
-        SoundButton.initializateAndGetInstance(this);
-        FlashlightButton.initializateAndGetInstance(this);
-        ScreenButton.initializateAndGetInstance(this);
+        VibrationButton.initializateAndGetInstance(getActivity());
+        SoundButton.initializateAndGetInstance(getActivity());
+        FlashlightButton.initializateAndGetInstance(getActivity());
+        ScreenButton.initializateAndGetInstance(getActivity());
     }
 
     private void initializateSwapButtonAction() {
