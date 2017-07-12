@@ -14,25 +14,22 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
  * File created by Damian Muca - Kaizen on 12.07.17.
  */
 
-class BroadcastMorseSignals {
-    private Thread broadcastMorseThread;
+class BroadcastMorseSignals implements Runnable {
+    private Thread thread;
     private Activity activity;
     private final int ONE_TIME_UNIT = 50;
 
     BroadcastMorseSignals(Activity activity) {
         this.activity = activity;
-        initObjects();
+        thread = new Thread(this);
     }
 
-    private void initObjects() {
-        broadcastMorseThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                broadcastMorse();
-            }
-        });
+    @Override
+    public void run() {
+        broadcastMorse();
+        StopButton.initAndGetInstance(getActivity()).activateByOnClickIfNotYetActivated();
+        joinThread();
     }
-
 
     private void broadcastMorse() {
         while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextToBroadcast()
@@ -48,7 +45,6 @@ class BroadcastMorseSignals {
             pushToSleep(time + getOneUnitMultipliedTime());
             ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
         }
-        StopButton.initAndGetInstance(getActivity()).activateByOnClickIfNotYetActivated();
     }
 
     private int calculateCurrentPlayTime() {
@@ -142,10 +138,18 @@ class BroadcastMorseSignals {
     }
 
     boolean isThreadDead() {
-        return !broadcastMorseThread.isAlive();
+        return !thread.isAlive();
     }
 
-    void run() {
-        broadcastMorseThread.start();
+    public void startTheThread(){
+        thread.start();
+    }
+
+    public void joinThread(){
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

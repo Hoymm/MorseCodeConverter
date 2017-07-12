@@ -13,7 +13,6 @@ import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
-import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayPauseStopButtons;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.SetToClipboardButtonBehavior;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private ConvertingTextBoxesPanel convertingTextBoxesPanel;
     private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
-    private PlayPauseStopButtons playPauseStopButtons;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializateControlPanelButtons() {
-        PlayPauseStopButtons.initAndGetInstance(getActivity());
         PlayButton.initAndGetInstance(getActivity());
         PauseButton.initAndGetInstance(getActivity());
         initAndActivateStopButton();

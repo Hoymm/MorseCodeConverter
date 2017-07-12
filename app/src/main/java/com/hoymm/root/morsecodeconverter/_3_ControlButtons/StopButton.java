@@ -32,8 +32,8 @@ public class StopButton extends ButtonsTemplate {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated()) {
                     button.setImageResource(R.drawable.stop_white);
-                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
-                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
+                    PlayButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+                    PauseButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
                 }
                 else
                     button.setImageResource(R.drawable.stop_purple);

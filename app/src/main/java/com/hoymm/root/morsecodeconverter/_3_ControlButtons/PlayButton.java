@@ -45,8 +45,8 @@ public class PlayButton extends ButtonsTemplate {
             playButton.setActivated(!playButton.isActivated());
             if (playButton.isActivated()) {
                 changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
+                PauseButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+                StopButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
             }
             else {
                 changeButtonImageToDeactivated();
@@ -57,7 +57,7 @@ public class PlayButton extends ButtonsTemplate {
 
     private void changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton() {
         button.setImageResource(R.drawable.play_white);
-        broadcastMorseSignals.run();
+        broadcastMorseSignals.startTheThread();
     }
     private void changeButtonImageToDeactivated() {
         button.setImageResource(R.drawable.play_purple);

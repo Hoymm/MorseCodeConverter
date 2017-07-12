@@ -31,8 +31,8 @@ public class PauseButton extends ButtonsTemplate {
                 v.setActivated(!v.isActivated());
                 if(v.isActivated()) {
                     onPauseActivatedAction();
-                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makePlayButtonNotClicked();
-                    PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
+                    PlayButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+                    StopButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
                 }
                 else {
                     onPauseDeactivatedAction();
