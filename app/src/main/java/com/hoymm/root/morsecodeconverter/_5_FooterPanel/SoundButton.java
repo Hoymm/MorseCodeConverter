@@ -34,7 +34,7 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     }
 
     @Override
-    public void start(int time) {
+    public void startIfActiveAndPermissionsGranted(int time) {
 
     }
 
@@ -45,7 +45,7 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
 
     @Override
     public boolean isPermissionGranted() {
-        return false;
+        return true;
     }
 
 }

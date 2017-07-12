@@ -3,10 +3,14 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 
 /**
@@ -15,7 +19,9 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 
 public class PlayButton extends ButtonsTemplate {
     private static PlayButton instance = null;
-    final int ONE_TIME_UNIT = 50;
+
+    private final int ONE_TIME_UNIT = 50;
+    private Thread broadcastMorseCode;
 
     public static PlayButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -25,50 +31,77 @@ public class PlayButton extends ButtonsTemplate {
 
     private PlayButton(Activity activity) {
         super(activity, R.id.playButtonId);
+        initObjects();
         setButtonBehavior();
+    }
+
+    private void initObjects() {
+        broadcastMorseCode = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                broadcastMorse();
+                deactivatePlayButton();
+            }
+        });
     }
 
     private void setButtonBehavior() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setActivated(!v.isActivated());
-                if (v.isActivated())
-                    playButtonActivated();
+                if (atLeastOneFooterButtonActivated())
+                    ifThreadDeadThenStartItAndChangePlayButtonToActivatedAndDeactiveTwoOthers(v);
                 else
-                    playButtonDeactivated();
-
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
-                PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
+                    showMessageToTheUserToActivateAtLeastBroadcastOneMode();
             }
         });
     }
 
-    private void playButtonActivated() {
+    private void ifThreadDeadThenStartItAndChangePlayButtonToActivatedAndDeactiveTwoOthers(View playButton) {
+        if (isBroadcastThreadDead()) {
+            playButton.setActivated(!playButton.isActivated());
+            if (playButton.isActivated())
+                changeButtonImageToActivatedAndRunBroadcastThread();
+            else
+                changeButtonImageToDeactivated();
+
+            PlayPauseStopButtons.initAndGetInstance(getActivity()).makePauseButtonNotClicked();
+            PlayPauseStopButtons.initAndGetInstance(getActivity()).makeStopButtonNotClicked();
+        }
+    }
+
+    private boolean isBroadcastThreadDead() {
+        return broadcastMorseCode.getState() != Thread.State.NEW;
+    }
+
+    private void changeButtonImageToActivatedAndRunBroadcastThread() {
         button.setImageResource(R.drawable.play_white);
+        broadcastMorseCode.start();
+    }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextToBroadcast()) {
-                    int time = calculateCurrentPlayTime();
+    private boolean atLeastOneFooterButtonActivated() {
+        return
+                VibrationButton.initializateAndGetInstance(getActivity()).isActive() ||
+                SoundButton.initializateAndGetInstance(getActivity()).isActive() ||
+                FlashlightButton.initializateAndGetInstance(getActivity()).isActive() ||
+                ScreenButton.initializateAndGetInstance(getActivity()).isActive();
 
-                    Log.i("Morse", String.valueOf(time));
-                    if (isAGap(time)){
-                        time = Math.abs(time);
-                    }
-                    else {
-                        playVibrationIfActive(time);
-                        playSoundIfActive(time);
-                        playFlashlightIfActive(time);
-                        playScreenIfActive(time);
-                    }
+    }
 
-                    ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
-                    pushToSleep(time+getOneUnitMultipliedTime());
-                }
-            }
-        }).start();
+    private void broadcastMorse() {
+        while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextToBroadcast()
+                && atLeastOneFooterButtonActivated()
+                ) {
+            int time = calculateCurrentPlayTime();
+
+            if (isAGap(time))
+                time = Math.abs(time);
+            else
+                if (!playSignalsSuccessfully(time))
+                    break;
+            pushToSleep(time + getOneUnitMultipliedTime());
+            ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
+        }
     }
 
     private boolean isAGap(int time) {
@@ -102,21 +135,51 @@ public class PlayButton extends ButtonsTemplate {
         return 0;
     }
 
-    private void playVibrationIfActive(int time) {
-        VibrationButton.initializateAndGetInstance(getActivity()).start(time);
+    private boolean playSignalsSuccessfully(int time) {
+        Log.i("Morse Signal", String.valueOf(time));
+        boolean allPermissionsGranted = true;
+
+        if (VibrationButton.initializateAndGetInstance(getActivity()).isActive())
+            playVibration(time);
+
+        if (SoundButton.initializateAndGetInstance(getActivity()).isActive())
+            if (SoundButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+                playSound(time);
+            else
+                allPermissionsGranted = false;
+
+        if (FlashlightButton.initializateAndGetInstance(getActivity()).isActive())
+            if (FlashlightButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+                playFlashlight(time);
+            else
+                allPermissionsGranted = false;
+
+
+        if (ScreenButton.initializateAndGetInstance(getActivity()).isActive())
+            if (ScreenButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+                playScreen(time);
+            else
+                allPermissionsGranted = false;
+
+        return allPermissionsGranted;
     }
 
-    private void playSoundIfActive(int time) {
+    private void playVibration(int time) {
+        VibrationButton.initializateAndGetInstance(getActivity()).startIfActiveAndPermissionsGranted(time);
     }
 
-    private void playFlashlightIfActive(int time) {
+    private void playSound(int time) {
     }
 
-    private void playScreenIfActive(int time) {
+    private void playFlashlight(int time) {
+    }
+
+    private void playScreen(int time) {
     }
 
     private void pushToSleep(int ms) {
         try {
+            Log.i("Morse Sleep", String.valueOf(ms));
             Thread.sleep(ms);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -127,7 +190,26 @@ public class PlayButton extends ButtonsTemplate {
         return ONE_TIME_UNIT;
     }
 
-    private void playButtonDeactivated() {
+    private void changeButtonImageToDeactivated() {
         button.setImageResource(R.drawable.play_purple);
+    }
+
+    private void showMessageToTheUserToActivateAtLeastBroadcastOneMode() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(),
+                        R.string.please_activate_at_least_one_broadcast_mode, Toast.LENGTH_SHORT).show();
+            }
+        });}
+
+    private void deactivatePlayButton() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (PlayButton.initAndGetInstance(getActivity()).isActive())
+                    PlayButton.initAndGetInstance(getActivity()).callOnClick();
+            }
+        });
     }
 }

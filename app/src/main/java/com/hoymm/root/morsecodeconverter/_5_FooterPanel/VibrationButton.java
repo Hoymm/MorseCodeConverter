@@ -47,8 +47,12 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
     }
 
     @Override
-    public void start(int time) {
-        vibrator.vibrate(time);
+    public void startIfActiveAndPermissionsGranted(int time) {
+        if (button.isActivated()) {
+            if (isPermissionGranted())
+                vibrator.vibrate(time);
+
+        }
     }
 
     @Override
@@ -58,6 +62,6 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
 
     @Override
     public boolean isPermissionGranted() {
-        return false;
+        return true;
     }
 }

@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());
         morseKeyboardPanelAndDisableSoftKeyboard =
                         new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
-        initializateControlPanelButtons();
-        initializateFooterButtons();
     }
 
     private void initializateControlPanelButtons() {
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.swapTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         morseToTextSwappingPanel.saveDataToSharedPreferences();
-
+        initButtons();
     }
 
     private void adjustCompomentsViaAnimation() {
@@ -100,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private void initButtons() {
+        initializateControlPanelButtons();
+        initializateFooterButtons();
     }
 
     private Activity getActivity() {

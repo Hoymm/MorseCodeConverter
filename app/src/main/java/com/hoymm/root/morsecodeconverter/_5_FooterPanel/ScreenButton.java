@@ -34,7 +34,7 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
     }
 
     @Override
-    public void start(int time) {
+    public void startIfActiveAndPermissionsGranted(int time) {
 
     }
 

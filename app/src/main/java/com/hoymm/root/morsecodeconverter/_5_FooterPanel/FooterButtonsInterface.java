@@ -6,6 +6,6 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 interface FooterButtonsInterface {
     boolean isPermissionGranted();
-    void start(int time);
+    void startIfActiveAndPermissionsGranted(int time);
     boolean isButtonActive();
 }

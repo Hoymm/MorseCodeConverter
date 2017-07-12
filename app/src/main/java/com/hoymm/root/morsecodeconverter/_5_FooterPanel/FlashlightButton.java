@@ -34,7 +34,7 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
     }
 
     @Override
-    public void start(int time) {
+    public void startIfActiveAndPermissionsGranted(int time) {
 
     }
 
@@ -45,6 +45,6 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
 
     @Override
     public boolean isPermissionGranted() {
-        return false;
+        return true;
     }
 }
