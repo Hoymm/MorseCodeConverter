@@ -3,13 +3,14 @@ package com.hoymm.root.morsecodeconverter;
 import android.app.Activity;
 import android.widget.ImageButton;
 
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsInterface;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public abstract class ButtonsTemplate {
+public abstract class ButtonsTemplate implements ControlButtonsInterface {
     private Activity activity;
     protected ImageButton button;
 
@@ -30,18 +31,25 @@ public abstract class ButtonsTemplate {
         button.callOnClick();
     }
 
-    public void activateByOnClickIfNotYetActivated() {
-        if(!isActive())
+    @Override
+    public void deactivateIfNotYetInactive() {
+        if (button.isActivated())
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    button.callOnClick();
+                    button.setActivated(false);
                 }
             });
     }
 
-    public void deactivateByOnClickIfNotYetDeactivated() {
-        if(isActive())
-            button.callOnClick();
+    @Override
+    public void activateIfNotYetActive() {
+        if (!button.isActivated())
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    button.setActivated(true);
+                }
+            });
     }
 }

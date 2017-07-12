@@ -29,14 +29,43 @@ public class StopButton extends ButtonsTemplate {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setActivated(!v.isActivated());
                 if(v.isActivated()) {
-                    button.setImageResource(R.drawable.stop_white);
-                    PlayButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
-                    PauseButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+                    activateIfNotYetActive();
+                    PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+                    PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
                 else
-                    button.setImageResource(R.drawable.stop_purple);
+                    deactivateIfNotYetInactive();
+            }
+        });
+    }
+
+    @Override
+    public void activateIfNotYetActive() {
+        super.activateIfNotYetActive();
+        setButtonImageToDeactivated();
+    }
+
+    private void setButtonImageToDeactivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.stop_white);
+            }
+        });
+    }
+
+    @Override
+    public void deactivateIfNotYetInactive() {
+        super.deactivateIfNotYetInactive();
+        setButtonImageActivated();
+    }
+
+    private void setButtonImageActivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.stop_purple);
             }
         });
     }

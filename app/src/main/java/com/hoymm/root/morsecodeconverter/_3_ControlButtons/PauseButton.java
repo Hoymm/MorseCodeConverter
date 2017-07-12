@@ -10,7 +10,7 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PauseButton extends ButtonsTemplate {
+public class PauseButton extends ButtonsTemplate{
     private static PauseButton instance = null;
 
     public static PauseButton initAndGetInstance(Activity activity){
@@ -28,24 +28,45 @@ public class PauseButton extends ButtonsTemplate {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setActivated(!v.isActivated());
                 if(v.isActivated()) {
-                    onPauseActivatedAction();
-                    PlayButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
-                    StopButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+                    deactivateIfNotYetInactive();
+                    PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+                    StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
                 else {
-                    onPauseDeactivatedAction();
+                    activateIfNotYetActive();
                 }
             }
         });
     }
 
-    private void onPauseDeactivatedAction() {
-        button.setImageResource(R.drawable.pause_purple);
+    @Override
+    public void deactivateIfNotYetInactive() {
+        super.deactivateIfNotYetInactive();
+        setButtonImageToDeactivated();
     }
 
-    private void onPauseActivatedAction() {
-        button.setImageResource(R.drawable.pause_white);
+    private void setButtonImageToDeactivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.pause_purple);
+            }
+        });
+    }
+
+    @Override
+    public void activateIfNotYetActive() {
+        super.activateIfNotYetActive();
+        setButtonImageActivated();
+    }
+
+    private void setButtonImageActivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.pause_white);
+            }
+        });
     }
 }

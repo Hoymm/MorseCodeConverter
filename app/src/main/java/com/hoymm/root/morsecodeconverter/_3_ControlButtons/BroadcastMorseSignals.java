@@ -27,7 +27,8 @@ class BroadcastMorseSignals implements Runnable {
     @Override
     public void run() {
         broadcastMorse();
-        StopButton.initAndGetInstance(getActivity()).activateByOnClickIfNotYetActivated();
+        StopButton.initAndGetInstance(getActivity()).activateIfNotYetActive();
+        PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
         joinThread();
     }
 

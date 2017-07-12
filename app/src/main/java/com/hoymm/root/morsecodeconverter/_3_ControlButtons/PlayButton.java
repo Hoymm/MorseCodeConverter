@@ -12,7 +12,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PlayButton extends ButtonsTemplate {
+public class PlayButton extends ButtonsTemplate{
     private static PlayButton instance = null;
     private BroadcastMorseSignals broadcastMorseSignals;
 
@@ -40,27 +40,53 @@ public class PlayButton extends ButtonsTemplate {
         });
     }
 
-    private void changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(View playButton) {
+    private void changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(View button) {
         if (broadcastMorseSignals.isThreadDead()) {
-            playButton.setActivated(!playButton.isActivated());
-            if (playButton.isActivated()) {
-                changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton();
-                PauseButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
-                StopButton.initAndGetInstance(getActivity()).deactivateByOnClickIfNotYetDeactivated();
+            if (button.isActivated()) {
+                deactivateIfNotYetInactive();
             }
             else {
-                changeButtonImageToDeactivated();
+                activateIfNotYetActive();
+                runBroadcastThreadOnStopCallOnClickStopButton();
+                PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+                StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
             }
 
         }
     }
 
-    private void changeButtonImageToActivatedAndRunBroadcastThreadOnStopCallOnClickStopButton() {
-        button.setImageResource(R.drawable.play_white);
-        broadcastMorseSignals.startTheThread();
+    @Override
+    public void deactivateIfNotYetInactive() {
+        super.deactivateIfNotYetInactive();
+        setButtonImageToDeactivated();
     }
-    private void changeButtonImageToDeactivated() {
-        button.setImageResource(R.drawable.play_purple);
+
+    private void setButtonImageToDeactivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.play_purple);
+            }
+        });
+    }
+
+    @Override
+    public void activateIfNotYetActive() {
+        super.activateIfNotYetActive();
+        setButtonImageActivated();
+    }
+
+    private void setButtonImageActivated() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                button.setImageResource(R.drawable.play_white);
+            }
+        });
+    }
+
+    private void runBroadcastThreadOnStopCallOnClickStopButton() {
+        broadcastMorseSignals.startTheThread();
     }
 
     private void showMessageToTheUserToActivateAtLeastBroadcastOneMode() {
