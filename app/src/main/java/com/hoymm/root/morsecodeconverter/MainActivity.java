@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeProgramComponents() {
-        topBarSpeedSpinner = new TopBarSpeedSpinner(getActivity());
+        TopBarSpeedSpinner.initAndGetInstance(getActivity());
         morseToTextSwappingPanel = new MorseToTextSwappingPanelConversion(getActivity());
         convertingTextBoxesPanel = new ConvertingTextBoxesPanel(getActivity());
         convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());

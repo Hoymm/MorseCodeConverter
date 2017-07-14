@@ -34,7 +34,7 @@ public class PauseButton extends ButtonsTemplate{
                     StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
                 else {
-                    activateIfNotYetActive();
+                    makeButtonActiveIfNotYet();
                 }
             }
         });
@@ -56,8 +56,8 @@ public class PauseButton extends ButtonsTemplate{
     }
 
     @Override
-    public void activateIfNotYetActive() {
-        super.activateIfNotYetActive();
+    public void makeButtonActiveIfNotYet() {
+        super.makeButtonActiveIfNotYet();
         setButtonImageActivated();
     }
 

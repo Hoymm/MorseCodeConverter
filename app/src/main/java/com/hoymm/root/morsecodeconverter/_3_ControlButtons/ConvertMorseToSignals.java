@@ -28,7 +28,6 @@ public class ConvertMorseToSignals {
     private ConvertMorseToSignals(Activity activity) {
         this.activity = activity;
         initXmlObjects();
-        refreshTextToBroadcast();
     }
 
     private void initXmlObjects() {
@@ -36,7 +35,7 @@ public class ConvertMorseToSignals {
         bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
-    private void refreshTextToBroadcast() {
+    public void refreshTextToBroadcast() {
         if (MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
             textToBroadcast = bottomBox.getText().toString();
         else

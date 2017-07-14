@@ -2,7 +2,6 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
@@ -30,7 +29,7 @@ public class StopButton extends ButtonsTemplate {
             @Override
             public void onClick(View v) {
                 if(v.isActivated()) {
-                    activateIfNotYetActive();
+                    makeButtonActiveIfNotYet();
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                     PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
@@ -41,8 +40,8 @@ public class StopButton extends ButtonsTemplate {
     }
 
     @Override
-    public void activateIfNotYetActive() {
-        super.activateIfNotYetActive();
+    public void makeButtonActiveIfNotYet() {
+        super.makeButtonActiveIfNotYet();
         setButtonImageToDeactivated();
     }
 

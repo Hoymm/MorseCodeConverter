@@ -14,7 +14,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 
 public class PlayButton extends ButtonsTemplate{
     private static PlayButton instance = null;
-    private BroadcastMorseSignals broadcastMorseSignals;
+    private BroadcastMorseSignalsThread broadcastMorseSignalsThread;
 
     public static PlayButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -24,7 +24,7 @@ public class PlayButton extends ButtonsTemplate{
 
     private PlayButton(Activity activity) {
         super(activity, R.id.playButtonId);
-        broadcastMorseSignals = new BroadcastMorseSignals(getActivity());
+        broadcastMorseSignalsThread = new BroadcastMorseSignalsThread(getActivity());
         setButtonBehavior();
     }
 
@@ -33,25 +33,24 @@ public class PlayButton extends ButtonsTemplate{
             @Override
             public void onClick(View v) {
                 if (FooterButtons.atLeastOneFooterButtonActive(getActivity()))
-                    changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(v);
+                    changeActiveStatesThenRunBroadcastThread(v);
                 else
                     showMessageToTheUserToActivateAtLeastBroadcastOneMode();
             }
         });
     }
 
-    private void changeActiveStatePlayAndStopButtonsAndIconThenRunBroadcastThread(View button) {
-        if (broadcastMorseSignals.isThreadDead()) {
+    private void changeActiveStatesThenRunBroadcastThread(View button) {
+        if (broadcastMorseSignalsThread.isThreadDead()) {
             if (button.isActivated()) {
                 deactivateIfNotYetInactive();
             }
             else {
-                activateIfNotYetActive();
-                runBroadcastThreadOnStopCallOnClickStopButton();
+                makeButtonActiveIfNotYet();
+                runBroadcastThread();
                 PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
             }
-
         }
     }
 
@@ -71,8 +70,8 @@ public class PlayButton extends ButtonsTemplate{
     }
 
     @Override
-    public void activateIfNotYetActive() {
-        super.activateIfNotYetActive();
+    public void makeButtonActiveIfNotYet() {
+        super.makeButtonActiveIfNotYet();
         setButtonImageActivated();
     }
 
@@ -85,8 +84,9 @@ public class PlayButton extends ButtonsTemplate{
         });
     }
 
-    private void runBroadcastThreadOnStopCallOnClickStopButton() {
-        broadcastMorseSignals.startTheThread();
+    private void runBroadcastThread() {
+        broadcastMorseSignalsThread = new BroadcastMorseSignalsThread(getActivity());
+        broadcastMorseSignalsThread.startTheThread();
     }
 
     private void showMessageToTheUserToActivateAtLeastBroadcastOneMode() {

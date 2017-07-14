@@ -43,7 +43,7 @@ public abstract class ButtonsTemplate implements ControlButtonsInterface {
     }
 
     @Override
-    public void activateIfNotYetActive() {
+    public void makeButtonActiveIfNotYet() {
         if (!button.isActivated())
             getActivity().runOnUiThread(new Runnable() {
                 @Override

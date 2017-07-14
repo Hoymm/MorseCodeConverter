@@ -6,5 +6,5 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 public interface ControlButtonsInterface {
     void deactivateIfNotYetInactive();
-    void activateIfNotYetActive();
+    void makeButtonActiveIfNotYet();
 }

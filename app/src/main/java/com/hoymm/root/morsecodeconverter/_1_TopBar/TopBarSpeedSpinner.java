@@ -15,13 +15,20 @@ import com.hoymm.root.morsecodeconverter.R;
  * Created by root on 05.05.17.
  */
 
-public class TopBarSpeedSpinner {
-
-    private Context myContext;
+public class TopBarSpeedSpinner extends Spinner {
+    private static TopBarSpeedSpinner instance = null;
     private Spinner speedSpinner;
+    private Activity activity;
 
-    public TopBarSpeedSpinner(Context context) {
-        myContext = context;
+    public static TopBarSpeedSpinner initAndGetInstance(Activity activity){
+        if (instance == null)
+            instance = new TopBarSpeedSpinner(activity);
+        return instance;
+    }
+
+    private TopBarSpeedSpinner(Activity activity) {
+        super(activity);
+        this.activity = activity;
         initAndSetAdapterAndSetSelectedItemOfSpinner();
     }
 
@@ -36,13 +43,9 @@ public class TopBarSpeedSpinner {
         speedSpinner = (Spinner) ((Activity)this.getContext()).findViewById(R.id.speed_spinner_id);
     }
 
-    private Context getContext(){
-        return myContext;
-    }
-
     private void setCustomAdapter() {
         String [] spinnerValuesArray = getSpinnerValues();
-        ArrayAdapter<String> spinnerAdapter = 
+        ArrayAdapter<String> spinnerAdapter =
                 new ArrayAdapter<>(this.getContext(), R.layout.speed_spinner_custom_view, spinnerValuesArray);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         speedSpinner.setAdapter(spinnerAdapter);
@@ -92,8 +95,12 @@ public class TopBarSpeedSpinner {
         return Float.parseFloat(stringValue) == floatValue;
     }
 
-    private float getLastSpeedFromSharedPreferences() {
-        SharedPreferences sharedPref = ((Activity)myContext).getPreferences(Context.MODE_PRIVATE);
+    public float getLastSpeedFromSharedPreferences() {
+        SharedPreferences sharedPref = (getActivity()).getPreferences(Context.MODE_PRIVATE);
         return sharedPref.getFloat(getConversionSpeedKey(), 1.0f);
+    }
+
+    private Activity getActivity(){
+        return activity;
     }
 }

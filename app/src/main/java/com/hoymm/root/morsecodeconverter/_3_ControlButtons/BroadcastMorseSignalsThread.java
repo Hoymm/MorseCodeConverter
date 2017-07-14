@@ -2,8 +2,12 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
@@ -14,22 +18,35 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
  * File created by Damian Muca - Kaizen on 12.07.17.
  */
 
-class BroadcastMorseSignals implements Runnable {
+class BroadcastMorseSignalsThread implements Runnable {
     private Thread thread;
     private Activity activity;
-    private final int ONE_TIME_UNIT = 50;
+    private boolean threadIsDead = true;
+    private final int ONE_TIME_UNIT = 100;
+    private Spinner speedSpinner;
 
-    BroadcastMorseSignals(Activity activity) {
+    BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
+        initXMLObjects();
         thread = new Thread(this);
+    }
+
+    private void initXMLObjects() {
+        speedSpinner = (Spinner) getActivity().findViewById(R.id.speed_spinner_id);
     }
 
     @Override
     public void run() {
+        threadIsDead = false;
+        refreshBroadcastText();
         broadcastMorse();
-        StopButton.initAndGetInstance(getActivity()).activateIfNotYetActive();
+        StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
         PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
-        joinThread();
+        threadIsDead = true;
+    }
+
+    private void refreshBroadcastText() {
+        ConvertMorseToSignals.initAndGetInstance(getActivity()).refreshTextToBroadcast();
     }
 
     private void broadcastMorse() {
@@ -57,19 +74,22 @@ class BroadcastMorseSignals implements Runnable {
         short gap (between letters): three time units long
         medium gap (between words): seven time units long
          */
-        String charToBroadcast = ConvertMorseToSignals.initAndGetInstance(getActivity()).getNextMorseSignToBroadcast();
+        String charToBroadcast =
+                ConvertMorseToSignals.initAndGetInstance(getActivity()).getNextMorseSignToBroadcast();
+        float spinerSpeedMultiplier =
+                TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
         switch (charToBroadcast){
             case "·":
-                return getOneUnitMultipliedTime();
+                return (int) (getOneUnitMultipliedTime()*spinerSpeedMultiplier);
 
             case "−":
-                return 3*getOneUnitMultipliedTime();
+                return (int) (3*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
 
             case MorseCodeCipher.SHORT_GAP:
-                return -3*getOneUnitMultipliedTime();
+                return (int) (-3*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
 
             case MorseCodeCipher.MEDIUM_GAP:
-                return -7*getOneUnitMultipliedTime();
+                return (int) (-7*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
         }
 
         return 0;
@@ -139,18 +159,10 @@ class BroadcastMorseSignals implements Runnable {
     }
 
     boolean isThreadDead() {
-        return !thread.isAlive();
+        return threadIsDead;
     }
 
-    public void startTheThread(){
-        thread.start();
-    }
-
-    public void joinThread(){
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    void startTheThread(){
+            thread.start();
     }
 }
