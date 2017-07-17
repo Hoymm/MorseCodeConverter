@@ -1,9 +1,8 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton;
 
 import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -17,7 +16,7 @@ public class BackspaceButton extends ImageButton {
     private static Activity activity;
     private static boolean isPressed = false;
 
-    static ImageButton initAndGetInstance(Activity activity){
+    public static ImageButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new BackspaceButton(activity);
         return instance;
@@ -34,7 +33,7 @@ public class BackspaceButton extends ImageButton {
         instance = (ImageButton) getActivity().findViewById(R.id.backspace_button_id);
     }
 
-    static void setNewBackspaceButtonBehavior() {
+    public static void setNewBackspaceButtonBehavior() {
         instance.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -67,7 +66,7 @@ public class BackspaceButton extends ImageButton {
     }
 
     private static void deletionBeforeLongPress() {
-        removeCharFromEditText();
+        removeSelectedChar();
         long sleepTime = 700;
         while(isPressed && sleepTime > 0){
             try {
@@ -82,7 +81,7 @@ public class BackspaceButton extends ImageButton {
     private static void deletionWhenLongPress() {
         long removingCharIntervalSpeedWhenLongPress = 30;
         while (isPressed) {
-            removeCharFromEditText();
+            removeSelectedChar();
             try {
                 Thread.sleep(removingCharIntervalSpeedWhenLongPress);
             } catch (InterruptedException e) {
@@ -91,21 +90,12 @@ public class BackspaceButton extends ImageButton {
         }
     }
 
-    private static void removeCharFromEditText() {
-        final EditText upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
+    private static void removeSelectedChar() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                String currentText = upperTextBox.getText().toString();
-                int selectionStart = upperTextBox.getSelectionStart();
-                int selectionEnd = upperTextBox.getSelectionEnd();
-                if (selectionStart != 0) {
-                    String textAfterDeletion =
-                            currentText.substring(0, selectionStart - 1)
-                                    + currentText.substring(selectionEnd);
-                    upperTextBox.setText(textAfterDeletion);
-                    upperTextBox.setSelection(selectionStart - 1);
-                }
+                TextSelectionRemove textSelectionRemove = new TextSelectionRemove(getActivity());
+                textSelectionRemove.removeTextAccordingToSelectionAndSetNewTextAndSetSelection();
             }
         });
     }
