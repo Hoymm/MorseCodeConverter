@@ -21,9 +21,9 @@ public class SetToClipboardButtonBehavior {
     private TextView bottomTextBox;
     private Activity activity;
 
-    public SetToClipboardButtonBehavior(Context context) {
+    public SetToClipboardButtonBehavior(Activity activity) {
+        this.activity = activity;
         ImageButton copyToClipboardButton = (ImageButton) getActivity().findViewById(R.id.clipboard_button_id);
-        activity = (Activity)context;
         copyToClipboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

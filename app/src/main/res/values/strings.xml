@@ -11,7 +11,7 @@
     <string name="please_activate_at_least_one_broadcast_mode">Please activate at least one broadcast mode.</string>
 
     <string-array name="speedsIntervals">
-        <item>0.1</item>
+        <item>0.2</item>
         <item>0.3</item>
         <item>0.5</item>
         <item>0.7</item>
@@ -19,8 +19,7 @@
         <item>1.5</item>
         <item>2.0</item>
         <item>3.0</item>
+        <item>4.0</item>
         <item>5.0</item>
-        <item>10.0</item>
-        <item>15.0</item>
     </string-array>
 </resources>

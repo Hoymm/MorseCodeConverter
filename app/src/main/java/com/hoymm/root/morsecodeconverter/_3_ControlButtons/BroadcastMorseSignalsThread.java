@@ -103,7 +103,6 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private boolean startPlaySignalsSuccessfull(int time) {
-        Log.i("Morse Signal", String.valueOf(time));
         boolean allPermissionsGranted = true;
 
         if (VibrationButton.initializateAndGetInstance(getActivity()).isActive())
@@ -146,7 +145,6 @@ class BroadcastMorseSignalsThread implements Runnable {
 
     private void pushToSleep(int ms) {
         try {
-            Log.i("Morse Sleep", String.valueOf(ms));
             Thread.sleep(ms);
         } catch (InterruptedException e) {
             e.printStackTrace();

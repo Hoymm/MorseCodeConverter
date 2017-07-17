@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtons() {
+        copyToClipboard = new SetToClipboardButtonBehavior(getActivity());
         initializateControlPanelButtons();
         initializateFooterButtons();
     }
