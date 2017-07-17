@@ -23,4 +23,8 @@ public class DotButton extends WriteButton {
         instance = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
         setWriteButtonBehavior(instance, '·');// and this is not a dot
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

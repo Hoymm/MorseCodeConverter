@@ -97,4 +97,8 @@ public class PlayButton extends ButtonsTemplate{
                         R.string.please_activate_at_least_one_broadcast_mode, Toast.LENGTH_SHORT).show();
             }
         });}
+
+    public static void setNull() {
+        instance = null;
+    }
 }

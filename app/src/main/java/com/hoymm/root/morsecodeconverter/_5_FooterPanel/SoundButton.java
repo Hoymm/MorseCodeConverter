@@ -48,4 +48,7 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
         return true;
     }
 
+    public static void setNull() {
+        instance = null;
+    }
 }

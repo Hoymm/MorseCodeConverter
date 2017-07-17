@@ -47,4 +47,8 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
     public boolean isPermissionGranted() {
         return true;
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

@@ -103,4 +103,8 @@ public class TopBarSpeedSpinner extends Spinner {
     private Activity getActivity(){
         return activity;
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

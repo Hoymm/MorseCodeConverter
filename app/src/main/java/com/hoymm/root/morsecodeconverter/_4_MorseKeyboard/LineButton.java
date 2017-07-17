@@ -23,4 +23,8 @@ public class LineButton extends WriteButton {
         instance = (ImageButton) getActivity().findViewById(R.id.line_button_id);
         setWriteButtonBehavior(instance, '−');// this is not a minus
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

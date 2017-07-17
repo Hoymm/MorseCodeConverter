@@ -68,4 +68,8 @@ public class StopButton extends ButtonsTemplate {
             }
         });
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

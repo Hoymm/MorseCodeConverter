@@ -66,7 +66,7 @@ public class BackspaceButton extends ImageButton {
     }
 
     private static void deletionBeforeLongPress() {
-        removeSelectedChar();
+        removeText();
         long sleepTime = 700;
         while(isPressed && sleepTime > 0){
             try {
@@ -81,7 +81,7 @@ public class BackspaceButton extends ImageButton {
     private static void deletionWhenLongPress() {
         long removingCharIntervalSpeedWhenLongPress = 30;
         while (isPressed) {
-            removeSelectedChar();
+            removeText();
             try {
                 Thread.sleep(removingCharIntervalSpeedWhenLongPress);
             } catch (InterruptedException e) {
@@ -90,7 +90,7 @@ public class BackspaceButton extends ImageButton {
         }
     }
 
-    private static void removeSelectedChar() {
+    private static void removeText() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -106,5 +106,9 @@ public class BackspaceButton extends ImageButton {
 
     private static Activity getActivity(){
         return activity;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 }

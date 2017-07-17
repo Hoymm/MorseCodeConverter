@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -63,5 +64,9 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
     @Override
     public boolean isPermissionGranted() {
         return true;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 }

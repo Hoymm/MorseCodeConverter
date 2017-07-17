@@ -69,4 +69,8 @@ public class PauseButton extends ButtonsTemplate{
             }
         });
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

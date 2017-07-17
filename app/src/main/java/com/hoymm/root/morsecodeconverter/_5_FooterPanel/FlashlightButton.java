@@ -47,4 +47,8 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
     public boolean isPermissionGranted() {
         return true;
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }

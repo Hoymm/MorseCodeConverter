@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -14,6 +15,9 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.SetToClipboardButtonBehavior;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.DotButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.SpaceButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
@@ -126,5 +130,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        setObjectsNull();
+    }
+
+    private void setObjectsNull() {
+        TopBarSpeedSpinner.setNull();
+
+        PlayButton.setNull();
+        PauseButton.setNull();
+        StopButton.setNull();
+
+        SpaceButton.setNull();
+        DotButton.setNull();
+        SpaceButton.setNull();
+        BackspaceButton.setNull();
+
+        VibrationButton.setNull();
+        SoundButton.setNull();
+        FlashlightButton.setNull();
+        ScreenButton.setNull();
     }
 }

@@ -143,4 +143,8 @@ public class SpaceButton extends ImageButton {
     private Activity getActivity(){
         return activity;
     }
+
+    public static void setNull() {
+        instance = null;
+    }
 }
