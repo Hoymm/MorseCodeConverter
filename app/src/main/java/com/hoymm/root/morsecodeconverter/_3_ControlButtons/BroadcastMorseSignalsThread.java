@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
@@ -58,7 +57,7 @@ class BroadcastMorseSignalsThread implements Runnable {
             if (isAGap(time))
                 time = Math.abs(time);
             else
-            if (!playSignalsSuccessfully(time))
+            if (!startPlaySignalsSuccessfull(time))
                 break;
             pushToSleep(time + getOneUnitMultipliedTime());
             ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
@@ -80,16 +79,16 @@ class BroadcastMorseSignalsThread implements Runnable {
                 TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
         switch (charToBroadcast){
             case "·":
-                return (int) (getOneUnitMultipliedTime()*spinerSpeedMultiplier);
+                return (int) (getOneUnitMultipliedTime()/spinerSpeedMultiplier);
 
             case "−":
-                return (int) (3*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
+                return (int) (3*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
 
             case MorseCodeCipher.SHORT_GAP:
-                return (int) (-3*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
+                return (int) (-3*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
 
             case MorseCodeCipher.MEDIUM_GAP:
-                return (int) (-7*getOneUnitMultipliedTime()*spinerSpeedMultiplier);
+                return (int) (-7*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
         }
 
         return 0;
@@ -103,7 +102,7 @@ class BroadcastMorseSignalsThread implements Runnable {
         return time < 0;
     }
 
-    private boolean playSignalsSuccessfully(int time) {
+    private boolean startPlaySignalsSuccessfull(int time) {
         Log.i("Morse Signal", String.valueOf(time));
         boolean allPermissionsGranted = true;
 
