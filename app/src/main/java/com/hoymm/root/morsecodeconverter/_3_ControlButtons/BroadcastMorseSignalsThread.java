@@ -21,12 +21,14 @@ class BroadcastMorseSignalsThread implements Runnable {
     private Activity activity;
     private boolean threadIsDead = true;
     private final int ONE_TIME_UNIT = 100;
+    private ChangingTextColors changeTextColors;
     private Spinner speedSpinner;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
         initXMLObjects();
         thread = new Thread(this);
+        changeTextColors = new ChangingTextColors(getActivity());
     }
 
     private void initXMLObjects() {
@@ -37,7 +39,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     public void run() {
         threadIsDead = false;
         setBroadcastingToStartToTheBeggining();
-        broadcastMorse();
+        broadcastMorseAndChangeCharColors();
         StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
         PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
         threadIsDead = true;
@@ -47,7 +49,7 @@ class BroadcastMorseSignalsThread implements Runnable {
         ConvertMorseToSignals.initAndGetInstance(getActivity()).setBroadcastTextIndexToStart();
     }
 
-    private void broadcastMorse() {
+    private void broadcastMorseAndChangeCharColors() {
         while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())
                 ) {
@@ -58,9 +60,8 @@ class BroadcastMorseSignalsThread implements Runnable {
             else
                 if (!startPlaySignalsSuccessfull(time))
                     break;
-                else
-                    changeColorOfCurrentlyBroadcastChar();
             pushToSleep(time + getOneUnitMultipliedTime());
+            changeTextColors.colorCurrentlyTranslatingText();
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForward();
         }
     }
@@ -129,10 +130,6 @@ class BroadcastMorseSignalsThread implements Runnable {
                 allPermissionsGranted = false;
 
         return allPermissionsGranted;
-    }
-
-    private void changeColorOfCurrentlyBroadcastChar() {
-
     }
 
     private void playVibration(int time) {

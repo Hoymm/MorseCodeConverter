@@ -34,17 +34,30 @@ class ConvertMorseToSignals {
         charIndexToBroadcast = 0;
     }
 
+    public int getCurrentBroadcastingCharIndex(){
+        return charIndexToBroadcast;
+    }
+
     boolean isThereStillTextLeftToBroadcast() {
         return charIndexToBroadcast < getMorseWholeText().length();
     }
 
-    private String getMorseWholeText(){
+    String getMorseWholeText(){
         String morseText;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             morseText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         else
             morseText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         return morseText;
+    }
+
+    String getTextWholeText(){
+        String text;
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+            text = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        else
+            text = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        return text;
     }
 
     void moveBroadcastingPositionForward() {
@@ -56,7 +69,6 @@ class ConvertMorseToSignals {
     }
 
     String getMorseSignToBeBroadcasted() {
-
         int howManyCharacters = getHowManyGapsNextMorseCharacterHas();
 
         if (howManyCharacters > 1)
