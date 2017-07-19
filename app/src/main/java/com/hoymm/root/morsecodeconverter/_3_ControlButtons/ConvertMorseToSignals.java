@@ -1,6 +1,8 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -11,7 +13,7 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 class ConvertMorseToSignals {
     private static ConvertMorseToSignals instance = null;
-    private String textToBroadcast = "";
+    private int charIndexToBroadcast = -1;
     private Activity activity;
 
     public static ConvertMorseToSignals initAndGetInstance(Activity activity){
@@ -24,57 +26,51 @@ class ConvertMorseToSignals {
         this.activity = activity;
     }
 
-    void refreshTextToBroadcast() {
-        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
-            textToBroadcast =
-                    TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
-        else
-            textToBroadcast =
-                    TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
-    }
-
-    boolean isThereStillTextToBroadcast(){
-        return textToBroadcast.length() > 0;
-    }
-
-    String getNextMorseSignToBroadcast(){
-        int firstCharEndIndex = 0;
-        while (textToBroadcast.length() > firstCharEndIndex
-                && textToBroadcast.substring(firstCharEndIndex, 1).equals(MorseCodeCipher.SHORT_GAP))
-            firstCharEndIndex++;
-
-        if (firstCharEndIndex > 1)
-            return MorseCodeCipher.MEDIUM_GAP;
-        else
-            return textToBroadcast.substring(0,1);
-    }
-
-    void removeNextCharFromBroadcast(){
-        try{
-            if (!isNextCharInBroadcastSpace())
-                removeNextCharFromText();
-            else
-                removeAllNextGapsFromText();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private boolean isNextCharInBroadcastSpace() {
-        return textToBroadcast.substring(0,1).equals(MorseCodeCipher.SHORT_GAP);
-    }
-
-    private void removeNextCharFromText(){
-        textToBroadcast = textToBroadcast.substring(1);
-    }
-
-    private void removeAllNextGapsFromText() {
-        while (textToBroadcast.length() > 0 &&
-                textToBroadcast.substring(0, 1).equals(MorseCodeCipher.SHORT_GAP))
-            textToBroadcast = textToBroadcast.substring(1);
-    }
-
     private Activity getActivity(){
         return activity;
+    }
+
+    void setBroadcastTextIndexToStart() {
+        charIndexToBroadcast = 0;
+    }
+
+    boolean isThereStillTextLeftToBroadcast() {
+        return charIndexToBroadcast < getMorseWholeText().length();
+    }
+
+    private String getMorseWholeText(){
+        String morseText;
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+            morseText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        else
+            morseText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        return morseText;
+    }
+
+    void moveBroadcastingPositionForward() {
+        charIndexToBroadcast += ifNoGapsThenReturnOneMeansThereIsAnOrdinaryChar(getHowManyGapsNextMorseCharacterHas());
+    }
+
+    private int ifNoGapsThenReturnOneMeansThereIsAnOrdinaryChar(int howManyGaps) {
+        return howManyGaps > 0 ? howManyGaps : 1;
+    }
+
+    String getMorseSignToBeBroadcasted() {
+
+        int howManyCharacters = getHowManyGapsNextMorseCharacterHas();
+
+        if (howManyCharacters > 1)
+            return MorseCodeCipher.MEDIUM_GAP;
+        else
+            return getMorseWholeText().substring(charIndexToBroadcast, charIndexToBroadcast+1);
+    }
+
+    private int getHowManyGapsNextMorseCharacterHas() {
+        int howManyGapCharacters = 0;
+        int leftTextToBroadcastLength = getMorseWholeText().length() - charIndexToBroadcast;
+        while (leftTextToBroadcastLength > howManyGapCharacters
+                && getMorseWholeText().substring(howManyGapCharacters, 1).equals(MorseCodeCipher.SHORT_GAP))
+            howManyGapCharacters++;
+        return howManyGapCharacters;
     }
 }

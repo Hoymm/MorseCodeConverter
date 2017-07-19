@@ -39,10 +39,6 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
             @Override
             public void onClick(View v) {
                 button.setActivated(!button.isActivated());
-                if (button.isActivated())
-                    Toast.makeText(getActivity(), "Vibration Activated", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getActivity(), "Vibration Deactivated", Toast.LENGTH_SHORT).show();
             }
         });
     }

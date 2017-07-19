@@ -1,7 +1,6 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.Spinner;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -37,19 +36,19 @@ class BroadcastMorseSignalsThread implements Runnable {
     @Override
     public void run() {
         threadIsDead = false;
-        refreshBroadcastText();
+        setBroadcastingToStartToTheBeggining();
         broadcastMorse();
         StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
         PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
         threadIsDead = true;
     }
 
-    private void refreshBroadcastText() {
-        ConvertMorseToSignals.initAndGetInstance(getActivity()).refreshTextToBroadcast();
+    private void setBroadcastingToStartToTheBeggining() {
+        ConvertMorseToSignals.initAndGetInstance(getActivity()).setBroadcastTextIndexToStart();
     }
 
     private void broadcastMorse() {
-        while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextToBroadcast()
+        while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())
                 ) {
             int time = calculateCurrentPlayTime();
@@ -57,10 +56,12 @@ class BroadcastMorseSignalsThread implements Runnable {
             if (isAGap(time))
                 time = Math.abs(time);
             else
-            if (!startPlaySignalsSuccessfull(time))
-                break;
+                if (!startPlaySignalsSuccessfull(time))
+                    break;
+                else
+                    changeColorOfCurrentlyBroadcastChar();
             pushToSleep(time + getOneUnitMultipliedTime());
-            ConvertMorseToSignals.initAndGetInstance(getActivity()).removeNextCharFromBroadcast();
+            ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForward();
         }
     }
 
@@ -74,7 +75,7 @@ class BroadcastMorseSignalsThread implements Runnable {
         medium gap (between words): seven time units long
          */
         String charToBroadcast =
-                ConvertMorseToSignals.initAndGetInstance(getActivity()).getNextMorseSignToBroadcast();
+                ConvertMorseToSignals.initAndGetInstance(getActivity()).getMorseSignToBeBroadcasted();
         float spinerSpeedMultiplier =
                 TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
         switch (charToBroadcast){
@@ -128,6 +129,10 @@ class BroadcastMorseSignalsThread implements Runnable {
                 allPermissionsGranted = false;
 
         return allPermissionsGranted;
+    }
+
+    private void changeColorOfCurrentlyBroadcastChar() {
+
     }
 
     private void playVibration(int time) {
