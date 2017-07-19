@@ -15,7 +15,7 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation
  * Created by root on 06.05.17.
  */
 
-public class MorseToTextSwappingPanelConversion {
+public class MorseToTextArrowsSwap {
 
     private Context myContext;
     private ImageButton arrowButton;
@@ -23,7 +23,7 @@ public class MorseToTextSwappingPanelConversion {
     public static boolean isConvertingTextToMorse = true;
 
 
-    public MorseToTextSwappingPanelConversion(Context context){
+    public MorseToTextArrowsSwap(Context context){
         myContext = context;
         linkObjectsWithXML();
         restoreLastTextViewsStatus();

@@ -2,7 +2,7 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -25,7 +25,7 @@ class ConvertMorseToSignals {
     }
 
     void refreshTextToBroadcast() {
-        if (MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             textToBroadcast =
                     TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         else

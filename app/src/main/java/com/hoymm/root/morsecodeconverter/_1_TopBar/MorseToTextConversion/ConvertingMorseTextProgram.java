@@ -8,7 +8,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -86,7 +86,7 @@ public class ConvertingMorseTextProgram {
             @Override
             public void run() {
                 TextBoxes.initAndGetBottomBox(getActivity())
-                        .setText(MorseToTextSwappingPanelConversion.isConvertingTextToMorse ? toMorse(text) : toText(text));
+                        .setText(MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text));
             }
         });
     }

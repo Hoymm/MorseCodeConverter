@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
@@ -23,14 +22,14 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.ConvertingTextBoxesPanel;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.HandleTextBoxesConversion;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;
-    private MorseToTextSwappingPanelConversion morseToTextSwappingPanel;
-    private ConvertingTextBoxesPanel convertingTextBoxesPanel;
+    private MorseToTextArrowsSwap morseToTextSwappingPanel;
+    private HandleTextBoxesConversion handleTextBoxesConversion;
     private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
@@ -44,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeProgramComponents() {
         TopBarSpeedSpinner.initAndGetInstance(getActivity());
-        morseToTextSwappingPanel = new MorseToTextSwappingPanelConversion(getActivity());
-        convertingTextBoxesPanel = new ConvertingTextBoxesPanel(getActivity());
+        morseToTextSwappingPanel = new MorseToTextArrowsSwap(getActivity());
+        handleTextBoxesConversion = new HandleTextBoxesConversion(getActivity());
         convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());
         morseKeyboardPanelAndDisableSoftKeyboard =
                         new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
@@ -73,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (convertingTextBoxesPanel.ifNoAnimationCurrentlyRunning()) {
-                    MorseToTextSwappingPanelConversion.isConvertingTextToMorse = !MorseToTextSwappingPanelConversion.isConvertingTextToMorse;
-                    convertingTextBoxesPanel.swapTextInsideBoxes();
+                if (handleTextBoxesConversion.ifNoAnimationCurrentlyRunning()) {
+                    MorseToTextArrowsSwap.isConvertingTextToMorse = !MorseToTextArrowsSwap.isConvertingTextToMorse;
+                    handleTextBoxesConversion.swapTextInsideBoxes();
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
+                    handleTextBoxesConversion.setSelectionsAtTheEnd();
                 }
             }
         });
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void adjustCompomentsViaAnimation() {
-        convertingTextBoxesPanel.resizeBoxesAnimation();
+        handleTextBoxesConversion.resizeBoxesAnimation();
         morseKeyboardPanelAndDisableSoftKeyboard.hideOrShowMorsePanelAnimation();
     }
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        convertingTextBoxesPanel.clearSelection();
+        handleTextBoxesConversion.clearSelection();
         super.onPause();
     }
 

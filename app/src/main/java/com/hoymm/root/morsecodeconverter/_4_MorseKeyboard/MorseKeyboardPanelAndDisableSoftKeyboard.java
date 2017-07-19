@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
@@ -107,7 +107,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void hideOrShowMorsePanelAnimation(){
-        if(MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
+        if(MorseToTextArrowsSwap.isConvertingTextToMorse)
             hidePanel();
         else
             showPanel();
@@ -124,7 +124,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void disableOrEnableSystemKeyboard() {
-        if(MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
+        if(MorseToTextArrowsSwap.isConvertingTextToMorse)
             enableSystemKeyboard();
         else
             disableSystemKeyboard();

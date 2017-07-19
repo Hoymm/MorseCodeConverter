@@ -3,24 +3,27 @@ package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 
 /**
  * Created by Hoymm - Damian Muca on 06.05.17.
  */
 
-public class ConvertingTextBoxesPanel {
+public class HandleTextBoxesConversion {
     private Context myContext;
 
     private ResizingTextBoxesAnimation resizingTextBoxesAnimation;
 
-    public ConvertingTextBoxesPanel(Context context) {
+    public HandleTextBoxesConversion(Context context) {
         myContext = context;
         resizingTextBoxesAnimation = new ResizingTextBoxesAnimation(context);
     }
 
     public void resizeBoxesAnimation(){
-        if (MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             constrictUpperBoxAndExtendLowerBox();
         else
             extendUpperBoxAndConstrictLowerBox();
@@ -53,15 +56,26 @@ public class ConvertingTextBoxesPanel {
     }
 
     public void clearSelection() {
-        TextBoxes.initAndGetUpperBox(getActivity()).clearFocus();
+        upperTextBox().clearFocus();
     }
 
     public void swapTextInsideBoxes() {
         Long time = System.currentTimeMillis();
-        String tempText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
-        TextBoxes.initAndGetBottomBox(getActivity()).setText
-                (TextBoxes.initAndGetUpperBox(getActivity()).getText().toString());
-        TextBoxes.initAndGetUpperBox(getActivity()).setText(tempText);
+        String tempText = bottomTextBox().getText().toString();
+        bottomTextBox().setText(upperTextBox().getText().toString());
+        upperTextBox().setText(tempText);
         Log.i("Convert Time: ", (System.currentTimeMillis()-time) + "ms");
+    }
+
+    public void setSelectionsAtTheEnd() {
+        upperTextBox().setSelection(upperTextBox().getText().toString().length());
+    }
+
+    private TextView bottomTextBox() {
+        return TextBoxes.initAndGetBottomBox(getActivity());
+    }
+
+    private EditText upperTextBox() {
+        return TextBoxes.initAndGetUpperBox(getActivity());
     }
 }
