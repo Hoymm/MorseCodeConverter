@@ -3,10 +3,8 @@ package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -18,7 +16,6 @@ import static android.content.Context.CLIPBOARD_SERVICE;
  */
 
 public class SetToClipboardButtonBehavior {
-    private TextView bottomTextBox;
     private Activity activity;
 
     public SetToClipboardButtonBehavior(Activity activity) {
@@ -30,9 +27,8 @@ public class SetToClipboardButtonBehavior {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.copied_to_clipboard)
                         , Toast.LENGTH_SHORT).show();
 
-                bottomTextBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
                 ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("label", bottomTextBox.getText().toString());
+                ClipData clip = ClipData.newPlainText("label", TextBoxes.initAndGetBottomBox(getActivity()).getText().toString());
                 clipboard.setPrimaryClip(clip);
             }
         });

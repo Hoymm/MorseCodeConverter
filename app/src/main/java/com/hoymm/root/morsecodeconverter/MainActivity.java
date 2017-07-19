@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
@@ -149,5 +150,6 @@ public class MainActivity extends AppCompatActivity {
         SoundButton.setNull();
         FlashlightButton.setNull();
         ScreenButton.setNull();
+        TextBoxes.setNull();
     }
 }

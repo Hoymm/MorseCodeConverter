@@ -3,32 +3,20 @@ package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
-import com.hoymm.root.morsecodeconverter.R;
+
 /**
- * Created by root on 06.05.17.
+ * Created by Hoymm - Damian Muca on 06.05.17.
  */
 
 public class ConvertingTextBoxesPanel {
     private Context myContext;
-    private EditText upperTextBox;
-    private TextView bottomTextBox;
 
     private ResizingTextBoxesAnimation resizingTextBoxesAnimation;
 
     public ConvertingTextBoxesPanel(Context context) {
         myContext = context;
         resizingTextBoxesAnimation = new ResizingTextBoxesAnimation(context);
-        initXMLObjects();
-
-    }
-
-    private void initXMLObjects() {
-        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
-        bottomTextBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
     }
 
     public void resizeBoxesAnimation(){
@@ -65,14 +53,15 @@ public class ConvertingTextBoxesPanel {
     }
 
     public void clearSelection() {
-        upperTextBox.clearFocus();
+        TextBoxes.initAndGetUpperBox(getActivity()).clearFocus();
     }
 
     public void swapTextInsideBoxes() {
         Long time = System.currentTimeMillis();
-        String tempText = bottomTextBox.getText().toString();
-        bottomTextBox.setText(upperTextBox.getText().toString());
-        upperTextBox.setText(tempText);
+        String tempText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        TextBoxes.initAndGetBottomBox(getActivity()).setText
+                (TextBoxes.initAndGetUpperBox(getActivity()).getText().toString());
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(tempText);
         Log.i("Convert Time: ", (System.currentTimeMillis()-time) + "ms");
     }
 }

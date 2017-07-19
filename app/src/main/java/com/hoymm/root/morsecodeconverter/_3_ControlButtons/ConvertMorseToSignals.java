@@ -1,21 +1,16 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class ConvertMorseToSignals {
+class ConvertMorseToSignals {
     private static ConvertMorseToSignals instance = null;
-    private EditText upperTextBox;
-    private TextView bottomBox;
     private String textToBroadcast = "";
     private Activity activity;
 
@@ -27,19 +22,15 @@ public class ConvertMorseToSignals {
 
     private ConvertMorseToSignals(Activity activity) {
         this.activity = activity;
-        initXmlObjects();
     }
 
-    private void initXmlObjects() {
-        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
-        bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
-    }
-
-    public void refreshTextToBroadcast() {
+    void refreshTextToBroadcast() {
         if (MorseToTextSwappingPanelConversion.isConvertingTextToMorse)
-            textToBroadcast = bottomBox.getText().toString();
+            textToBroadcast =
+                    TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         else
-            textToBroadcast = upperTextBox.getText().toString();
+            textToBroadcast =
+                    TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
     }
 
     boolean isThereStillTextToBroadcast(){

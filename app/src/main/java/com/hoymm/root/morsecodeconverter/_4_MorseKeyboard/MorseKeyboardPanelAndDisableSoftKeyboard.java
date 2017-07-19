@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
 
 /**
@@ -25,7 +25,6 @@ import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.Backsp
 public class MorseKeyboardPanelAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
-    private EditText upperTextBox;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
 
     public MorseKeyboardPanelAndDisableSoftKeyboard(Context context) {
@@ -50,7 +49,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
     private void initXMLObjects() {
         morseKeyboardPanel = (LinearLayout) getActivity().findViewById(R.id.morseKeyboardId);
-        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
     private void initAnimation() {
@@ -133,20 +131,20 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     private void enableSystemKeyboard() {
-        upperTextBox.setOnClickListener(new View.OnClickListener() {
+        TextBoxes.initAndGetUpperBox(getActivity()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager mImm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                mImm.showSoftInput(upperTextBox, InputMethodManager.SHOW_IMPLICIT);
+                mImm.showSoftInput(TextBoxes.initAndGetUpperBox(getActivity()), InputMethodManager.SHOW_IMPLICIT);
             }
         });
         Log.i("System keyboard", "enabled (when converting text-> morse).");
     }
 
     private void disableSystemKeyboard() {
-        upperTextBox.setTextIsSelectable(true);
-        upperTextBox.setOnClickListener(new View.OnClickListener() {
+        TextBoxes.initAndGetUpperBox(getActivity()).setTextIsSelectable(true);
+        TextBoxes.initAndGetUpperBox(getActivity()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }

@@ -2,11 +2,11 @@ package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 27.06.17.
@@ -14,7 +14,6 @@ import com.hoymm.root.morsecodeconverter.R;
 
 public class SpaceButton extends ImageButton {
     private static ImageButton instance = null;
-    private EditText upperTextBox;
     private Activity activity;
 
     static ImageButton initAndGetInstance(Activity activity){
@@ -32,7 +31,6 @@ public class SpaceButton extends ImageButton {
 
     private void initObjects() {
         instance = (ImageButton) getActivity().findViewById(R.id.space_button_id);
-        upperTextBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
     }
 
     private void setBackspaceButtonBehavior() {
@@ -50,13 +48,13 @@ public class SpaceButton extends ImageButton {
     }
 
     private void removeSelectedTextIfAnythingSelected() {
-        String originalText = upperTextBox.getText().toString();
-        int selStart = upperTextBox.getSelectionStart();
-        int selEnd = upperTextBox.getSelectionEnd();
+        String originalText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int selEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
         String textAfterRemovingSelectedText = originalText.substring(0, selStart) + originalText.substring(selEnd);
 
-        upperTextBox.setText(textAfterRemovingSelectedText);
-        upperTextBox.setSelection(selStart);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(textAfterRemovingSelectedText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selStart);
     }
 
     private void insertShortOrLongSpace() {
@@ -85,59 +83,59 @@ public class SpaceButton extends ImageButton {
     }
 
     private boolean ifSpaceIsOnTheLeftSelectionSide() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
         return selectionStart > 0 && currentText.substring(selectionStart-1,selectionStart).equals(" ");
     }
 
     private void deleteSpaceOnLeft() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
         currentText = currentText.substring(0, selectionStart-1) + currentText.substring(selectionStart);
 
-        upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart-1);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart-1);
     }
 
     private boolean ifSpaceIsOnTheRightSelectionSide() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
         return currentText.length() > selectionStart && currentText.substring(selectionStart,selectionStart+1).equals(" ");
     }
 
     private void deleteSpaceOnRight() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
         currentText = currentText.substring(0, selectionStart) + currentText.substring(selectionStart+1);
 
-        upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart);
     }
 
     private void insertLongSpace() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
-        int selectionEnd = upperTextBox.getSelectionEnd();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int selectionEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
 
         currentText =
                 currentText.substring(0, selectionStart)
                         + MorseCodeCipher.getInstance().convertToMorse(' ')
                         + currentText.substring(selectionEnd);
-        upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart + MorseCodeCipher.getInstance().convertToMorse(' ').length());
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart + MorseCodeCipher.getInstance().convertToMorse(' ').length());
     }
 
     private void insertShortSpace() {
-        String currentText = upperTextBox.getText().toString();
-        int selectionStart = upperTextBox.getSelectionStart();
-        int selectionEnd = upperTextBox.getSelectionEnd();
+        String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int selectionEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
 
         currentText =
                 currentText.substring(0, selectionStart)
                         + MorseCodeCipher.SHORT_GAP
                         + currentText.substring(selectionEnd);
-        upperTextBox.setText(currentText);
-        upperTextBox.setSelection(selectionStart + 1);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart + 1);
     }
 
     private Activity getActivity(){

@@ -6,12 +6,10 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextSwappingPanelConversion;
-import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 27.06.17.
@@ -19,17 +17,9 @@ import com.hoymm.root.morsecodeconverter.R;
 
 public class ConvertingMorseTextProgram {
     private Activity activity;
-    private TextView bottomBox;
-    private EditText upperBox;
 
     public ConvertingMorseTextProgram(Context context) {
         this.activity = (Activity)context;
-        initXMLObjects();
-    }
-
-    private void initXMLObjects() {
-        upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
-        bottomBox = (TextView) getActivity().findViewById(R.id.bottom_text_view_box);
         enableConversion();
     }
 
@@ -51,7 +41,8 @@ public class ConvertingMorseTextProgram {
     }
 
     private void enableConversion() {
-        upperBox.addTextChangedListener(new TextWatcher() {
+        TextBoxes.initAndGetUpperBox(getActivity())
+                .addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -68,7 +59,8 @@ public class ConvertingMorseTextProgram {
     }
 
     private void disableConversion() {
-        upperBox.addTextChangedListener(new TextWatcher() {
+        TextBoxes.initAndGetUpperBox(getActivity())
+                .addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -84,7 +76,8 @@ public class ConvertingMorseTextProgram {
     }
 
     private void translateStringAndInsertToBottomBox() {
-        final String text = String.valueOf(upperBox.getText());
+        final String text =
+                String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
         translateAndInsertToBottomBox(text);
     }
 
@@ -92,7 +85,8 @@ public class ConvertingMorseTextProgram {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                bottomBox.setText(MorseToTextSwappingPanelConversion.isConvertingTextToMorse ? toMorse(text) : toText(text));
+                TextBoxes.initAndGetBottomBox(getActivity())
+                        .setText(MorseToTextSwappingPanelConversion.isConvertingTextToMorse ? toMorse(text) : toText(text));
             }
         });
     }
