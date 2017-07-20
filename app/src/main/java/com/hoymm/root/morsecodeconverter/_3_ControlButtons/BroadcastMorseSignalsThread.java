@@ -1,11 +1,10 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.widget.Spinner;
 
-import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
@@ -22,17 +21,15 @@ class BroadcastMorseSignalsThread implements Runnable {
     private boolean threadIsDead = true;
     private final int ONE_TIME_UNIT = 100;
     private ChangingTextColors changeTextColors;
-    private Spinner speedSpinner;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
-        initXMLObjects();
-        thread = new Thread(this);
-        changeTextColors = new ChangingTextColors(getActivity());
+        initObjects();
     }
 
-    private void initXMLObjects() {
-        speedSpinner = (Spinner) getActivity().findViewById(R.id.speed_spinner_id);
+    private void initObjects() {
+        changeTextColors = new ChangingTextColors(getActivity());
+        thread = new Thread(this);
     }
 
     @Override
@@ -50,20 +47,47 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void broadcastMorseAndChangeCharColors() {
-        while (ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast()
-                && FooterButtons.atLeastOneFooterButtonActive(getActivity())
-                ) {
+        while (ifNotEverythingBroadcastedYet() && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
             int time = calculateCurrentPlayTime();
-
+            changeTextColors.colorCurrentlyTranslatingText();
             if (isAGap(time))
                 time = Math.abs(time);
-            else
-                if (!startPlaySignalsSuccessfull(time))
+            else {
+                boolean signalsHasBeenPlayed = broadcastSignal(time);
+                if (!signalsHasBeenPlayed){
                     break;
+                }
+            }
             pushToSleep(time + getOneUnitMultipliedTime());
-            changeTextColors.colorCurrentlyTranslatingText();
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForward();
         }
+        makeTextBoxesTextWhiteAgain();
+    }
+
+    private void makeTextBoxesTextWhiteAgain() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                makeUpperBoxTextWhiteAndRestoreSelection();
+                makeBottomBoxTextWhite();
+            }
+        });
+    }
+
+    private void makeBottomBoxTextWhite() {
+        String bottomText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        TextBoxes.initAndGetBottomBox(getActivity()).setText(bottomText);
+    }
+
+    private void makeUpperBoxTextWhiteAndRestoreSelection() {
+        int selection = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        String upperText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(upperText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selection);
+    }
+
+    private boolean ifNotEverythingBroadcastedYet() {
+        return ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast();
     }
 
     private int calculateCurrentPlayTime() {
@@ -104,7 +128,7 @@ class BroadcastMorseSignalsThread implements Runnable {
         return time < 0;
     }
 
-    private boolean startPlaySignalsSuccessfull(int time) {
+    private boolean broadcastSignal(int time) {
         boolean allPermissionsGranted = true;
 
         if (VibrationButton.initializateAndGetInstance(getActivity()).isActive())

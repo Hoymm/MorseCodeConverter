@@ -41,8 +41,7 @@ public class ConvertingMorseTextProgram {
     }
 
     private void enableConversion() {
-        TextBoxes.initAndGetUpperBox(getActivity())
-                .addTextChangedListener(new TextWatcher() {
+        TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -76,8 +75,7 @@ public class ConvertingMorseTextProgram {
     }
 
     private void translateStringAndInsertToBottomBox() {
-        final String text =
-                String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
+        final String text = String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
         translateAndInsertToBottomBox(text);
     }
 
@@ -85,8 +83,7 @@ public class ConvertingMorseTextProgram {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextBoxes.initAndGetBottomBox(getActivity())
-                        .setText(MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text));
+                TextBoxes.initAndGetBottomBox(getActivity()).setText(MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text));
             }
         });
     }
@@ -97,15 +94,11 @@ public class ConvertingMorseTextProgram {
         String morse = "";
         int textLength =  text.length();
         for (int i = 0; i < textLength; ++i) {
-            char charToTranslate = getCharFromTheLeft(text);
-            text = removeCharOnTheLeft(text);
+            char charToTranslate = text.charAt(i);
 
-
-            if (notTheFirstCharConvertingCurrently(morse)
-                    && !lastCharIsAGap(MorseCodeCipher.getInstance().convertToMorse(charToTranslate))
-                    && !lastCharIsAGap(morse)
-                    )
+            if (morse.length() != 0)
                 morse += " ";
+
             morse += MorseCodeCipher.getInstance().convertToMorse(charToTranslate);
         }
         return morse;
@@ -116,16 +109,8 @@ public class ConvertingMorseTextProgram {
         return text.substring(1);
     }
 
-    private char getCharFromTheLeft(String text) {
-        return text.charAt(0);
-    }
-
-    private boolean lastCharIsAGap(String morse) {
-        return morse.substring(morse.length() - 1, morse.length()).equals(MorseCodeCipher.SHORT_GAP);
-    }
-
-    private boolean notTheFirstCharConvertingCurrently(String morse) {
-        return morse.length()>1;
+    private boolean lastCharIsNotAGap(String morse) {
+        return !morse.substring(morse.length() - 1, morse.length()).equals(MorseCodeCipher.SHORT_GAP);
     }
 
     private String toText(String morse) {
@@ -161,7 +146,7 @@ public class ConvertingMorseTextProgram {
         String textResult = "";
         String [] morseWords = splitTextToArrayOfWords(morse);
         for (String word : morseWords)
-            textResult += translateSingleWord_MorseToText(word) + MorseCodeCipher.SHORT_GAP;
+            textResult += translateSingleWordMorseToText(word) + MorseCodeCipher.SHORT_GAP;
         return removeSpaceFromTheEndOfText(textResult);
     }
 
@@ -170,7 +155,7 @@ public class ConvertingMorseTextProgram {
         return morse.split(MorseCodeCipher.MEDIUM_GAP);
     }
 
-    private String translateSingleWord_MorseToText(String morseWord) {
+    private String translateSingleWordMorseToText(String morseWord) {
         String textWord = "";
         String [] morseLetter = morseWord.split(MorseCodeCipher.SHORT_GAP);
         for (String morseChar : morseLetter) {

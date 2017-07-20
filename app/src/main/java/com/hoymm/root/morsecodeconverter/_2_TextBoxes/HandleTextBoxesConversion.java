@@ -61,18 +61,14 @@ public class HandleTextBoxesConversion {
 
     public void swapTextInsideBoxes() {
         Long time = System.currentTimeMillis();
-        String tempText = bottomTextBox().getText().toString();
-        bottomTextBox().setText(upperTextBox().getText().toString());
+        String tempText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        TextBoxes.initAndGetBottomBox(getActivity()).setText(upperTextBox().getText().toString());
         upperTextBox().setText(tempText);
         Log.i("Convert Time: ", (System.currentTimeMillis()-time) + "ms");
     }
 
     public void setSelectionsAtTheEnd() {
         upperTextBox().setSelection(upperTextBox().getText().toString().length());
-    }
-
-    private TextView bottomTextBox() {
-        return TextBoxes.initAndGetBottomBox(getActivity());
     }
 
     private EditText upperTextBox() {

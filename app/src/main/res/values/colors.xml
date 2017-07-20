@@ -9,6 +9,8 @@
     <color name="textAppColor">#fafafa</color>
     <color name="inputTextBackground">#fcfcfc</color>
 
+    <color name="backgroundTextColorWhenBroadcast">#8a82c2</color>
+
     <color name="switchButtonButton">#514D84</color>
     <color name="switchButtonButtonStroke">#16f1f1f1</color>
     <color name="switchButtonButtonPressed">#49427C</color>

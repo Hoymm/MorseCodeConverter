@@ -1,9 +1,12 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.os.Build;
-import android.text.Html;
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 
+import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
@@ -22,51 +25,50 @@ class ChangingTextColors {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (MorseToTextArrowsSwap.isConvertingTextToMorse){
-                    setUpperBoxFromHTMLAndRefreshSelection(generateHTMLStringForText());
-                    setBottomBoxFromHTML(generateHTMLStringForMorse());
-                }
-                else{
-                    setUpperBoxFromHTMLAndRefreshSelection(generateHTMLStringForMorse());
-                    setBottomBoxFromHTML(generateHTMLStringForText());
-                }
+                colorUpperTextBox();
+                colorBottomTextBox();
             }
         });
     }
 
-    private String generateHTMLStringForText() {
-        return ConvertMorseToSignals.initAndGetInstance(getActivity()).getTextWholeText();
-    }
-
-    @SuppressWarnings("deprecation")
-    private void setUpperBoxFromHTMLAndRefreshSelection(String text) {
+    private void colorUpperTextBox() {
         int selectionIndex = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            TextBoxes.initAndGetUpperBox(getActivity()).setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
+        String upperBoxText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        Spannable spannable;
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+            spannable = getColoredText(upperBoxText);
         else
-            TextBoxes.initAndGetUpperBox(getActivity()).setText(Html.fromHtml(text));
+            spannable = getColoredMorse(upperBoxText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
         TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionIndex);
     }
 
-    private String generateHTMLStringForMorse() {
-        String morse = ConvertMorseToSignals.initAndGetInstance(getActivity()).getMorseWholeText();
-        int charStartIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getCurrentBroadcastingCharIndex();
-
-        if (charStartIndex != ConvertMorseToSignals.initAndGetInstance(getActivity()).getMorseWholeText().length()) {
-            String morseFirstPart = morse.substring(0, charStartIndex);
-            String morseCharToColor = "<font color='#EE0000'>" + morse.substring(charStartIndex, charStartIndex+1) + "</font>";
-            String morseLastPart = morse.substring(charStartIndex+1);
-            return morseFirstPart + morseCharToColor + morseLastPart;
-        }
-        return morse;
+    private void colorBottomTextBox() {
+        String bottomBoxText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
+        Spannable spannable;
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+            spannable = getColoredMorse(bottomBoxText);
+        else
+            spannable = getColoredText(bottomBoxText);
+        TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
     }
 
-    @SuppressWarnings("deprecation")
-    private void setBottomBoxFromHTML(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            TextBoxes.initAndGetBottomBox(getActivity()).setText(Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY));
-        else
-            TextBoxes.initAndGetBottomBox(getActivity()).setText(Html.fromHtml(text));
+    private Spannable getColoredText(String text) {
+        Spannable spannable = new SpannableString(text);
+        int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
+        int startIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingTextIndex();
+        int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingTextIndex();
+        spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
+    }
+
+    private Spannable getColoredMorse(String text) {
+        Spannable spannable = new SpannableString(text);
+        int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
+        int startIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex();
+        int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingMorseIndex();
+        spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
     }
 
     private Activity getActivity() {

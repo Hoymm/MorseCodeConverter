@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class MorseCodeCipher {
 
     public static final String SHORT_GAP = " ";
-    public static final String MEDIUM_GAP = "   ";
+    public static final String MEDIUM_GAP = SHORT_GAP + SHORT_GAP + SHORT_GAP;
     private static final MorseCodeCipher instance = new MorseCodeCipher();
     private HashMap<Character, String> textToMorseCoding = new HashMap<>();
     private HashMap<String, String> morseToTextCoding = new HashMap<>();
