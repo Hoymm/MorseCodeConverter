@@ -1,10 +1,11 @@
 package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
@@ -85,7 +86,7 @@ public class SpaceButton extends ImageButton {
     private boolean ifSpaceIsOnTheLeftSelectionSide() {
         String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        return selectionStart > 0 && currentText.substring(selectionStart-1,selectionStart).equals(" ");
+        return selectionStart > 0 && currentText.substring(selectionStart-1,selectionStart).equals(MorseCodeCipher.SHORT_GAP);
     }
 
     private void deleteSpaceOnLeft() {
@@ -100,7 +101,7 @@ public class SpaceButton extends ImageButton {
     private boolean ifSpaceIsOnTheRightSelectionSide() {
         String currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        return currentText.length() > selectionStart && currentText.substring(selectionStart,selectionStart+1).equals(" ");
+        return currentText.length() > selectionStart && currentText.substring(selectionStart,selectionStart+1).equals(MorseCodeCipher.SHORT_GAP);
     }
 
     private void deleteSpaceOnRight() {

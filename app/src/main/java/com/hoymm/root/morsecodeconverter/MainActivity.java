@@ -24,7 +24,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.HandleTextBoxesConversion;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.ConvertingMorseTextProgram;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private TopBarSpeedSpinner topBarSpeedSpinner;

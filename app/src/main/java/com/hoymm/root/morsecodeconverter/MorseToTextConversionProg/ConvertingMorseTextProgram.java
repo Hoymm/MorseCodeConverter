@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion;
+package com.hoymm.root.morsecodeconverter.MorseToTextConversionProg;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +17,7 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 public class ConvertingMorseTextProgram {
     private Activity activity;
+    private boolean skipAddingShortGap = false;
 
     public ConvertingMorseTextProgram(Context context) {
         this.activity = (Activity)context;
@@ -94,12 +95,32 @@ public class ConvertingMorseTextProgram {
         for (int i = 0; i < textLength; ++i) {
             char charToTranslate = text.charAt(i);
 
-            if (morse.length() != 0)
-                morse += " ";
-
-            morse += MorseCodeCipher.getInstance().convertToMorse(charToTranslate);
+            morse = addShortGapAtTheEndIfConditionsAreMet(morse);
+            String charToAddToMorse = MorseCodeCipher.getInstance().convertToMorse(charToTranslate);
+            if (charToAddToMorse.equals(MorseCodeCipher.MEDIUM_GAP))
+                morse = removeAllGapsFromTheEndOfText(morse);
+            ifCharToAddToMorseIsMediumGapThenSkipShortGapInNextRound(charToAddToMorse);
+            morse += charToAddToMorse;
         }
         return morse;
+    }
+
+    private String addShortGapAtTheEndIfConditionsAreMet(String morse) {
+        if (isNotTextEmpty(morse) && spaceIsNOTCurrentlyAtTheEnd(morse) && !skipAddingShortGap)
+            morse += MorseCodeCipher.SHORT_GAP;
+        return morse;
+    }
+
+    private boolean isNotTextEmpty(String morse) {
+        return morse.length() != 0;
+    }
+
+    private boolean spaceIsNOTCurrentlyAtTheEnd(String morse) {
+        return !morse.substring(morse.length()-1).equals(MorseCodeCipher.SHORT_GAP);
+    }
+
+    private void ifCharToAddToMorseIsMediumGapThenSkipShortGapInNextRound(String charToAddToMorse) {
+        skipAddingShortGap = charToAddToMorse.equals(MorseCodeCipher.MEDIUM_GAP);
     }
 
     private String toText(String morse) {
@@ -138,7 +159,7 @@ public class ConvertingMorseTextProgram {
             word = removeSpacesFromBothSides(word);
             textResult += translateSingleWordMorseToText(word) + MorseCodeCipher.SHORT_GAP;
         }
-        return removeSpaceFromTheEndOfText(textResult);
+        return removeShortGapFromTheEndOfTextIfShortOneGapAtTheEnd(textResult);
     }
 
     @NonNull
@@ -155,10 +176,23 @@ public class ConvertingMorseTextProgram {
         return textWord;
     }
 
+    private String removeShortGapFromTheEndOfTextIfShortOneGapAtTheEnd(String textResult) {
+        Log.i("TEMPORARY INFO", (textResult.length() > MorseCodeCipher.MEDIUM_GAP.length()
+                && textResult.substring(textResult.length()-MorseCodeCipher.MEDIUM_GAP.length()).equals(MorseCodeCipher.MEDIUM_GAP)) + "");
+
+
+
+        if (textResult.length() > MorseCodeCipher.MEDIUM_GAP.length()
+                && textResult.substring(textResult.length()-MorseCodeCipher.MEDIUM_GAP.length()).equals(MorseCodeCipher.MEDIUM_GAP))
+            return textResult;
+        else
+            return removeAllGapsFromTheEndOfText(textResult);
+    }
+
     @NonNull
-    private String removeSpaceFromTheEndOfText(String textResult) {
-        if (textResult.length() > 0 && textResult.substring(textResult.length()-1).equals(" "))
-            return textResult.substring(0, textResult.length()-1);
+    private String removeAllGapsFromTheEndOfText(String textResult) {
+        while (textResult.length() > 0 && textResult.substring(textResult.length()-1).equals(MorseCodeCipher.SHORT_GAP))
+            textResult = textResult.substring(0, textResult.length()-1);
         return textResult;
     }
 

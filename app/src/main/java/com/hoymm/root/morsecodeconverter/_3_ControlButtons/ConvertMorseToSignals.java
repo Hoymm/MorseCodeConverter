@@ -3,11 +3,11 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 import android.app.Activity;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
-import static com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher.MEDIUM_GAP;
-import static com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher.SHORT_GAP;
+import static com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher.MEDIUM_GAP;
+import static com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher.SHORT_GAP;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
@@ -17,7 +17,7 @@ class ConvertMorseToSignals {
     private static ConvertMorseToSignals instance = null;
     private int morseCharStart = -1, morseCharEnd = -1, textCharStart = -1, textCharEnd = -1;
     private Activity activity;
-    private boolean lastTimeWasShortGap = false;
+    private boolean lastTimeWasAMediumGap = false;
 
     public static ConvertMorseToSignals initAndGetInstance(Activity activity){
         if (instance == null)
@@ -46,36 +46,26 @@ class ConvertMorseToSignals {
         if (morseText.length() < morseCharStart + 1)
             return morseCharStart;
 
-        else if (isCurIndexIsAGap(morseCharStart, morseText)) {
-            // TODO why there'are two similar methods ?
-            int howManyGaps = calculateHowManyGaps(morseCharStart, morseText);
+        else if (isCurIndexIsAShortGap(morseCharStart, morseText)) {
+            int howManyGaps = calculateHowManyGapsAreThereInFront(morseCharStart, morseText);
             howManyGaps = demandWhetherNowShortGapOrLongShouldBeBroadcasted(howManyGaps);
             return morseCharStart + howManyGaps;
         }
 
         else {
-            lastTimeWasShortGap = false;
             return morseCharStart + 1;
         }
     }
 
-    private boolean isCurIndexIsAGap(int morseCharStart, String morseText) {
-        return morseText.substring(morseCharStart, morseCharStart + 1).equals(SHORT_GAP);
+    private boolean isCurIndexIsAShortGap(int morseCharStart, String morseText) {
+        return morseText.substring(morseCharStart, morseCharStart + SHORT_GAP.length()).equals(SHORT_GAP);
     }
 
     private int demandWhetherNowShortGapOrLongShouldBeBroadcasted(int howManyGaps) {
-        if (!lastTimeWasShortGap) {
-            howManyGaps = 1;
-            lastTimeWasShortGap = true;
-        }
-        else {
-            howManyGaps = howManyGaps > 1 ? MEDIUM_GAP.length() : 1;
-            lastTimeWasShortGap = false;
-        }
-        return howManyGaps;
+        return howManyGaps > 1 ? MEDIUM_GAP.length() : 1;
     }
 
-    private int calculateHowManyGaps(int index, String morseText) {
+    private int calculateHowManyGapsAreThereInFront(int index, String morseText) {
         int howManyGaps = 0;
         while (morseText.length() > index && morseText.substring(index, index+1).equals(MorseCodeCipher.SHORT_GAP)){
             index++;
@@ -99,7 +89,7 @@ class ConvertMorseToSignals {
 
     void moveBroadcastingPositionForward() {
         moveMorse();
-        moveTextIndexIfGap();
+        moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
     }
 
     private void moveMorse() {
@@ -107,13 +97,36 @@ class ConvertMorseToSignals {
         morseCharEnd = calculateEndIndexOfMorseChar(morseCharStart);
     }
 
-    private void moveTextIndexIfGap() {
-        if (isShortGapRightNow())
+    private void moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime() {
+        if (returnTrueIfLastTimeWasAMediumGapIsTrueAndChangeItToFalse() || isShortOrMediumGapRightNow()) {
             moveTextIndex();
+        }
+
+    }
+
+    private boolean isShortOrMediumGapRightNow() {
+        return isShortGapRightNow() || isMediumGapRightNow();
     }
 
     private boolean isShortGapRightNow() {
-        return morseCharStart == morseCharEnd-1 && isCurIndexIsAGap(morseCharStart, getMorseWholeText());
+        return morseCharStart == morseCharEnd-SHORT_GAP.length() && isCurIndexIsAShortGap(morseCharStart, getMorseWholeText());
+    }
+
+    private boolean isMediumGapRightNow() {
+        return lastTimeWasAMediumGap
+                = morseCharStart == morseCharEnd-MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
+    }
+
+    private boolean isCurIndexIsAMediumGap(int morseCharStart, String morseText) {
+        return morseText.substring(morseCharStart, morseCharStart + MEDIUM_GAP.length()).equals(MEDIUM_GAP);
+    }
+
+    private boolean returnTrueIfLastTimeWasAMediumGapIsTrueAndChangeItToFalse() {
+        if (lastTimeWasAMediumGap) {
+            lastTimeWasAMediumGap = false;
+            return true;
+        }
+        return false;
     }
 
     private void moveTextIndex() {

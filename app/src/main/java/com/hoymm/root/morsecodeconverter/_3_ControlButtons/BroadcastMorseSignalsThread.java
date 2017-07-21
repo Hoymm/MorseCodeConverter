@@ -2,7 +2,7 @@ package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
 
-import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion.MorseCodeCipher;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;

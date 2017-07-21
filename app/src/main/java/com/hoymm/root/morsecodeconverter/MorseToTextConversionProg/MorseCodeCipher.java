@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextConversion;
+package com.hoymm.root.morsecodeconverter.MorseToTextConversionProg;
 
 import java.util.HashMap;
 
@@ -41,6 +41,7 @@ public class MorseCodeCipher {
         textToMorseCoding.put('J',"·−−−");
         textToMorseCoding.put('K',"−·−");
         textToMorseCoding.put('L',"·−··");
+        textToMorseCoding.put('Ł',"·−··");
         textToMorseCoding.put('M',"−−");
         textToMorseCoding.put('N',"−·");
         textToMorseCoding.put('Ń',"−·");
