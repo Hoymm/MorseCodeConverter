@@ -27,14 +27,12 @@ public class ConvertingMorseTextProgram {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("Code Translation", "temporary disabled");
                 disableConversion();
                 try {
                     Thread.sleep(ResizingTextBoxesAnimation.animationTime + 50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.i("Code Translation", "enabled");
                 enableConversion();
             }
         }).start();
@@ -104,15 +102,6 @@ public class ConvertingMorseTextProgram {
         return morse;
     }
 
-    @NonNull
-    private String removeCharOnTheLeft(String text) {
-        return text.substring(1);
-    }
-
-    private boolean lastCharIsNotAGap(String morse) {
-        return !morse.substring(morse.length() - 1, morse.length()).equals(MorseCodeCipher.SHORT_GAP);
-    }
-
     private String toText(String morse) {
         morse = removeSpacesFromBothSides(morse);
         if (morse.length() > 0)
@@ -145,8 +134,10 @@ public class ConvertingMorseTextProgram {
     private String convertMorseCodeToText(String morse) {
         String textResult = "";
         String [] morseWords = splitTextToArrayOfWords(morse);
-        for (String word : morseWords)
+        for (String word : morseWords) {
+            word = removeSpacesFromBothSides(word);
             textResult += translateSingleWordMorseToText(word) + MorseCodeCipher.SHORT_GAP;
+        }
         return removeSpaceFromTheEndOfText(textResult);
     }
 

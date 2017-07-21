@@ -42,23 +42,37 @@ class ConvertMorseToSignals {
 
     private int calculateEndIndexOfMorseChar(int morseCharStart) {
         String morseText = getMorseWholeText();
+
         if (morseText.length() < morseCharStart + 1)
             return morseCharStart;
-        else if (morseText.substring(morseCharStart, morseCharStart + 1).equals(SHORT_GAP)) {
+
+        else if (isCurIndexIsAGap(morseCharStart, morseText)) {
+            // TODO why there'are two similar methods ?
             int howManyGaps = calculateHowManyGaps(morseCharStart, morseText);
-
-            if (!lastTimeWasShortGap) {
-                howManyGaps = 1;
-                lastTimeWasShortGap = true;
-            }
-            else
-                howManyGaps = howManyGaps > 1 ? MEDIUM_GAP.length() : 1;
-
+            howManyGaps = demandWhetherNowShortGapOrLongShouldBeBroadcasted(howManyGaps);
             return morseCharStart + howManyGaps;
-        } else {
+        }
+
+        else {
             lastTimeWasShortGap = false;
             return morseCharStart + 1;
         }
+    }
+
+    private boolean isCurIndexIsAGap(int morseCharStart, String morseText) {
+        return morseText.substring(morseCharStart, morseCharStart + 1).equals(SHORT_GAP);
+    }
+
+    private int demandWhetherNowShortGapOrLongShouldBeBroadcasted(int howManyGaps) {
+        if (!lastTimeWasShortGap) {
+            howManyGaps = 1;
+            lastTimeWasShortGap = true;
+        }
+        else {
+            howManyGaps = howManyGaps > 1 ? MEDIUM_GAP.length() : 1;
+            lastTimeWasShortGap = false;
+        }
+        return howManyGaps;
     }
 
     private int calculateHowManyGaps(int index, String morseText) {
@@ -99,7 +113,7 @@ class ConvertMorseToSignals {
     }
 
     private boolean isShortGapRightNow() {
-        return morseCharStart == morseCharEnd-1 && getMorseWholeText().substring(morseCharStart, morseCharStart + 1).equals(SHORT_GAP);
+        return morseCharStart == morseCharEnd-1 && isCurIndexIsAGap(morseCharStart, getMorseWholeText());
     }
 
     private void moveTextIndex() {

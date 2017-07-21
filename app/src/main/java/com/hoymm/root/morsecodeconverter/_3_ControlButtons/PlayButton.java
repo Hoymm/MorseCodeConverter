@@ -47,7 +47,7 @@ public class PlayButton extends ButtonsTemplate{
             }
             else {
                 makeButtonActiveIfNotYet();
-                runBroadcastThread();
+                runMorseBroadcastThread();
                 PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
             }
@@ -84,7 +84,7 @@ public class PlayButton extends ButtonsTemplate{
         });
     }
 
-    private void runBroadcastThread() {
+    private void runMorseBroadcastThread() {
         broadcastMorseSignalsThread = new BroadcastMorseSignalsThread(getActivity());
         broadcastMorseSignalsThread.startTheThread();
     }

@@ -64,7 +64,6 @@ public class HandleTextBoxesConversion {
         String tempText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         TextBoxes.initAndGetBottomBox(getActivity()).setText(upperTextBox().getText().toString());
         upperTextBox().setText(tempText);
-        Log.i("Convert Time: ", (System.currentTimeMillis()-time) + "ms");
     }
 
     public void setSelectionsAtTheEnd() {
