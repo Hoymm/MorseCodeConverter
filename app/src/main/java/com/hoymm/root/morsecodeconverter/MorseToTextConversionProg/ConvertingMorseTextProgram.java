@@ -154,17 +154,14 @@ public class ConvertingMorseTextProgram {
     @NonNull
     private String convertMorseCodeToText(String morse) {
         String textResult = "";
-        String [] morseWords = splitTextToArrayOfWords(morse);
+        String [] morseWords = morse.split(MorseCodeCipher.MEDIUM_GAP);
         for (String word : morseWords) {
             word = removeSpacesFromBothSides(word);
-            textResult += translateSingleWordMorseToText(word) + MorseCodeCipher.SHORT_GAP;
+            if (word.length() != 0)
+                textResult += translateSingleWordMorseToText(word);
+            textResult += MorseCodeCipher.SHORT_GAP;
         }
         return removeShortGapFromTheEndOfTextIfShortOneGapAtTheEnd(textResult);
-    }
-
-    @NonNull
-    private String[] splitTextToArrayOfWords(String morse) {
-        return morse.split(MorseCodeCipher.MEDIUM_GAP);
     }
 
     private String translateSingleWordMorseToText(String morseWord) {
