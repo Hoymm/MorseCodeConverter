@@ -98,8 +98,9 @@ class ConvertMorseToSignals {
     }
 
     private void moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime() {
-        if (returnTrueIfLastTimeWasAMediumGapIsTrueAndChangeItToFalse() || isShortOrMediumGapRightNow()) {
+        if (lastTimeWasAMediumGap || isShortOrMediumGapRightNow()) {
             moveTextIndex();
+            lastTimeWasAMediumGap = isMediumGapRightNow();
         }
 
     }
@@ -112,21 +113,12 @@ class ConvertMorseToSignals {
         return morseCharStart == morseCharEnd-SHORT_GAP.length() && isCurIndexIsAShortGap(morseCharStart, getMorseWholeText());
     }
 
-    private boolean isMediumGapRightNow() {
-        return lastTimeWasAMediumGap
-                = morseCharStart == morseCharEnd-MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
+    boolean isMediumGapRightNow() {
+        return morseCharStart == morseCharEnd-MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
     }
 
     private boolean isCurIndexIsAMediumGap(int morseCharStart, String morseText) {
         return morseText.substring(morseCharStart, morseCharStart + MEDIUM_GAP.length()).equals(MEDIUM_GAP);
-    }
-
-    private boolean returnTrueIfLastTimeWasAMediumGapIsTrueAndChangeItToFalse() {
-        if (lastTimeWasAMediumGap) {
-            lastTimeWasAMediumGap = false;
-            return true;
-        }
-        return false;
     }
 
     private void moveTextIndex() {
