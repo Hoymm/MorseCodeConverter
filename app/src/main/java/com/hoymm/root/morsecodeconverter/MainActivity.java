@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeProgramComponents();
-        initializateSwapButtonAction();
+        setArrowsSwapButtonBehavior();
     }
 
     private void initializeProgramComponents() {
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         ScreenButton.initializateAndGetInstance(getActivity());
     }
 
-    private void initializateSwapButtonAction() {
+    private void setArrowsSwapButtonBehavior() {
         ImageButton swapButton = (ImageButton) findViewById(R.id.swap_button_id);
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override

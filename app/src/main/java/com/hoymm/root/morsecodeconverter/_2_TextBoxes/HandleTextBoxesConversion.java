@@ -60,10 +60,14 @@ public class HandleTextBoxesConversion {
     }
 
     public void swapTextInsideBoxes() {
-        Long time = System.currentTimeMillis();
         String tempText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         TextBoxes.initAndGetBottomBox(getActivity()).setText(upperTextBox().getText().toString());
+        Log.i("1UpperBottom", "||" + TextBoxes.initAndGetUpperBox(getActivity()).getText()
+                + "||" + TextBoxes.initAndGetBottomBox(getActivity()).getText() + "||");
         upperTextBox().setText(tempText);
+        Log.i("3UpperBottom", "||" + TextBoxes.initAndGetUpperBox(getActivity()).getText()
+                + "||" + TextBoxes.initAndGetBottomBox(getActivity()).getText() + "||");
+        Log.i("4UpperBottom T", "||" + tempText + "||");
     }
 
     public void setSelectionsAtTheEnd() {

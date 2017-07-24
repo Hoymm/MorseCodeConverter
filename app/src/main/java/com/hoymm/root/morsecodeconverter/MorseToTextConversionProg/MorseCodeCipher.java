@@ -25,7 +25,6 @@ public class MorseCodeCipher {
 
     private void initTextToMorseCoding() {
         textToMorseCoding.put(' ', MEDIUM_GAP);
-        textToMorseCoding.put('.',"·−·−·−");
         textToMorseCoding.put('A',"·−");
         textToMorseCoding.put('Ą',"·−");
         textToMorseCoding.put('B',"−···");
@@ -72,7 +71,7 @@ public class MorseCodeCipher {
         textToMorseCoding.put('7',"−−···");
         textToMorseCoding.put('8',"−−−··");
         textToMorseCoding.put('9',"−−−−·");
-        textToMorseCoding.put('·',"·−·−·−");
+        textToMorseCoding.put('.',"·−·−·−");
         textToMorseCoding.put(',',"−−··−−");
         textToMorseCoding.put('?',"··−−··");
         textToMorseCoding.put('!',"−·−·−−");
@@ -96,7 +95,6 @@ public class MorseCodeCipher {
     private void initMorseToTextCoding() {
 
         morseToTextCoding.put(MEDIUM_GAP, " ");
-        morseToTextCoding.put("·−·−·−", ".");
         morseToTextCoding.put("·−", "A");
         morseToTextCoding.put("−···", "B");
         morseToTextCoding.put("−·−·", "C");
@@ -133,7 +131,7 @@ public class MorseCodeCipher {
         morseToTextCoding.put("−−···", "7");
         morseToTextCoding.put("−−−··", "8");
         morseToTextCoding.put("−−−−·", "9");
-        morseToTextCoding.put("·−·−·−", "·");
+        morseToTextCoding.put("·−·−·−", ".");
         morseToTextCoding.put("−−··−−", ",");
         morseToTextCoding.put("··−−··", "?");
         morseToTextCoding.put("−·−·−−", "!");

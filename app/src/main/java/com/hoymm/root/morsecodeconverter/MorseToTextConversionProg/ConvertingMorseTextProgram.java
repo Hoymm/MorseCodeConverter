@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
@@ -124,31 +123,10 @@ public class ConvertingMorseTextProgram {
     }
 
     private String toText(String morse) {
-        morse = removeSpacesFromBothSides(morse);
         if (morse.length() > 0)
             return convertMorseCodeToText(morse);
         else
             return "";
-    }
-
-    private String removeSpacesFromBothSides(String morse) {
-        morse = removeSpacesOnTheRight(morse);
-        morse = removeSpacesOnTheLeft(morse);
-        return morse;
-    }
-
-    @NonNull
-    private String removeSpacesOnTheRight(String morse) {
-        while (isShortGapAtTheEnd(morse))
-            morse = morse.substring(0, morse.length() - 1);
-        return morse;
-    }
-
-    @NonNull
-    private String removeSpacesOnTheLeft(String morse) {
-        while (morse.length() > 0 && morse.substring(0, 1).equals(" "))
-            morse = morse.substring(1);
-        return morse;
     }
 
     @NonNull
@@ -156,7 +134,6 @@ public class ConvertingMorseTextProgram {
         String textResult = "";
         String [] morseWords = morse.split(MorseCodeCipher.MEDIUM_GAP);
         for (String word : morseWords) {
-            word = removeSpacesFromBothSides(word);
             if (word.length() != 0)
                 textResult += translateSingleWordMorseToText(word);
             textResult += MorseCodeCipher.SHORT_GAP;
