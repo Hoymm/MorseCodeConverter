@@ -149,7 +149,7 @@ class ConvertMorseToSignals {
     }
 
     int getEndBroadcastingTextIndex(){
-        return textCharEnd;
+        return textCharEnd == 0 && getTextWholeText().length() > 0 ? 1 : textCharEnd;
     }
 
     String getMorseSignToBeBroadcasted() {

@@ -35,59 +35,51 @@ class BroadcastMorseSignalsThread implements Runnable {
     @Override
     public void run() {
         threadIsDead = false;
-        setBroadcastingToStartToTheBeggining();
         broadcastMorseAndChangeCharColors();
-        StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
-        PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+        deactivateStopButtonIfAllTextWasBroadcasted();
+        deactivatePlayButton();
         threadIsDead = true;
     }
 
-    private void setBroadcastingToStartToTheBeggining() {
-        ConvertMorseToSignals.initAndGetInstance(getActivity()).setBroadcastTextIndexToStart();
+    private void deactivatePlayButton() {
+        PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+    }
+
+    private void deactivateStopButtonIfAllTextWasBroadcasted() {
+        if(!ifNotEverythingBroadcastedYet())
+            StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
+    }
+
+    static void setBroadcastingToStartFromTheBeggining(Activity activity) {
+        ConvertMorseToSignals.initAndGetInstance(activity).setBroadcastTextIndexToStart();
     }
 
     private void broadcastMorseAndChangeCharColors() {
-        while (ifNotEverythingBroadcastedYet() && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
-            int time = calculateCurrentPlayTime();
+        while (ifNotEverythingBroadcastedYet()
+                && PlayButton.initAndGetInstance(getActivity()).isActive()
+                && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
             changeTextColors.colorCurrentlyTranslatingText();
-            if (isAGap(time))
-                time = Math.abs(time);
-            else {
-                boolean signalsHasBeenPlayed = broadcastSignal(time);
-                if (!signalsHasBeenPlayed){
-                    break;
-                }
-            }
-            pushToSleep(time + getOneUnitMultipliedTime());
+            if (!broadcastSignalOrGap()) break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForward();
         }
-        makeTextBoxesTextWhiteAgain();
-    }
-
-    private void makeTextBoxesTextWhiteAgain() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                makeUpperBoxTextWhiteAndRestoreSelection();
-                makeBottomBoxTextWhite();
-            }
-        });
-    }
-
-    private void makeBottomBoxTextWhite() {
-        String bottomText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
-        TextBoxes.initAndGetBottomBox(getActivity()).setText(bottomText);
-    }
-
-    private void makeUpperBoxTextWhiteAndRestoreSelection() {
-        int selection = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        String upperText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
-        TextBoxes.initAndGetUpperBox(getActivity()).setText(upperText);
-        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selection);
     }
 
     private boolean ifNotEverythingBroadcastedYet() {
         return ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast();
+    }
+
+    private boolean broadcastSignalOrGap() {
+        int time = calculateCurrentPlayTime();
+        if (isAGap(time))
+            time = Math.abs(time);
+        else {
+            boolean signalsHasBeenPlayed = broadcastSignal(time);
+            if (!signalsHasBeenPlayed){
+                return false;
+            }
+        }
+        pushToSleep(time + getOneUnitMultiplerTime());
+        return true;
     }
 
     private int calculateCurrentPlayTime() {
@@ -105,27 +97,19 @@ class BroadcastMorseSignalsThread implements Runnable {
                 TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
         switch (charToBroadcast){
             case "·":
-                return (int) (getOneUnitMultipliedTime()/spinerSpeedMultiplier);
+                return (int) (getOneUnitMultiplerTime()/spinerSpeedMultiplier);
 
             case "−":
-                return (int) (3*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
+                return (int) (3* getOneUnitMultiplerTime()/spinerSpeedMultiplier);
 
             case MorseCodeCipher.SHORT_GAP:
-                return (int) (-3*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
+                return (int) (-3* getOneUnitMultiplerTime()/spinerSpeedMultiplier);
 
             case MorseCodeCipher.MEDIUM_GAP:
-                return (int) (-7*getOneUnitMultipliedTime()/spinerSpeedMultiplier);
+                return (int) (-7* getOneUnitMultiplerTime()/spinerSpeedMultiplier);
         }
 
         return 0;
-    }
-
-    private int getOneUnitMultipliedTime() {
-        return ONE_TIME_UNIT;
-    }
-
-    private boolean isAGap(int time) {
-        return time < 0;
     }
 
     private boolean broadcastSignal(int time) {
@@ -154,6 +138,36 @@ class BroadcastMorseSignalsThread implements Runnable {
                 allPermissionsGranted = false;
 
         return allPermissionsGranted;
+    }
+
+    static void makeTextBoxesTextWhiteAgain(final Activity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                makeUpperBoxTextWhiteAndRestoreSelection(activity);
+                makeBottomBoxTextWhite(activity);
+            }
+        });
+    }
+
+    private static void makeBottomBoxTextWhite(Activity activity) {
+        String bottomText = TextBoxes.initAndGetBottomBox(activity).getText().toString();
+        TextBoxes.initAndGetBottomBox(activity).setText(bottomText);
+    }
+
+    private static void makeUpperBoxTextWhiteAndRestoreSelection(Activity activity) {
+        int selection = TextBoxes.initAndGetUpperBox(activity).getSelectionStart();
+        String upperText = TextBoxes.initAndGetUpperBox(activity).getText().toString();
+        TextBoxes.initAndGetUpperBox(activity).setText(upperText);
+        TextBoxes.initAndGetUpperBox(activity).setSelection(selection);
+    }
+
+    private int getOneUnitMultiplerTime() {
+        return ONE_TIME_UNIT;
+    }
+
+    private boolean isAGap(int time) {
+        return time < 0;
     }
 
     private void playVibration(int time) {

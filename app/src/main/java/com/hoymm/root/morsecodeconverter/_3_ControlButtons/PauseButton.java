@@ -30,11 +30,11 @@ public class PauseButton extends ButtonsTemplate{
             public void onClick(View v) {
                 if(v.isActivated()) {
                     deactivateIfNotYetInactive();
-                    PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
-                    StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
                 else {
                     makeButtonActiveIfNotYet();
+                    PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+                    StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
             }
         });

@@ -28,13 +28,15 @@ public class StopButton extends ButtonsTemplate {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.isActivated()) {
+                if (v.isActivated())
+                    deactivateIfNotYetInactive();
+                else {
                     makeButtonActiveIfNotYet();
+                    BroadcastMorseSignalsThread.setBroadcastingToStartFromTheBeggining(getActivity());
+                    BroadcastMorseSignalsThread.makeTextBoxesTextWhiteAgain(getActivity());
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                     PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 }
-                else
-                    deactivateIfNotYetInactive();
             }
         });
     }
