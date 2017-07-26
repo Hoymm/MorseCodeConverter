@@ -1,6 +1,7 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
@@ -13,7 +14,7 @@ import static com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseC
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-class ConvertMorseToSignals {
+public class ConvertMorseToSignals {
     private static ConvertMorseToSignals instance = null;
     private int morseCharStart = -1, morseCharEnd = -1, textCharStart = -1, textCharEnd = -1;
     private Activity activity;
@@ -87,12 +88,15 @@ class ConvertMorseToSignals {
         return morseText;
     }
 
-    void moveBroadcastingPositionForward() {
-        moveMorse();
-        moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
+    void moveBroadcastingPositionForwardIfPlayButtonActive() {
+        if (PlayButton.initAndGetInstance(getActivity()).isActive()) {
+            moveMorse();
+            moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
+        }
     }
 
     private void moveMorse() {
+        Log.i("StopButton", "move morse");
         morseCharStart = morseCharEnd;
         morseCharEnd = calculateEndIndexOfMorseChar(morseCharStart);
     }
@@ -136,7 +140,7 @@ class ConvertMorseToSignals {
         return text;
     }
 
-    int getStartBroadcastingMorseIndex(){
+    public int getStartBroadcastingMorseIndex(){
         return morseCharStart;
     }
 

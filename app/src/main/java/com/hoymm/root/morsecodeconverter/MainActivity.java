@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -13,6 +12,7 @@ import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
@@ -79,11 +79,16 @@ public class MainActivity extends AppCompatActivity {
                     handleTextBoxesConversion.swapTextInsideBoxes();
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
-                    ChangingTextColors.refreshColors(getActivity());
+                    refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
                     handleTextBoxesConversion.setSelectionsAtTheEnd();
                 }
             }
         });
+    }
+
+    private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
+        if (ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex() != 0)
+            ChangingTextColors.refreshColors(getActivity());
     }
 
     private void refreshAndAdjustApplicationComponentsState() {
