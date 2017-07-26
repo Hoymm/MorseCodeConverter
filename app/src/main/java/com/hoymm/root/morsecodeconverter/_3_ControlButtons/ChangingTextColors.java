@@ -15,14 +15,21 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
  * File created by Damian Muca - Kaizen on 19.07.17.
  */
 
-class ChangingTextColors {
+public class ChangingTextColors {
     private Activity activity;
+    private static ChangingTextColors changingTextColors = null;
 
-    ChangingTextColors(Activity activity) {
+    public static void refreshColors(Activity activity){
+        if (changingTextColors == null)
+            changingTextColors = new ChangingTextColors(activity);
+        changingTextColors.colorCurrentlyTranslatingText();
+    }
+
+    private ChangingTextColors(Activity activity) {
         this.activity = activity;
     }
 
-    void colorCurrentlyTranslatingText() {
+    private void colorCurrentlyTranslatingText() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -59,7 +66,6 @@ class ChangingTextColors {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingTextIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingTextIndex();
-        Log.i("INDEXES", "start: " + startIndex + ", end: " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }

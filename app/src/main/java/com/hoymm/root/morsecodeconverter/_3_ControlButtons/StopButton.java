@@ -1,6 +1,7 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;

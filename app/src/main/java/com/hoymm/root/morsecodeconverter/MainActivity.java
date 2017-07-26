@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     handleTextBoxesConversion.swapTextInsideBoxes();
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
+                    ChangingTextColors.refreshColors(getActivity());
                     handleTextBoxesConversion.setSelectionsAtTheEnd();
                 }
             }
@@ -91,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.swapTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         morseToTextSwappingPanel.saveDataToSharedPreferences();
-        initButtons();
     }
 
     private void adjustCompomentsViaAnimation() {
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshAndAdjustApplicationComponentsState();
+        initButtons();
     }
 
     @Override

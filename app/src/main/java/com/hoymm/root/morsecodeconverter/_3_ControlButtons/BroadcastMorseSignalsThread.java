@@ -1,6 +1,7 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
@@ -20,7 +21,6 @@ class BroadcastMorseSignalsThread implements Runnable {
     private Activity activity;
     private boolean threadIsDead = true;
     private final int ONE_TIME_UNIT = 100;
-    private ChangingTextColors changeTextColors;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
@@ -28,7 +28,6 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void initObjects() {
-        changeTextColors = new ChangingTextColors(getActivity());
         thread = new Thread(this);
     }
 
@@ -36,7 +35,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     public void run() {
         threadIsDead = false;
         broadcastMorseAndChangeCharColors();
-        deactivateStopButtonIfAllTextWasBroadcasted();
+        callOnclickStopOrPauseButtonIfPlayButtonIsActive();
         deactivatePlayButton();
         threadIsDead = true;
     }
@@ -45,9 +44,16 @@ class BroadcastMorseSignalsThread implements Runnable {
         PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
     }
 
-    private void deactivateStopButtonIfAllTextWasBroadcasted() {
-        if(!ifNotEverythingBroadcastedYet())
-            StopButton.initAndGetInstance(getActivity()).makeButtonActiveIfNotYet();
+    private void callOnclickStopOrPauseButtonIfPlayButtonIsActive() {
+        if (PlayButton.initAndGetInstance(getActivity()).isActive())
+            activatePauseOrStopButton();
+    }
+
+    private void activatePauseOrStopButton() {
+        if (isThereTextLeftToBroadcast())
+            PauseButton.initAndGetInstance(getActivity()).callOnClick();
+        else
+            StopButton.initAndGetInstance(getActivity()).callOnClick();
     }
 
     static void setBroadcastingToStartFromTheBeggining(Activity activity) {
@@ -55,16 +61,16 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void broadcastMorseAndChangeCharColors() {
-        while (ifNotEverythingBroadcastedYet()
+        while (isThereTextLeftToBroadcast()
                 && PlayButton.initAndGetInstance(getActivity()).isActive()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
-            changeTextColors.colorCurrentlyTranslatingText();
+            ChangingTextColors.refreshColors(getActivity());
             if (!broadcastSignalOrGap()) break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForward();
         }
     }
 
-    private boolean ifNotEverythingBroadcastedYet() {
+    private boolean isThereTextLeftToBroadcast() {
         return ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast();
     }
 
