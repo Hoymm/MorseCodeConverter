@@ -38,7 +38,8 @@ public class SpaceButton extends ImageButton {
         instance.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickAction();
+                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                    onClickAction();
             }
         });
     }

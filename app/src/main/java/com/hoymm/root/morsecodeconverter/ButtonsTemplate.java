@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter;
 import android.app.Activity;
 import android.widget.ImageButton;
 
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsInterface;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
@@ -51,5 +52,15 @@ public abstract class ButtonsTemplate implements ControlButtonsInterface {
                     button.setActivated(true);
                 }
             });
+    }
+
+
+    protected void makeUpperTextBoxEditable(final boolean editable) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextBoxes.initAndGetUpperBox(getActivity()).setEnabled(editable);
+            }
+        });
     }
 }

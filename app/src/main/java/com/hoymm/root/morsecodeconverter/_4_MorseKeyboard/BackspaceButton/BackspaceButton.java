@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 26.06.17.
@@ -37,18 +38,23 @@ public class BackspaceButton extends ImageButton {
         instance.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        startRemoving();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        stopRemoving();
-                        break;
-
-                }
+                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                    setButtonAction(event);
                 return false;
             }
         });
+    }
+
+    private static void setButtonAction(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startRemoving();
+                break;
+            case MotionEvent.ACTION_UP:
+                stopRemoving();
+                break;
+
+        }
     }
 
     static void startRemoving() {

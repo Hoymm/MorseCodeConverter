@@ -32,9 +32,8 @@ public class StopButton extends ButtonsTemplate {
                 if (v.isActivated())
                     deactivateIfNotYetInactive();
                 else {
+                    makeUpperTextBoxEditable(true);
                     makeButtonActiveIfNotYet();
-
-                    Log.i("StopButton", "invoked");
                     BroadcastMorseSignalsThread.setBroadcastingToStartFromTheBeggining(getActivity());
                     BroadcastMorseSignalsThread.makeTextBoxesTextWhiteAgain(getActivity());
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();

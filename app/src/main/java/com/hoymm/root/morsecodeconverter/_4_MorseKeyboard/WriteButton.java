@@ -23,20 +23,25 @@ abstract class WriteButton extends ImageButton {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentText =
-                        TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
-                int selectionStart =
-                        TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-                int selectionEnd =
-                        TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
-                currentText =
-                        currentText.substring(0, selectionStart)
-                                + insertChar
-                                + currentText.substring(selectionEnd);
-                TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
-                TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart+1);
+                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                    setOnClickAction(insertChar);
             }
         });
+    }
+
+    private void setOnClickAction(char insertChar) {
+        String currentText =
+                TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        int selectionStart =
+                TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int selectionEnd =
+                TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
+        currentText =
+                currentText.substring(0, selectionStart)
+                        + insertChar
+                        + currentText.substring(selectionEnd);
+        TextBoxes.initAndGetUpperBox(getActivity()).setText(currentText);
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart + 1);
     }
 
     protected Activity getActivity() {

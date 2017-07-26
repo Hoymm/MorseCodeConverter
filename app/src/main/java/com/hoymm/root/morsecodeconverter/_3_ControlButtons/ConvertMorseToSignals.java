@@ -96,7 +96,6 @@ public class ConvertMorseToSignals {
     }
 
     private void moveMorse() {
-        Log.i("StopButton", "move morse");
         morseCharStart = morseCharEnd;
         morseCharEnd = calculateEndIndexOfMorseChar(morseCharStart);
     }
