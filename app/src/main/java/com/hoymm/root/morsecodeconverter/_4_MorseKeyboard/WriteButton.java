@@ -29,7 +29,7 @@ abstract class WriteButton extends ImageButton {
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setOnClickAction(insertChar);
                 else
-                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
+                    TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(getActivity());
             }
         });
     }

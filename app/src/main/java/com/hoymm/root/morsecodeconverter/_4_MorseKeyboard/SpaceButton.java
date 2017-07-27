@@ -1,10 +1,8 @@
 package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
@@ -43,7 +41,7 @@ public class SpaceButton extends ImageButton {
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     onClickAction();
                 else
-                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
+                    TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(getActivity());
             }
         });
     }

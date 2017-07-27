@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -43,7 +42,7 @@ public class BackspaceButton extends ImageButton {
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setButtonAction(event);
                 else
-                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
+                    TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(getActivity());
                 return false;
             }
         });
