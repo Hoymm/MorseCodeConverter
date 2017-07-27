@@ -58,13 +58,13 @@ public class ChangingTextColors {
         Spannable spannable;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredMorse(bottomBoxText);
-            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredMorseStartIndex());
             TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
+            TextBoxes.initAndGetBottomBox(getActivity()).setSelection(getColoredMorseStartIndex());
         }
         else {
             spannable = getColoredText(bottomBoxText);
-            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredTextStartIndex());
             TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
+            TextBoxes.initAndGetBottomBox(getActivity()).setSelection(getColoredTextStartIndex());
         }
     }
 

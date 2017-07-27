@@ -143,7 +143,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     private void disableSystemKeyboard() {
-        TextBoxes.initAndGetUpperBox(getActivity()).setTextIsSelectable(true);
         TextBoxes.initAndGetUpperBox(getActivity()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

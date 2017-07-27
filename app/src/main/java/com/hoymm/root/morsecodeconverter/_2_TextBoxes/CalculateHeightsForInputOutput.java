@@ -12,8 +12,11 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 class CalculateHeightsForInputOutput {
+    private final static int boxesSizedivider = 20
+            , upperBoxSizeMultipler = 6
+            , bottomBoxSizeMultipler = 13;
     private Context myContext;
-    int lowerBoxBigHeight, upperBoxSmallHeight, lowerBoxSmallHeight, upperBoxBigHeight;
+    int lowerBoxBigHeight, upperBoxSmallHeight, boxSmallHeight, boxBigHeight;
 
     CalculateHeightsForInputOutput(Context context) {
         myContext = context;
@@ -27,14 +30,14 @@ class CalculateHeightsForInputOutput {
 
     private void whenMorseEnabled() {
         int freeHeightSpaceWhenMorseEnabled = getFreeSpaceVerticallyForBoxes() - getMorseKeyboardHeight();
-        upperBoxBigHeight = freeHeightSpaceWhenMorseEnabled/20 *14;
-        lowerBoxSmallHeight = freeHeightSpaceWhenMorseEnabled/20 *5;
+        boxBigHeight = freeHeightSpaceWhenMorseEnabled/boxesSizedivider *bottomBoxSizeMultipler;
+        boxSmallHeight = freeHeightSpaceWhenMorseEnabled/boxesSizedivider *upperBoxSizeMultipler;
     }
 
     private void whenMorseDisabled() {
         int freeHeightSpaceWhenMorseDisabled = getFreeSpaceVerticallyForBoxes();
-        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/20 *5;
-        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/20 *14;
+        upperBoxSmallHeight = freeHeightSpaceWhenMorseDisabled/boxesSizedivider *upperBoxSizeMultipler;
+        lowerBoxBigHeight = freeHeightSpaceWhenMorseDisabled/boxesSizedivider *bottomBoxSizeMultipler;
     }
 
     private int getFreeSpaceVerticallyForBoxes() {

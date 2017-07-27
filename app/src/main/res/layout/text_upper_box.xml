@@ -37,8 +37,6 @@
         android:gravity="center"
         android:background="@drawable/input_edit_text_shape"
         android:id="@+id/upper_edit_text_box"
-
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:scrollbars="vertical"
         />
 </RelativeLayout>

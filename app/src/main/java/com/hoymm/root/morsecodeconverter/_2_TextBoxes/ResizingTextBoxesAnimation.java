@@ -42,7 +42,7 @@ public class ResizingTextBoxesAnimation extends EditText {
 
     private void upperBoxToBigAnimationInit() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) upperBox.getLayoutParams();
-        upperBoxToBig = ValueAnimator.ofFloat(heights.upperBoxSmallHeight, heights.upperBoxBigHeight);
+        upperBoxToBig = ValueAnimator.ofFloat(heights.upperBoxSmallHeight, heights.boxBigHeight);
         upperBoxToBig.setDuration(animationTime);
         upperBoxToBig.setInterpolator(new AccelerateDecelerateInterpolator());
         upperBoxToBig.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -57,7 +57,7 @@ public class ResizingTextBoxesAnimation extends EditText {
 
     private void upperBoxToSmallAnimationInit() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) upperBox.getLayoutParams();
-        upperBoxToSmall = ValueAnimator.ofFloat(heights.upperBoxBigHeight, heights.upperBoxSmallHeight);
+        upperBoxToSmall = ValueAnimator.ofFloat(heights.boxBigHeight, heights.upperBoxSmallHeight);
         upperBoxToSmall.setDuration(animationTime);
         upperBoxToSmall.setInterpolator(new AccelerateDecelerateInterpolator());
         upperBoxToSmall.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -73,7 +73,7 @@ public class ResizingTextBoxesAnimation extends EditText {
 
     private void lowerBoxToBigAnimationInit() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lowerBox.getLayoutParams();
-        lowerBoxToBig = ValueAnimator.ofFloat(heights.lowerBoxSmallHeight, heights.lowerBoxBigHeight);
+        lowerBoxToBig = ValueAnimator.ofFloat(heights.boxSmallHeight, heights.lowerBoxBigHeight);
         lowerBoxToBig.setDuration(animationTime);
         lowerBoxToBig.setInterpolator(new AccelerateDecelerateInterpolator());
         lowerBoxToBig.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -88,7 +88,7 @@ public class ResizingTextBoxesAnimation extends EditText {
 
     private void lowerBoxToSmallAnimationInit() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) lowerBox.getLayoutParams();
-        lowerBoxToSmall = ValueAnimator.ofFloat(heights.lowerBoxBigHeight, heights.lowerBoxSmallHeight);
+        lowerBoxToSmall = ValueAnimator.ofFloat(heights.lowerBoxBigHeight, heights.boxSmallHeight);
         lowerBoxToSmall.setDuration(animationTime);
         lowerBoxToSmall.setInterpolator(new AccelerateDecelerateInterpolator());
         lowerBoxToSmall.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

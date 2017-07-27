@@ -19,8 +19,8 @@ public class TextBoxes {
         return (EditText) activity.findViewById(R.id.upper_edit_text_box);
     }
 
-    public static TextView initAndGetBottomBox(Activity activity){
-        return (TextView) activity.findViewById(R.id.bottom_text_view_box);
+    public static EditText initAndGetBottomBox(Activity activity){
+        return (EditText) activity.findViewById(R.id.bottom_text_view_box);
     }
 
     public static void setUpperBoxScrollable(Activity activity){
