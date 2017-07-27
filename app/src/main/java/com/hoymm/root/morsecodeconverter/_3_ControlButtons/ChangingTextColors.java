@@ -32,54 +32,66 @@ public class ChangingTextColors {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                colorUpperTextBox();
-                colorBottomTextBox();
+                colorUpperTextBoxAndScrollFollowingCurChar();
+                colorBottomTextBoxAndScrollFollowingCurChar();
             }
         });
     }
 
-    private void colorUpperTextBox() {
-        int selectionIndex = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        colorTextOfUpperBox();
-        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionIndex);
-    }
-
-    private void colorTextOfUpperBox() {
+    private void colorUpperTextBoxAndScrollFollowingCurChar() {
         String upperBoxText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         Spannable spannable;
-        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredText(upperBoxText);
-        else
+            TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
+            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredTextStartIndex());
+
+        } else {
             spannable = getColoredMorse(upperBoxText);
-        TextBoxes.initAndGetUpperBox(getActivity()).setTextKeepState(spannable);
+            TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
+            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredMorseStartIndex());
+        }
     }
 
-    private void colorBottomTextBox() {
+    private void colorBottomTextBoxAndScrollFollowingCurChar() {
         String bottomBoxText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         Spannable spannable;
-        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredMorse(bottomBoxText);
-        else
+            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredMorseStartIndex());
+            TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
+        }
+        else {
             spannable = getColoredText(bottomBoxText);
-        TextBoxes.initAndGetBottomBox(getActivity()).setTextKeepState(spannable);
+            TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredTextStartIndex());
+            TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
+        }
     }
 
     private Spannable getColoredText(String text) {
         Spannable spannable = new SpannableString(text);
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
-        int startIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingTextIndex();
+        int startIndex = getColoredTextStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingTextIndex();
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
 
+    private int getColoredTextStartIndex() {
+        return ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingTextIndex();
+    }
+
     private Spannable getColoredMorse(String text) {
         Spannable spannable = new SpannableString(text);
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
-        int startIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex();
+        int startIndex = getColoredMorseStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingMorseIndex();
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
+    }
+
+    private int getColoredMorseStartIndex() {
+        return ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex();
     }
 
     private Activity getActivity() {
