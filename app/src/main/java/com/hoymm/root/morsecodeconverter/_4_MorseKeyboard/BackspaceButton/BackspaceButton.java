@@ -42,10 +42,15 @@ public class BackspaceButton extends ImageButton {
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setButtonAction(event);
                 else
-                    TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(getActivity());
+                    showToastNotAllowToEditTextOnlyWhenActionDown(event);
                 return false;
             }
         });
+    }
+
+    private static void showToastNotAllowToEditTextOnlyWhenActionDown(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+            TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(getActivity());
     }
 
     private static void setButtonAction(MotionEvent event) {

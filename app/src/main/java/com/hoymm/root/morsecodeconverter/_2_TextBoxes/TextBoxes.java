@@ -2,6 +2,7 @@ package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.app.Activity;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class TextBoxes {
     }
 
     public static void showToastEditTextAllowedOnlyWhenStopButtonActive(Activity activity) {
+        Log.i("ShowToastMethod", "invoked.");
         if (editOnlyWhenStopActive != null)
             editOnlyWhenStopActive.cancel();
         editOnlyWhenStopActive = Toast.makeText(activity, R.string.edit_only_when_stop_active, Toast.LENGTH_LONG);

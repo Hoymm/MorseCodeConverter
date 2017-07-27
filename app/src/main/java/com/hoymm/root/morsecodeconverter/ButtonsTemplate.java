@@ -59,7 +59,6 @@ public abstract class ButtonsTemplate implements ControlButtonsInterface {
 
 
     protected void setUpperBoxSelectable(final boolean editable) {
-        Log.i("TEXTSELECTABLE", editable + "");
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
