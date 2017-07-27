@@ -1,7 +1,6 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
@@ -32,21 +31,13 @@ public class StopButton extends ButtonsTemplate {
                 if (v.isActivated())
                     deactivateIfNotYetInactive();
                 else {
-                    makeUpperTextBoxEditable(true);
+                    setUpperBoxSelectable(true);
+                    setTextWhiteAndBroadcastIndexToZero();
                     makeButtonActiveIfNotYet();
-                    BroadcastMorseSignalsThread.setBroadcastingToStartFromTheBeggining(getActivity());
-                    BroadcastMorseSignalsThread.makeTextBoxesTextWhiteAgain(getActivity());
-                    PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
-                    PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+                    deactivateOtherButtons();
                 }
             }
         });
-    }
-
-    @Override
-    public void makeButtonActiveIfNotYet() {
-        super.makeButtonActiveIfNotYet();
-        setButtonImageToDeactivated();
     }
 
     private void setButtonImageToDeactivated() {
@@ -62,6 +53,22 @@ public class StopButton extends ButtonsTemplate {
     public void deactivateIfNotYetInactive() {
         super.deactivateIfNotYetInactive();
         setButtonImageActivated();
+    }
+
+    @Override
+    public void makeButtonActiveIfNotYet() {
+        super.makeButtonActiveIfNotYet();
+        setButtonImageToDeactivated();
+    }
+
+    private void setTextWhiteAndBroadcastIndexToZero() {
+        BroadcastMorseSignalsThread.setBroadcastingToStartFromTheBeggining(getActivity());
+        BroadcastMorseSignalsThread.makeTextBoxesTextWhiteAgain(getActivity());
+    }
+
+    private void deactivateOtherButtons() {
+        PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+        PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
     }
 
     private void setButtonImageActivated() {

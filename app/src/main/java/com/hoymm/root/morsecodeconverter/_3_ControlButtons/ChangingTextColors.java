@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
@@ -41,6 +40,15 @@ public class ChangingTextColors {
 
     private void colorUpperTextBox() {
         int selectionIndex = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int scrollY = TextBoxes.initAndGetUpperBox(getActivity()).getScrollY();
+
+        colorTextOfUpperBox();
+
+        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionIndex);
+        TextBoxes.initAndGetUpperBox(getActivity()).setScrollY(scrollY);
+    }
+
+    private void colorTextOfUpperBox() {
         String upperBoxText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         Spannable spannable;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)
@@ -48,17 +56,24 @@ public class ChangingTextColors {
         else
             spannable = getColoredMorse(upperBoxText);
         TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
-        TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionIndex);
     }
 
     private void colorBottomTextBox() {
+        int scrollY = TextBoxes.initAndGetBottomBox(getActivity()).getScrollY();
+
+        colorTextOfBottomBox();
+
+        TextBoxes.initAndGetBottomBox(getActivity()).setScrollY(scrollY);
+    }
+
+    private void colorTextOfBottomBox() {
         String bottomBoxText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         Spannable spannable;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             spannable = getColoredMorse(bottomBoxText);
         else
             spannable = getColoredText(bottomBoxText);
-        TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
+        TextBoxes.initAndGetBottomBox(getActivity()).setTextKeepState(spannable);
     }
 
     private Spannable getColoredText(String text) {

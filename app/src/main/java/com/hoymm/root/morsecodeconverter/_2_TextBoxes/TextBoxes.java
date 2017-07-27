@@ -1,8 +1,11 @@
 package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
 
@@ -11,23 +14,21 @@ import com.hoymm.root.morsecodeconverter.R;
  */
 
 public class TextBoxes {
-    private static EditText upperTextBox = null;
-    private static TextView bottomBox = null;
-
     public static EditText initAndGetUpperBox(Activity activity){
-        if (upperTextBox == null)
-            upperTextBox = (EditText) activity.findViewById(R.id.upper_edit_text_box);
-        return upperTextBox;
+        return (EditText) activity.findViewById(R.id.upper_edit_text_box);
     }
 
     public static TextView initAndGetBottomBox(Activity activity){
-        if (bottomBox == null)
-            bottomBox = (TextView) activity.findViewById(R.id.bottom_text_view_box);
-        return bottomBox;
+        return (TextView) activity.findViewById(R.id.bottom_text_view_box);
     }
 
-    public static void setNull(){
-        upperTextBox = null;
-        bottomBox = null;
+    public static void setUpperBoxScrollable(Activity activity){
+        initAndGetUpperBox(activity).setVerticalScrollBarEnabled(true);
+        initAndGetUpperBox(activity).setMovementMethod(new ScrollingMovementMethod());
+    }
+
+    public static void setBottomBoxScrollable(Activity activity){
+        initAndGetBottomBox(activity).setVerticalScrollBarEnabled(true);
+        initAndGetBottomBox(activity).setMovementMethod(new ScrollingMovementMethod());
     }
 }

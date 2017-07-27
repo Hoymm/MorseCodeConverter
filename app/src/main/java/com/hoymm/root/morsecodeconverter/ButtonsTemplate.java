@@ -1,10 +1,13 @@
 package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsInterface;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
@@ -55,12 +58,28 @@ public abstract class ButtonsTemplate implements ControlButtonsInterface {
     }
 
 
-    protected void makeUpperTextBoxEditable(final boolean editable) {
+    protected void setUpperBoxSelectable(final boolean editable) {
+        Log.i("TEXTSELECTABLE", editable + "");
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextBoxes.initAndGetUpperBox(getActivity()).setEnabled(editable);
+                TextBoxes.initAndGetUpperBox(getActivity()).setTextIsSelectable(editable);
             }
         });
+    }
+
+    protected void setTextBoxesScrollable() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextBoxes.setUpperBoxScrollable(getActivity());
+                TextBoxes.setBottomBoxScrollable(getActivity());
+            }
+        });
+    }
+
+    public void ifButtonInactiveThenCallOnclick(){
+        if (!isActive())
+            callOnClick();
     }
 }

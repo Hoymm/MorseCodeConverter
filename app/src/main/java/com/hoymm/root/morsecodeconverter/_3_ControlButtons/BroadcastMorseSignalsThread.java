@@ -1,6 +1,8 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
@@ -64,6 +66,7 @@ class BroadcastMorseSignalsThread implements Runnable {
                 && PlayButton.initAndGetInstance(getActivity()).isActive()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
             ChangingTextColors.refreshColors(getActivity());
+
             if (!broadcastSignalOrGap()) break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForwardIfPlayButtonActive();
         }

@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
@@ -33,7 +32,7 @@ public class PauseButton extends ButtonsTemplate{
                     deactivateIfNotYetInactive();
                 }
                 else {
-                    makeUpperTextBoxEditable(false);
+                    setUpperBoxSelectable(false);
                     makeButtonActiveIfNotYet();
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                     StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();

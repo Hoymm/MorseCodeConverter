@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -133,13 +134,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         handleTextBoxesConversion.clearSelection();
+        PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        StopButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
         setObjectsNull();
+        super.onDestroy();
     }
 
     private void setObjectsNull() {
@@ -158,6 +161,5 @@ public class MainActivity extends AppCompatActivity {
         SoundButton.setNull();
         FlashlightButton.setNull();
         ScreenButton.setNull();
-        TextBoxes.setNull();
     }
 }

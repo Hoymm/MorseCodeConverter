@@ -16,6 +16,8 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
 
 /**
@@ -124,7 +126,10 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void disableOrEnableSystemKeyboard() {
-        if(MorseToTextArrowsSwap.isConvertingTextToMorse)
+        if(MorseToTextArrowsSwap.isConvertingTextToMorse
+                && !PlayButton.initAndGetInstance(getActivity()).isActive()
+                && !PauseButton.initAndGetInstance(getActivity()).isActive()
+                )
             enableSystemKeyboard();
         else
             disableSystemKeyboard();

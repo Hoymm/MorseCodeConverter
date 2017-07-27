@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 
 /**
@@ -47,7 +46,8 @@ public class PlayButton extends ButtonsTemplate{
                 deactivateIfNotYetInactive();
             }
             else {
-                makeUpperTextBoxEditable(false);
+                setUpperBoxSelectable(false);
+                setTextBoxesScrollable();
                 makeButtonActiveIfNotYet();
                 runMorseBroadcastThread();
                 PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
