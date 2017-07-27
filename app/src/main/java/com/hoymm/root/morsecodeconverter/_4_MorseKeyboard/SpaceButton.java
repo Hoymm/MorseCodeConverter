@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 27.06.17.
@@ -38,8 +40,10 @@ public class SpaceButton extends ImageButton {
         instance.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                if (StopButton.initAndGetInstance(getActivity()).isActive())
                     onClickAction();
+                else
+                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -40,12 +40,8 @@ public class ChangingTextColors {
 
     private void colorUpperTextBox() {
         int selectionIndex = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
-        int scrollY = TextBoxes.initAndGetUpperBox(getActivity()).getScrollY();
-
         colorTextOfUpperBox();
-
         TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionIndex);
-        TextBoxes.initAndGetUpperBox(getActivity()).setScrollY(scrollY);
     }
 
     private void colorTextOfUpperBox() {
@@ -55,18 +51,10 @@ public class ChangingTextColors {
             spannable = getColoredText(upperBoxText);
         else
             spannable = getColoredMorse(upperBoxText);
-        TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
+        TextBoxes.initAndGetUpperBox(getActivity()).setTextKeepState(spannable);
     }
 
     private void colorBottomTextBox() {
-        int scrollY = TextBoxes.initAndGetBottomBox(getActivity()).getScrollY();
-
-        colorTextOfBottomBox();
-
-        TextBoxes.initAndGetBottomBox(getActivity()).setScrollY(scrollY);
-    }
-
-    private void colorTextOfBottomBox() {
         String bottomBoxText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
         Spannable spannable;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)

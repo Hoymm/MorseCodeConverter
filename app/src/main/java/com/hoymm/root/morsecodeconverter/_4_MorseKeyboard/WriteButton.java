@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
@@ -23,8 +26,10 @@ abstract class WriteButton extends ImageButton {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setOnClickAction(insertChar);
+                else
+                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
             }
         });
     }

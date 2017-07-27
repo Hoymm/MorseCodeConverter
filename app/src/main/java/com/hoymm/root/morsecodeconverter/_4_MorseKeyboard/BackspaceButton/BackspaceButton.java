@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 26.06.17.
@@ -38,8 +40,10 @@ public class BackspaceButton extends ImageButton {
         instance.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (TextBoxes.initAndGetUpperBox(getActivity()).isEnabled())
+                if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setButtonAction(event);
+                else
+                    Toast.makeText(getActivity(), R.string.edit_only_when_stop_active, Toast.LENGTH_LONG).show();
                 return false;
             }
         });

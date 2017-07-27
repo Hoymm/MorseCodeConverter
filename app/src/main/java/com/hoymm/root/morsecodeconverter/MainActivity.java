@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
@@ -81,10 +79,15 @@ public class MainActivity extends AppCompatActivity {
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
                     refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
+                    decideAndSetUpperBoxSelectable();
                     handleTextBoxesConversion.setSelectionsAtTheEnd();
                 }
             }
         });
+    }
+
+    private void decideAndSetUpperBoxSelectable() {
+        PlayButton.setUpperBoxSelectableFalseIfPlayOrPauseButtonActive(getActivity());
     }
 
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {

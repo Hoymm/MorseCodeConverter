@@ -103,4 +103,10 @@ public class PlayButton extends ButtonsTemplate{
     public static void setNull() {
         instance = null;
     }
+
+    public static void setUpperBoxSelectableFalseIfPlayOrPauseButtonActive(Activity activity) {
+        if (PlayButton.initAndGetInstance(activity).isActive()||
+                PauseButton.initAndGetInstance(activity).isActive())
+            PlayButton.initAndGetInstance(activity).setUpperBoxSelectable(false);
+    }
 }
