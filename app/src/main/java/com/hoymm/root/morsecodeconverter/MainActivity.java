@@ -2,8 +2,11 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -55,11 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializateControlPanelButtons() {
         PlayButton.initAndGetInstance(getActivity());
         PauseButton.initAndGetInstance(getActivity());
-        initAndActivateStopButton();
-    }
-
-    private void initAndActivateStopButton() {
-        StopButton.initAndGetInstance(getActivity()).callOnClick();
+        StopButton.initAndGetInstance(getActivity());
     }
 
     private void initializateFooterButtons() {
@@ -136,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void restoreDataFromSharedPreferences() {
+        morseToTextSwappingPanel.restoreTextHeadersPlacement();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
+        ConvertMorseToSignals.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
     }
 
     @Override
@@ -150,13 +151,33 @@ public class MainActivity extends AppCompatActivity {
     private void saveDataToSharedPreferences() {
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
+        ConvertMorseToSignals.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
     }
 
     @Override
     protected void onDestroy() {
         StopButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
         setObjectsNull();
+        clearSharedPreferencesData();
         super.onDestroy();
+    }
+
+    private void clearSharedPreferencesData() {
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String upperBoxText = sharedPref.getString(getActivity().getBaseContext().getString(R.string.upperTextBoxTextContentSP), "");
+
+
+        // TODO remove shared preferences when application destroy
+        Log.i("SharedPreferencesLog", "before remove..." + upperBoxText);
+        Log.i("SharedPreferencesLog", " remove all data");
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+
+        upperBoxText = sharedPref.getString(getActivity().getBaseContext().getString(R.string.upperTextBoxTextContentSP), "");
+        Log.i("SharedPreferencesLog", "after remove..." + upperBoxText);
     }
 
     private void setObjectsNull() {

@@ -2,6 +2,7 @@ package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -23,9 +24,11 @@ abstract class WriteButton extends ImageButton {
     }
 
     protected void setWriteButtonBehavior(ImageButton imageButton, final char insertChar) {
+        // TODO Line button is not working after resume app
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("WriteBUTTON", "...clicked.");
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setOnClickAction(insertChar);
                 else

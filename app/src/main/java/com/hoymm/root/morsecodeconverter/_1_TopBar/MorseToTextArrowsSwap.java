@@ -26,7 +26,6 @@ public class MorseToTextArrowsSwap {
     public MorseToTextArrowsSwap(Context context){
         myContext = context;
         linkObjectsWithXML();
-        restoreTextHeadersPlacement();
     }
 
     private void linkObjectsWithXML() {
@@ -39,22 +38,22 @@ public class MorseToTextArrowsSwap {
         return myContext;
     }
 
-    private void restoreTextHeadersPlacement() {
+    public void restoreTextHeadersPlacement() {
         String textText = this.getContext().getString(R.string.text);
         String morseText = this.getContext().getString(R.string.morse);
-        if(isLastTranslationFromMorseToText()) {
-            leftTextView.setText(morseText);
-            rightTextView.setText(textText);
-        }
-        else{
+        if(isLastTranslationFromTextToMorse()) {
             leftTextView.setText(textText);
             rightTextView.setText(morseText);
         }
+        else{
+            leftTextView.setText(morseText);
+            rightTextView.setText(textText);
+        }
     }
 
-    private boolean isLastTranslationFromMorseToText(){
-        SharedPreferences sharedPref = ((Activity)myContext).getPreferences(Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(getIsTranslationFromMorseToTextKey(), true);
+    private boolean isLastTranslationFromTextToMorse(){
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true);
     }
 
     public void swapTextHeaders(){
@@ -77,10 +76,10 @@ public class MorseToTextArrowsSwap {
     }
 
     private void saveTranslationDirectionInfo(SharedPreferences.Editor editor) {
-        editor.putBoolean(getIsTranslationFromMorseToTextKey(), isConvertingTextToMorse);
+        editor.putBoolean(getIsTranslationFromTextToMorseKey(), isConvertingTextToMorse);
     }
 
-    private String getIsTranslationFromMorseToTextKey(){
+    private String getIsTranslationFromTextToMorseKey(){
         return this.getContext().getString(R.string.isTranslationFromTextToMorseSP);
     }
 
