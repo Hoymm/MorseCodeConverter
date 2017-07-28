@@ -29,10 +29,7 @@ public class PauseButton extends ButtonsTemplate implements Singleton {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.isActivated()) {
-                    deactivateIfNotYetInactive();
-                }
-                else {
+                if(!v.isActivated()){
                     setUpperBoxSelectable(false);
                     makeButtonActiveIfNotYet();
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();

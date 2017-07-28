@@ -32,8 +32,6 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
             @Override
             public void onClick(View v) {
                 button.setActivated(!button.isActivated());
-                Toast.makeText(getActivity(),
-                        TextBoxes.initAndGetBottomBox(getActivity()).getText(), Toast.LENGTH_SHORT).show();
             }
         });
     }

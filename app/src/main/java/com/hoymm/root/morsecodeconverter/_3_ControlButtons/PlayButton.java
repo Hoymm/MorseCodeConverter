@@ -33,8 +33,6 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
 
     private void setButtonBehavior() {
         button.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 if (FooterButtons.atLeastOneFooterButtonActive(getActivity()))
@@ -47,10 +45,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
 
     private void changeActiveStatesThenRunBroadcastThread(View button) {
         if (broadcastMorseSignalsThread.isThreadDead()) {
-            if (button.isActivated()) {
-                deactivateIfNotYetInactive();
-            }
-            else {
+            if (!button.isActivated()) {
                 setUpperBoxSelectable(false);
                 setTextBoxesScrollable();
                 makeButtonActiveIfNotYet();
