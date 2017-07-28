@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         adjustCompomentsViaAnimation();
         hideSystemKeyboard(getActivity());
         convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
-        morseToTextSwappingPanel.swapTextHeaders();
+        morseToTextSwappingPanel.refreshTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
     }
 
@@ -129,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refreshAndAdjustApplicationComponentsState();
         restoreDataFromSharedPreferences();
+        refreshAndAdjustApplicationComponentsState();
         initButtons();
     }
 
     private void restoreDataFromSharedPreferences() {
-        morseToTextSwappingPanel.restoreTextHeadersPlacement();
+        morseToTextSwappingPanel.restoreTranslationDirection();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
         ConvertMorseToSignals.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
     }
@@ -171,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("SharedPreferencesLog", "before remove..." + upperBoxText);
         Log.i("SharedPreferencesLog", " remove all data");
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = prefs.edit();
         editor.clear();
-        editor.commit();
+        editor.commit();*/
 
         upperBoxText = sharedPref.getString(getActivity().getBaseContext().getString(R.string.upperTextBoxTextContentSP), "");
         Log.i("SharedPreferencesLog", "after remove..." + upperBoxText);

@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -38,25 +39,17 @@ public class MorseToTextArrowsSwap {
         return myContext;
     }
 
-    public void restoreTextHeadersPlacement() {
-        String textText = this.getContext().getString(R.string.text);
-        String morseText = this.getContext().getString(R.string.morse);
-        if(isLastTranslationFromTextToMorse()) {
-            leftTextView.setText(textText);
-            rightTextView.setText(morseText);
-        }
-        else{
-            leftTextView.setText(morseText);
-            rightTextView.setText(textText);
-        }
+    public void restoreTranslationDirection() {
+        isConvertingTextToMorse = isLastTranslationFromTextToMorse();
     }
 
     private boolean isLastTranslationFromTextToMorse(){
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Log.i("TextToMorse", " get" + sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true));
         return sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true);
     }
 
-    public void swapTextHeaders(){
+    public void refreshTextHeaders(){
         if (isConvertingTextToMorse) {
             leftTextView.setText(getActivity().getString(R.string.text));
             rightTextView.setText(getActivity().getString(R.string.morse));
@@ -76,6 +69,7 @@ public class MorseToTextArrowsSwap {
     }
 
     private void saveTranslationDirectionInfo(SharedPreferences.Editor editor) {
+        Log.i("TextToMorse", " set" + isConvertingTextToMorse);
         editor.putBoolean(getIsTranslationFromTextToMorseKey(), isConvertingTextToMorse);
     }
 
