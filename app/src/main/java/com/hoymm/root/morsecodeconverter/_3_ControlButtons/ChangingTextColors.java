@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
@@ -21,19 +22,21 @@ public class ChangingTextColors {
     public static void refreshColors(Activity activity){
         if (changingTextColors == null)
             changingTextColors = new ChangingTextColors(activity);
-        changingTextColors.colorCurrentlyTranslatingText();
+        changingTextColors.colorCurrentlyTranslatingTextIfStopButtonInactive();
     }
 
     private ChangingTextColors(Activity activity) {
         this.activity = activity;
     }
 
-    private void colorCurrentlyTranslatingText() {
+    private void colorCurrentlyTranslatingTextIfStopButtonInactive() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                colorUpperTextBoxAndScrollFollowingCurChar();
-                colorBottomTextBoxAndScrollFollowingCurChar();
+                if (!StopButton.initAndGetInstance(getActivity()).isActive()) {
+                    colorUpperTextBoxAndScrollFollowingCurChar();
+                    colorBottomTextBoxAndScrollFollowingCurChar();
+                }
             }
         });
     }
@@ -41,7 +44,7 @@ public class ChangingTextColors {
     private void colorUpperTextBoxAndScrollFollowingCurChar() {
         String upperBoxText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         Spannable spannable;
-        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
+gu        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredText(upperBoxText);
             TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
             TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredTextStartIndex());
