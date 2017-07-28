@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
@@ -13,7 +14,7 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
  * File created by Damian Muca - Kaizen on 26.06.17.
  */
 
-public class BackspaceButton extends ImageButton {
+public class BackspaceButton extends ImageButton implements Singleton {
     private static ImageButton instance = null;
     private static Activity activity;
     private static boolean isPressed = false;
@@ -122,7 +123,8 @@ public class BackspaceButton extends ImageButton {
         return activity;
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

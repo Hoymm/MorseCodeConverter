@@ -9,16 +9,17 @@ import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class VibrationButton extends ButtonsTemplate implements FooterButtonsInterface {
+public class VibrationButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
     private static VibrationButton instance = null;
     private Vibrator vibrator;
 
-    public static VibrationButton initializateAndGetInstance(Activity activity){
+    public static VibrationButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new VibrationButton(activity);
         return instance;
@@ -44,17 +45,8 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
     }
 
     @Override
-    public void startIfActiveAndPermissionsGranted(int time) {
-        if (button.isActivated()) {
-            if (isPermissionGranted())
-                vibrator.vibrate(time);
-
-        }
-    }
-
-    @Override
-    public boolean isButtonActive() {
-        return button.isActivated();
+    public void start(int time) {
+        vibrator.vibrate(time);
     }
 
     @Override
@@ -62,7 +54,8 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
         return true;
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

@@ -14,6 +14,8 @@ import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsEnum;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsSharedPreferences;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
@@ -21,6 +23,8 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.SetToClipboardButtonBehavior;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.DotButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.LineButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardSharedPreferences;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.SpaceButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
@@ -61,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializateFooterButtons() {
-        VibrationButton.initializateAndGetInstance(getActivity());
-        SoundButton.initializateAndGetInstance(getActivity());
-        FlashlightButton.initializateAndGetInstance(getActivity());
-        ScreenButton.initializateAndGetInstance(getActivity());
+        VibrationButton.initAndGetInstance(getActivity());
+        SoundButton.initAndGetInstance(getActivity());
+        FlashlightButton.initAndGetInstance(getActivity());
+        ScreenButton.initAndGetInstance(getActivity());
     }
 
     private void setArrowsSwapButtonBehavior() {
@@ -86,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void decideAndSetUpperBoxSelectable() {
-        PlayButton.setUpperBoxSelectableFalseIfPlayOrPauseButtonActive(getActivity());
+        PlayButton.setUpperBoxNotSelectableIfPlayOrPauseButtonActive(getActivity());
     }
 
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
         if (ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex() != 0)
-            ChangingTextColors.refreshColors(getActivity());
+            ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
     }
 
     private void refreshAndAdjustApplicationComponentsState() {
@@ -137,12 +141,14 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.restoreTranslationDirection();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
         ConvertMorseToSignals.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
+        ControlButtonsSharedPreferences.restoreLatelyActivatedButton(getActivity());
+        MorseKeyboardSharedPreferences.restoreLatelyActiveButtons(getActivity());
     }
 
     @Override
     protected void onPause() {
         handleTextBoxesConversion.clearSelection();
-        PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
+        ifPlayButtonActiveThenCallPause();
         saveDataToSharedPreferences();
         super.onPause();
     }
@@ -151,49 +157,39 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
         ConvertMorseToSignals.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
+        ControlButtonsSharedPreferences.saveCurrentlyActiveButton(getActivity());
+        MorseKeyboardSharedPreferences.saveCurrentlyActiveButton(getActivity());
     }
 
     @Override
     protected void onDestroy() {
-        StopButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
         setObjectsNull();
-        clearSharedPreferencesData();
         super.onDestroy();
     }
 
-    private void clearSharedPreferencesData() {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String upperBoxText = sharedPref.getString(getActivity().getBaseContext().getString(R.string.upperTextBoxTextContentSP), "");
-
-
-        // TODO remove shared preferences when application destroy
-        Log.i("SharedPreferencesLog", "before remove..." + upperBoxText);
-        Log.i("SharedPreferencesLog", " remove all data");
-
-        /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.clear();
-        editor.commit();*/
-
-        upperBoxText = sharedPref.getString(getActivity().getBaseContext().getString(R.string.upperTextBoxTextContentSP), "");
-        Log.i("SharedPreferencesLog", "after remove..." + upperBoxText);
+    private void ifPlayButtonActiveThenCallPause() {
+        if (PlayButton.initAndGetInstance(getActivity()).isActive())
+            PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
     }
 
     private void setObjectsNull() {
-        TopBarSpeedSpinner.setNull();
+        ConvertMorseToSignals.initAndGetInstance(getActivity()).setNull();
+        ChangingTextColors.initAndGetInstance(getActivity()).setNull();
 
-        PlayButton.setNull();
-        PauseButton.setNull();
-        StopButton.setNull();
+        TopBarSpeedSpinner.initAndGetInstance(getActivity()).setNull();
 
-        SpaceButton.setNull();
-        DotButton.setNull();
-        SpaceButton.setNull();
-        BackspaceButton.setNull();
+        PlayButton.initAndGetInstance(getActivity()).setNull();
+        PauseButton.initAndGetInstance(getActivity()).setNull();
+        StopButton.initAndGetInstance(getActivity()).setNull();
 
-        VibrationButton.setNull();
-        SoundButton.setNull();
-        FlashlightButton.setNull();
-        ScreenButton.setNull();
+        ((SpaceButton)SpaceButton.initAndGetInstance(getActivity())).setNull();
+        ((DotButton)DotButton.initAndGetInstance(getActivity())).setNull();
+        ((LineButton)LineButton.initAndGetInstance(getActivity())).setNull();
+        ((BackspaceButton)BackspaceButton.initAndGetInstance(getActivity())).setNull();
+
+        VibrationButton.initAndGetInstance(getActivity()).setNull();
+        SoundButton.initAndGetInstance(getActivity()).setNull();
+        FlashlightButton.initAndGetInstance(getActivity()).setNull();
+        ScreenButton.initAndGetInstance(getActivity()).setNull();
     }
 }

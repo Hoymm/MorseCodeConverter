@@ -45,7 +45,6 @@ public class MorseToTextArrowsSwap {
 
     private boolean isLastTranslationFromTextToMorse(){
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        Log.i("TextToMorse", " get" + sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true));
         return sharedPref.getBoolean(getIsTranslationFromTextToMorseKey(), true);
     }
 
@@ -69,7 +68,6 @@ public class MorseToTextArrowsSwap {
     }
 
     private void saveTranslationDirectionInfo(SharedPreferences.Editor editor) {
-        Log.i("TextToMorse", " set" + isConvertingTextToMorse);
         editor.putBoolean(getIsTranslationFromTextToMorseKey(), isConvertingTextToMorse);
     }
 

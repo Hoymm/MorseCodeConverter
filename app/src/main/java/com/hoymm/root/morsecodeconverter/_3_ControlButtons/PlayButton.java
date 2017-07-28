@@ -1,18 +1,21 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PlayButton extends ButtonsTemplate{
+public class PlayButton extends ButtonsTemplate implements Singleton {
     private static PlayButton instance = null;
     private BroadcastMorseSignalsThread broadcastMorseSignalsThread;
 
@@ -30,6 +33,8 @@ public class PlayButton extends ButtonsTemplate{
 
     private void setButtonBehavior() {
         button.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 if (FooterButtons.atLeastOneFooterButtonActive(getActivity()))
@@ -100,13 +105,15 @@ public class PlayButton extends ButtonsTemplate{
             }
         });}
 
-    public static void setNull() {
-        instance = null;
-    }
 
-    public static void setUpperBoxSelectableFalseIfPlayOrPauseButtonActive(Activity activity) {
+    public static void setUpperBoxNotSelectableIfPlayOrPauseButtonActive(Activity activity) {
         if (PlayButton.initAndGetInstance(activity).isActive()||
                 PauseButton.initAndGetInstance(activity).isActive())
             PlayButton.initAndGetInstance(activity).setUpperBoxSelectable(false);
+    }
+
+    @Override
+    public void setNull() {
+        instance = null;
     }
 }

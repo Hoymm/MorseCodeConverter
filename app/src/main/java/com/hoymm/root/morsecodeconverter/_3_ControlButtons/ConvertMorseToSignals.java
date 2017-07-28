@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -17,13 +18,13 @@ import static com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseC
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class ConvertMorseToSignals {
+public class ConvertMorseToSignals implements Singleton {
     private static ConvertMorseToSignals instance = null;
     private int morseCharStart = -1, morseCharEnd = -1, textCharStart = -1, textCharEnd = -1;
     private Activity activity;
     private boolean lastTimeWasAMediumGap = false;
 
-    public static ConvertMorseToSignals initAndGetInstance(Activity activity){
+    public static ConvertMorseToSignals initAndGetInstance(Activity activity) {
         if (instance == null)
             instance = new ConvertMorseToSignals(activity);
         return instance;
@@ -33,7 +34,7 @@ public class ConvertMorseToSignals {
         this.activity = activity;
     }
 
-    private Activity getActivity(){
+    private Activity getActivity() {
         return activity;
     }
 
@@ -54,9 +55,7 @@ public class ConvertMorseToSignals {
             int howManyGaps = calculateHowManyGapsAreThereInFront(morseCharStart, morseText);
             howManyGaps = demandWhetherNowShortGapOrLongShouldBeBroadcasted(howManyGaps);
             return morseCharStart + howManyGaps;
-        }
-
-        else {
+        } else {
             return morseCharStart + 1;
         }
     }
@@ -71,7 +70,7 @@ public class ConvertMorseToSignals {
 
     private int calculateHowManyGapsAreThereInFront(int index, String morseText) {
         int howManyGaps = 0;
-        while (morseText.length() > index && morseText.substring(index, index+1).equals(MorseCodeCipher.SHORT_GAP)){
+        while (morseText.length() > index && morseText.substring(index, index + 1).equals(MorseCodeCipher.SHORT_GAP)) {
             index++;
             howManyGaps++;
         }
@@ -82,7 +81,7 @@ public class ConvertMorseToSignals {
         return morseCharStart < getMorseWholeText().length();
     }
 
-    private String getMorseWholeText(){
+    private String getMorseWholeText() {
         String morseText;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             morseText = TextBoxes.initAndGetBottomBox(getActivity()).getText().toString();
@@ -116,11 +115,11 @@ public class ConvertMorseToSignals {
     }
 
     private boolean isShortGapRightNow() {
-        return morseCharStart == morseCharEnd-SHORT_GAP.length() && isCurIndexIsAShortGap(morseCharStart, getMorseWholeText());
+        return morseCharStart == morseCharEnd - SHORT_GAP.length() && isCurIndexIsAShortGap(morseCharStart, getMorseWholeText());
     }
 
     boolean isMediumGapRightNow() {
-        return morseCharStart == morseCharEnd-MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
+        return morseCharStart == morseCharEnd - MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
     }
 
     private boolean isCurIndexIsAMediumGap(int morseCharStart, String morseText) {
@@ -129,11 +128,11 @@ public class ConvertMorseToSignals {
 
     private void moveTextIndex() {
         textCharStart++;
-        textCharEnd = textCharStart+1 > getTextWholeText().length() ? textCharStart : textCharStart+1;
+        textCharEnd = textCharStart + 1 > getTextWholeText().length() ? textCharStart : textCharStart + 1;
     }
 
 
-    private String getTextWholeText(){
+    private String getTextWholeText() {
         String text;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             text = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
@@ -142,19 +141,19 @@ public class ConvertMorseToSignals {
         return text;
     }
 
-    public int getStartBroadcastingMorseIndex(){
+    public int getStartBroadcastingMorseIndex() {
         return morseCharStart;
     }
 
-    int getEndBroadcastingMorseIndex(){
+    int getEndBroadcastingMorseIndex() {
         return morseCharEnd;
     }
 
-    int getStartBroadcastingTextIndex(){
+    int getStartBroadcastingTextIndex() {
         return textCharStart;
     }
 
-    int getEndBroadcastingTextIndex(){
+    int getEndBroadcastingTextIndex() {
         return textCharEnd == 0 && getTextWholeText().length() > 0 ? 1 : textCharEnd;
     }
 
@@ -163,6 +162,7 @@ public class ConvertMorseToSignals {
             return MEDIUM_GAP;
         else
             return getMorseWholeText().substring(morseCharStart, morseCharEnd);
+
     }
 
     public static void saveIndexesOfCurrentlyBroadcastingTextToSP(Activity activity) {
@@ -210,5 +210,10 @@ public class ConvertMorseToSignals {
         ConvertMorseToSignals.initAndGetInstance(activity).textCharEnd = (sharedPref.getInt(getEndTextIndexSPKey(activity), 0));
         ConvertMorseToSignals.initAndGetInstance(activity).morseCharStart = (sharedPref.getInt(getStartMorseIndexSPKey(activity), 0));
         ConvertMorseToSignals.initAndGetInstance(activity).morseCharEnd = (sharedPref.getInt(getEndMorseIndexSPKey(activity), 0));
+    }
+
+    @Override
+    public void setNull() {
+        instance = null;
     }
 }

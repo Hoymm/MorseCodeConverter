@@ -6,16 +6,17 @@ import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterface {
+public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
     private static ScreenButton instance;
 
-    public static ScreenButton initializateAndGetInstance(Activity activity){
+    public static ScreenButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new ScreenButton(activity);
         return instance;
@@ -38,13 +39,8 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
     }
 
     @Override
-    public void startIfActiveAndPermissionsGranted(int time) {
+    public void start(int time) {
 
-    }
-
-    @Override
-    public boolean isButtonActive() {
-        return button.isActivated();
     }
 
     @Override
@@ -52,7 +48,8 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
         return true;
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

@@ -5,15 +5,16 @@ import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface {
+public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
     private static FlashlightButton instance;
 
-    public static FlashlightButton initializateAndGetInstance(Activity activity){
+    public static FlashlightButton initAndGetInstance(Activity activity){
         if (instance == null)
             instance = new FlashlightButton(activity);
         return instance;
@@ -34,13 +35,8 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
     }
 
     @Override
-    public void startIfActiveAndPermissionsGranted(int time) {
+    public void start(int time) {
 
-    }
-
-    @Override
-    public boolean isButtonActive() {
-        return button.isActivated();
     }
 
     @Override
@@ -48,7 +44,8 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
         return true;
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

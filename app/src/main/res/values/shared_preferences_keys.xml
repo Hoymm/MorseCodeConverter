@@ -6,8 +6,15 @@
     <string name="upperTextBoxTextContentSP" translatable="false">com.hoymm.root.morsecodeconverter.upperTextBoxTextContent</string>
     <string name="bottomTextBoxTextContentSP" translatable="false">com.hoymm.root.morsecodeconverter.bottomTextBoxTextContent</string>
 
-    <string name="morseStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseStartIndex</string>
-    <string name="morseEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseEndIndex</string>
-    <string name="textStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textStartIndex</string>
-    <string name="textEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textEndIndex</string>
+    <string name="currentControlButtonActiveSP" translatable="false">com.hoymm.root.morsecodeconverter.currentControlButtonActiveSP</string>
+
+    <string name="morseStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseStartIndexSP</string>
+    <string name="morseEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseEndIndexSP</string>
+    <string name="textStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textStartIndexSP</string>
+    <string name="textEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textEndIndexSP</string>
+
+    <string name="vibrationButtonActiveSP" translatable="false">com.hoymm.root.morsecodeconverter.vibrationButtonActiveSP</string>
+    <string name="soundButtonActiveSP" translatable="false">com.hoymm.root.morsecodeconverter.soundButtonActiveSP</string>
+    <string name="flashlightButtonActiveSP" translatable="false">com.hoymm.root.morsecodeconverter.flashlightButtonActiveSP</string>
+    <string name="screenButtonActiveSP" translatable="false">com.hoymm.root.morsecodeconverter.screenButtonActiveSP</string>
 </resources>

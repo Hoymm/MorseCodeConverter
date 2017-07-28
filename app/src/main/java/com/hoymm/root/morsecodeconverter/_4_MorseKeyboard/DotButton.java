@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class DotButton extends WriteButton {
+public class DotButton extends WriteButton implements Singleton {
     private static ImageButton instance = null;
 
     public static ImageButton initAndGetInstance(Activity activity){
@@ -24,7 +25,8 @@ public class DotButton extends WriteButton {
         setWriteButtonBehavior(instance, '·');// this is not a dot
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

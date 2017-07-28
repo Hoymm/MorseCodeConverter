@@ -5,12 +5,13 @@ import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PauseButton extends ButtonsTemplate{
+public class PauseButton extends ButtonsTemplate implements Singleton {
     private static PauseButton instance = null;
 
     public static PauseButton initAndGetInstance(Activity activity){
@@ -71,7 +72,8 @@ public class PauseButton extends ButtonsTemplate{
         });
     }
 
-    public static void setNull() {
+    @Override
+    public void setNull() {
         instance = null;
     }
 }

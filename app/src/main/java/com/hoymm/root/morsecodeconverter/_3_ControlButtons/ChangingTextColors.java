@@ -5,9 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
@@ -15,14 +15,18 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
  * File created by Damian Muca - Kaizen on 19.07.17.
  */
 
-public class ChangingTextColors {
+public class ChangingTextColors implements Singleton {
     private Activity activity;
-    private static ChangingTextColors changingTextColors = null;
+    private static ChangingTextColors instance = null;
 
-    public static void refreshColors(Activity activity){
-        if (changingTextColors == null)
-            changingTextColors = new ChangingTextColors(activity);
-        changingTextColors.colorCurrentlyTranslatingTextIfStopButtonInactive();
+    public static ChangingTextColors initAndGetInstance(Activity activity){
+        if (instance == null)
+            instance = new ChangingTextColors(activity);
+        return instance;
+    }
+
+    public void refreshColors(){
+        instance.colorCurrentlyTranslatingTextIfStopButtonInactive();
     }
 
     private ChangingTextColors(Activity activity) {
@@ -99,5 +103,10 @@ public class ChangingTextColors {
 
     private Activity getActivity() {
         return activity;
+    }
+
+    @Override
+    public void setNull() {
+        instance = null;
     }
 }

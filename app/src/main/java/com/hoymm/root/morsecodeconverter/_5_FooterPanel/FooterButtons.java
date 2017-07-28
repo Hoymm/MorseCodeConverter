@@ -9,10 +9,10 @@ import android.app.Activity;
 public class FooterButtons {
     public static boolean atLeastOneFooterButtonActive(Activity activity){
         return
-                VibrationButton.initializateAndGetInstance(activity).isActive() ||
-                SoundButton.initializateAndGetInstance(activity).isActive() ||
-                FlashlightButton.initializateAndGetInstance(activity).isActive() ||
-                ScreenButton.initializateAndGetInstance(activity).isActive();
+                VibrationButton.initAndGetInstance(activity).isActive() ||
+                SoundButton.initAndGetInstance(activity).isActive() ||
+                FlashlightButton.initAndGetInstance(activity).isActive() ||
+                ScreenButton.initAndGetInstance(activity).isActive();
     }
 
 }

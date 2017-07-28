@@ -1,8 +1,6 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
@@ -65,9 +63,9 @@ class BroadcastMorseSignalsThread implements Runnable {
         while (isThereTextLeftToBroadcast()
                 && PlayButton.initAndGetInstance(getActivity()).isActive()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
-            ChangingTextColors.refreshColors(getActivity());
+            ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
 
-            if (!broadcastSignalOrGap()) break;
+            if (!broadcastSignalOrGapSuccesfully()) break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForwardIfPlayButtonActive();
         }
     }
@@ -76,7 +74,7 @@ class BroadcastMorseSignalsThread implements Runnable {
         return ConvertMorseToSignals.initAndGetInstance(getActivity()).isThereStillTextLeftToBroadcast();
     }
 
-    private boolean broadcastSignalOrGap() {
+    private boolean broadcastSignalOrGapSuccesfully() {
         int time = calculateCurrentPlayTime();
         if (isAGap(time))
             time = Math.abs(time);
@@ -123,24 +121,24 @@ class BroadcastMorseSignalsThread implements Runnable {
     private boolean broadcastSignal(int time) {
         boolean allPermissionsGranted = true;
 
-        if (VibrationButton.initializateAndGetInstance(getActivity()).isActive())
+        if (VibrationButton.initAndGetInstance(getActivity()).isActive())
             playVibration(time);
 
-        if (SoundButton.initializateAndGetInstance(getActivity()).isActive())
-            if (SoundButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+        if (SoundButton.initAndGetInstance(getActivity()).isActive())
+            if (SoundButton.initAndGetInstance(getActivity()).isPermissionGranted())
                 playSound(time);
             else
                 allPermissionsGranted = false;
 
-        if (FlashlightButton.initializateAndGetInstance(getActivity()).isActive())
-            if (FlashlightButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+        if (FlashlightButton.initAndGetInstance(getActivity()).isActive())
+            if (FlashlightButton.initAndGetInstance(getActivity()).isPermissionGranted())
                 playFlashlight(time);
             else
                 allPermissionsGranted = false;
 
 
-        if (ScreenButton.initializateAndGetInstance(getActivity()).isActive())
-            if (ScreenButton.initializateAndGetInstance(getActivity()).isPermissionGranted())
+        if (ScreenButton.initAndGetInstance(getActivity()).isActive())
+            if (ScreenButton.initAndGetInstance(getActivity()).isPermissionGranted())
                 playScreen(time);
             else
                 allPermissionsGranted = false;
@@ -179,7 +177,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void playVibration(int time) {
-        VibrationButton.initializateAndGetInstance(getActivity()).startIfActiveAndPermissionsGranted(time);
+        VibrationButton.initAndGetInstance(getActivity()).start(time);
     }
 
     private void playSound(int time) {
