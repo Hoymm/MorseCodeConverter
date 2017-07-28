@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="conversionSpeedKey" translatable="false">com.hoymm.root.morsecodeconverter.conversionSpeedKey</string>
-    <string name="isTranslationFromTextToMorse" translatable="false">com.hoymm.root.morsecodeconverter.isTranslationFromTextToMorse</string>
+    <string name="conversionSpeedKeySP" translatable="false">com.hoymm.root.morsecodeconverter.conversionSpeedKey</string>
+    <string name="isTranslationFromTextToMorseSP" translatable="false">com.hoymm.root.morsecodeconverter.isTranslationFromTextToMorse</string>
+
+    <string name="upperTextBoxTextContentSP" translatable="false">com.hoymm.root.morsecodeconverter.upperTextBoxTextContent</string>
+    <string name="bottomTextBoxTextContentSP" translatable="false">com.hoymm.root.morsecodeconverter.bottomTextBoxTextContent</string>
+
+    <string name="morseStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseStartIndex</string>
+    <string name="morseEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.morseEndIndex</string>
+    <string name="textStartIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textStartIndex</string>
+    <string name="textEndIndexSP" translatable="false">com.hoymm.root.morsecodeconverter.textEndIndex</string>
 </resources>

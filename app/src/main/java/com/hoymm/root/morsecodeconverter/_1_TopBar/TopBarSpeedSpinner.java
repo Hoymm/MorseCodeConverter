@@ -78,7 +78,7 @@ public class TopBarSpeedSpinner extends Spinner {
     }
 
     private String getConversionSpeedKey(){
-        return this.getContext().getString(R.string.conversionSpeedKey);
+        return this.getContext().getString(R.string.conversionSpeedKeySP);
     }
 
     private void restoreLastSelectedValue(float lastSelectedValue) {

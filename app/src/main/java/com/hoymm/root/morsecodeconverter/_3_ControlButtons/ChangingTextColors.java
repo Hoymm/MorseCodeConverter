@@ -44,7 +44,7 @@ public class ChangingTextColors {
     private void colorUpperTextBoxAndScrollFollowingCurChar() {
         String upperBoxText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
         Spannable spannable;
-gu        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredText(upperBoxText);
             TextBoxes.initAndGetUpperBox(getActivity()).setText(spannable);
             TextBoxes.initAndGetUpperBox(getActivity()).setSelection(getColoredTextStartIndex());

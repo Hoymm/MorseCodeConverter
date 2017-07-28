@@ -1,10 +1,10 @@
 package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
@@ -35,10 +35,41 @@ public class TextBoxes {
     }
 
     public static void showToastEditTextAllowedOnlyWhenStopButtonActive(Activity activity) {
-        Log.i("ShowToastMethod", "invoked.");
         if (editOnlyWhenStopActive != null)
             editOnlyWhenStopActive.cancel();
         editOnlyWhenStopActive = Toast.makeText(activity, R.string.edit_only_when_stop_active, Toast.LENGTH_LONG);
         editOnlyWhenStopActive.show();
+    }
+
+    public static void saveTextBoxesContentDataToSP(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString(getUpperBoxSPKey(activity), TextBoxes.initAndGetUpperBox(activity).getText().toString());
+        editor.putString(getBottomBoxSPKey(activity), TextBoxes.initAndGetBottomBox(activity).getText().toString());
+        editor.apply();
+    }
+
+    private static String getUpperBoxSPKey(Activity activity){
+        return activity.getBaseContext().getString(R.string.upperTextBoxTextContentSP);
+    }
+
+    private static String getBottomBoxSPKey(Activity activity){
+        return activity.getBaseContext().getString(R.string.bottomTextBoxTextContentSP);
+    }
+
+    public static void restoreTextBoxesContentFromSharedPreferences(Activity activity) {
+        restoreUpperTextBox(activity);
+        restoreBottomTextBox(activity);
+    }
+
+    private static void restoreUpperTextBox(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        TextBoxes.initAndGetUpperBox(activity).setText(sharedPref.getString(getUpperBoxSPKey(activity), ""));
+    }
+
+    private static void restoreBottomTextBox(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        TextBoxes.initAndGetBottomBox(activity).setText(sharedPref.getString(getBottomBoxSPKey(activity), ""));
     }
 }

@@ -26,7 +26,7 @@ public class MorseToTextArrowsSwap {
     public MorseToTextArrowsSwap(Context context){
         myContext = context;
         linkObjectsWithXML();
-        restoreLastTextViewsStatus();
+        restoreTextHeadersPlacement();
     }
 
     private void linkObjectsWithXML() {
@@ -39,25 +39,7 @@ public class MorseToTextArrowsSwap {
         return myContext;
     }
 
-    private void restoreLastTextViewsStatus() {
-        restoreTags();
-        restoreTexts();
-    }
-
-    private void restoreTags() {
-        String textTag = this.getContext().getString(R.string.text_tag);
-        String morseTag = this.getContext().getString(R.string.morse_tag);
-        if(isLastTranslationFromMorseToText()) {
-            leftTextView.setTag(morseTag);
-            rightTextView.setTag(textTag);
-        }
-        else{
-            leftTextView.setTag(textTag);
-            rightTextView.setTag(morseTag);
-        }
-    }
-
-    private void restoreTexts() {
+    private void restoreTextHeadersPlacement() {
         String textText = this.getContext().getString(R.string.text);
         String morseText = this.getContext().getString(R.string.morse);
         if(isLastTranslationFromMorseToText()) {
@@ -86,8 +68,8 @@ public class MorseToTextArrowsSwap {
         }
     }
 
-    public void saveDataToSharedPreferences() {
-        SharedPreferences sharedPref = ((Activity)this.getContext()).getPreferences(Context.MODE_PRIVATE);
+    public void saveTranslatingDirectionToSP() {
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         saveTranslationDirectionInfo(editor);
@@ -99,7 +81,7 @@ public class MorseToTextArrowsSwap {
     }
 
     private String getIsTranslationFromMorseToTextKey(){
-        return this.getContext().getString(R.string.isTranslationFromTextToMorse);
+        return this.getContext().getString(R.string.isTranslationFromTextToMorseSP);
     }
 
     private Activity getActivity(){

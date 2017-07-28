@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
         morseToTextSwappingPanel.swapTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
-        morseToTextSwappingPanel.saveDataToSharedPreferences();
     }
 
     private void adjustCompomentsViaAnimation() {
@@ -131,14 +131,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshAndAdjustApplicationComponentsState();
+        restoreDataFromSharedPreferences();
         initButtons();
+    }
+
+    private void restoreDataFromSharedPreferences() {
+        TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
     }
 
     @Override
     protected void onPause() {
         handleTextBoxesConversion.clearSelection();
         PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
+        saveDataToSharedPreferences();
         super.onPause();
+    }
+
+    private void saveDataToSharedPreferences() {
+        morseToTextSwappingPanel.saveTranslatingDirectionToSP();
+        TextBoxes.saveTextBoxesContentDataToSP(getActivity());
     }
 
     @Override
