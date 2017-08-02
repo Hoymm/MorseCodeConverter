@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.hoymm.root.morsecodeconverter.MainActivity;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
@@ -94,7 +95,8 @@ public class ConvertMorseToSignals implements Singleton {
     }
 
     void moveBroadcastingPositionForwardIfPlayButtonActive() {
-        if (PlayButton.initAndGetInstance(getActivity()).isActive()) {
+        if (!MainActivity.destroyed &&
+                PlayButton.initAndGetInstance(getActivity()).isActive()) {
             moveMorse();
             moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
         }

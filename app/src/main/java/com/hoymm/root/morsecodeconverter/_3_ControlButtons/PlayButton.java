@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
+import com.hoymm.root.morsecodeconverter.MainActivity;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -28,6 +29,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
     private PlayButton(Activity activity) {
         super(activity, R.id.playButtonId);
         broadcastMorseSignalsThread = new BroadcastMorseSignalsThread(getActivity());
+        Log.i("onDestroy()", "set Play Button behavior");
         setButtonBehavior();
     }
 
@@ -44,7 +46,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
     }
 
     private void changeActiveStatesThenRunBroadcastThread(View button) {
-        if (broadcastMorseSignalsThread.isThreadDead()) {
+        if (!broadcastMorseSignalsThread.isThreadAlive()) {
             if (!button.isActivated()) {
                 setUpperBoxSelectable(false);
                 setTextBoxesScrollable();
@@ -59,6 +61,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
     @Override
     public void deactivateIfNotYetInactive() {
         super.deactivateIfNotYetInactive();
+        broadcastMorseSignalsThread.onPause();
         setButtonImageToDeactivated();
     }
 

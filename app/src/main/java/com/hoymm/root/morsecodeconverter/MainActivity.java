@@ -2,7 +2,6 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +12,8 @@ import android.widget.ImageButton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
-import com.hoymm.root.morsecodeconverter._3_ControlButtons.BroadcastingIndexesSharedPreferences;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.BroadcastingTextIndexesSharedPreferencesHandle;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ChangingTextColors;
-import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsEnum;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ControlButtonsSharedPreferences;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
@@ -42,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private SetToClipboardButtonBehavior copyToClipboard;
     private ConvertingMorseTextProgram convertingMorseTextProgram;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
+
+    public static boolean destroyed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        destroyed = false;
         initializeProgramComponents();
         setArrowsSwapButtonBehavior();
     }
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     private void restoreDataFromSharedPreferences() {
         morseToTextSwappingPanel.restoreTranslationDirection();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
-        BroadcastingIndexesSharedPreferences.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
+        BroadcastingTextIndexesSharedPreferencesHandle.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
         ControlButtonsSharedPreferences.restoreLatelyActivatedButton(getActivity());
         MorseKeyboardSharedPreferences.restoreLatelyActiveButtons(getActivity());
     }
@@ -157,13 +158,14 @@ public class MainActivity extends AppCompatActivity {
     private void saveDataToSharedPreferences() {
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
-        BroadcastingIndexesSharedPreferences.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
+        BroadcastingTextIndexesSharedPreferencesHandle.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
         ControlButtonsSharedPreferences.saveCurrentlyActiveButton(getActivity());
         MorseKeyboardSharedPreferences.saveCurrentlyActiveButton(getActivity());
     }
 
     @Override
     protected void onDestroy() {
+        destroyed = true;
         setObjectsNull();
         super.onDestroy();
     }
@@ -174,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setObjectsNull() {
+        Log.i("onDestroy()", " set all objects null");
         ConvertMorseToSignals.initAndGetInstance(getActivity()).setNull();
         ChangingTextColors.initAndGetInstance(getActivity()).setNull();
 

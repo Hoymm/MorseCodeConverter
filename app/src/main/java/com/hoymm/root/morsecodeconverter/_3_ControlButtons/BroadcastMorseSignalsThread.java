@@ -1,7 +1,9 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 
+import com.hoymm.root.morsecodeconverter.MainActivity;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -18,7 +20,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 class BroadcastMorseSignalsThread implements Runnable {
     private Thread thread;
     private Activity activity;
-    private boolean threadIsDead = true;
+    private boolean threadIsAlive = false;
     private final int ONE_TIME_UNIT = 100;
 
     BroadcastMorseSignalsThread(Activity activity) {
@@ -32,19 +34,20 @@ class BroadcastMorseSignalsThread implements Runnable {
 
     @Override
     public void run() {
-        threadIsDead = false;
         broadcastMorseAndChangeCharColors();
         callOnclickStopOrPauseButtonIfPlayButtonIsActive();
         deactivatePlayButton();
-        threadIsDead = true;
+        threadIsAlive = false;
     }
 
     private void deactivatePlayButton() {
-        PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
+        if(!MainActivity.destroyed)
+            PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
     }
 
     private void callOnclickStopOrPauseButtonIfPlayButtonIsActive() {
-        if (PlayButton.initAndGetInstance(getActivity()).isActive())
+        if (!MainActivity.destroyed &&
+                PlayButton.initAndGetInstance(getActivity()).isActive())
             activatePauseOrStopButton();
     }
 
@@ -60,7 +63,8 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void broadcastMorseAndChangeCharColors() {
-        while (isThereTextLeftToBroadcast()
+        while (!MainActivity.destroyed &&
+                isThereTextLeftToBroadcast()
                 && PlayButton.initAndGetInstance(getActivity()).isActive()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
             ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
@@ -201,11 +205,16 @@ class BroadcastMorseSignalsThread implements Runnable {
         return activity;
     }
 
-    boolean isThreadDead() {
-        return threadIsDead;
+    boolean isThreadAlive() {
+        return threadIsAlive;
     }
 
     void startTheThread(){
-            thread.start();
+        threadIsAlive = true;
+        thread.start();
+    }
+
+    void onPause() {
+        threadIsAlive = false;
     }
 }

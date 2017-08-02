@@ -10,7 +10,7 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 28.07.17.
  */
 
-public class BroadcastingIndexesSharedPreferences {
+public class BroadcastingTextIndexesSharedPreferencesHandle {
     public static void saveIndexesOfCurrentlyBroadcastingTextToSP(Activity activity) {
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
