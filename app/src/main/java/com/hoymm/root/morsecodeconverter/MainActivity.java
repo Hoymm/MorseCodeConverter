@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel = new MorseToTextArrowsSwap(getActivity());
         handleTextBoxesConversion = new HandleTextBoxesConversion(getActivity());
         convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());
-        morseKeyboardPanelAndDisableSoftKeyboard =
-                        new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
+        morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
     }
 
     private void initializateControlPanelButtons() {
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void decideAndSetUpperBoxSelectable() {
-        PlayButton.setUpperBoxNotSelectableIfPlayOrPauseButtonActive(getActivity());
+        PlayButton.initAndGetInstance(getActivity()).setUpperBoxNotSelectableIfPlayOrPauseButtonActive();
     }
 
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.refreshTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
+        decideAndSetUpperBoxSelectable();
     }
 
     private void adjustCompomentsViaAnimation() {
