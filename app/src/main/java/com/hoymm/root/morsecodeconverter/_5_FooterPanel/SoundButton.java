@@ -2,7 +2,6 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.util.Log;
@@ -17,8 +16,10 @@ import com.hoymm.root.morsecodeconverter.Singleton;
  */
 
 public class SoundButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
-    private static SoundButton instance;
-    private MediaPlayer morseSound = null;
+    private static SoundButton instance = null;
+    private static SoundPool beepSound = null;
+    private static int mSoundId = 0;
+    private boolean ifBeepSoundStarted = false;
 
 
     public static SoundButton initAndGetInstance(Activity activity){
@@ -30,12 +31,16 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     private SoundButton(Activity activity) {
         super(activity, R.id.sound_button_id);
         setButtonBehavior();
-        configureMediaPlayerSignalSound(getActivity());
+        configureMediaPlayerSignalSound();
     }
 
-    private void configureMediaPlayerSignalSound(Activity activity) {
-        morseSound = MediaPlayer.create(activity, R.raw.beep);
-        morseSound.setLooping(true);
+    private void configureMediaPlayerSignalSound() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            beepSound = new SoundPool.Builder().setMaxStreams(1).build();
+        else
+            beepSound = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
+        mSoundId = beepSound.load(getActivity(), R.raw.beep1, 1);
+        Log.i("BroadcastMorse", " sound play");
     }
 
     private void setButtonBehavior() {
@@ -52,12 +57,23 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("BroadcastMorse", " sound play");
-                morseSound.start();
+                playNewOrResumeBeepSound();
                 sleepAThread(time);
-                morseSound.pause();
+                pauseBeepSound();
             }
         }).run();
+    }
+
+    private void playNewOrResumeBeepSound() {
+        if (ifBeepSoundStarted)
+            beepSound.resume(mSoundId);
+        else
+            startPlayingBeepSound();
+    }
+
+    private void startPlayingBeepSound() {
+        if (beepSound.play(mSoundId, 1, 1, 1, -1, 1) != 0)
+            ifBeepSoundStarted = true;
     }
 
     private void sleepAThread(int time) {
@@ -68,6 +84,10 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
         }
     }
 
+    private void pauseBeepSound() {
+        beepSound.pause(mSoundId);
+    }
+
     @Override
     public boolean isPermissionGranted() {
         return true;
@@ -76,8 +96,10 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     @Override
     public void setNull() {
         instance = null;
-        morseSound.stop();
-        morseSound.release();
-        morseSound = null;
+        beepSound.stop(mSoundId);
+        beepSound.release();
+        beepSound = null;
+        mSoundId = 0;
+        ifBeepSoundStarted = false;
     }
 }
