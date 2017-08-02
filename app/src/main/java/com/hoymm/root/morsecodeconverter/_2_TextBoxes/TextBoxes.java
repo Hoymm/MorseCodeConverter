@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter._2_TextBoxes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
@@ -97,5 +99,22 @@ public class TextBoxes {
 
     public static void setNull() {
         upperBox = bottomBox = null;
+    }
+
+    public static void setProperTextColor(Activity activity){
+        if (StopButton.initAndGetInstance(activity).isActive())
+            setTextNormalColor(activity);
+        else
+            setTextBroadcastColor(activity);
+    }
+
+    public static void setTextNormalColor(Activity activity){
+        initAndGetUpperBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.normalTextColor));
+        initAndGetBottomBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.normalTextColor));
+    }
+
+    public static void setTextBroadcastColor(Activity activity){
+        initAndGetUpperBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.broadcastTextColor));
+        initAndGetBottomBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.broadcastTextColor));
     }
 }

@@ -40,6 +40,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
                     changeActiveStatesThenRunBroadcastThread(v);
                 else
                     showMessageToTheUserToActivateAtLeastBroadcastOneMode();
+                TextBoxes.setProperTextColor(getActivity());
             }
         });
     }

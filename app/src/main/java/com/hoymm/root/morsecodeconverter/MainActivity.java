@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
         if (ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex() != 0)
             ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
+        TextBoxes.setProperTextColor(getActivity());
     }
 
     private void refreshAndAdjustApplicationComponentsState() {
