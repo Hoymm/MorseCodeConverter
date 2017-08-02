@@ -1,6 +1,11 @@
 package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
@@ -13,6 +18,8 @@ import com.hoymm.root.morsecodeconverter.Singleton;
 
 public class SoundButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
     private static SoundButton instance;
+    private MediaPlayer morseSound = null;
+
 
     public static SoundButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -23,6 +30,12 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     private SoundButton(Activity activity) {
         super(activity, R.id.sound_button_id);
         setButtonBehavior();
+        configureMediaPlayerSignalSound(getActivity());
+    }
+
+    private void configureMediaPlayerSignalSound(Activity activity) {
+        morseSound = MediaPlayer.create(activity, R.raw.beep);
+        morseSound.setLooping(true);
     }
 
     private void setButtonBehavior() {
@@ -35,8 +48,24 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     }
 
     @Override
-    public void start(int time) {
+    public void start(final int time) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("BroadcastMorse", " sound play");
+                morseSound.start();
+                sleepAThread(time);
+                morseSound.pause();
+            }
+        }).run();
+    }
 
+    private void sleepAThread(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -47,5 +76,8 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     @Override
     public void setNull() {
         instance = null;
+        morseSound.stop();
+        morseSound.release();
+        morseSound = null;
     }
 }

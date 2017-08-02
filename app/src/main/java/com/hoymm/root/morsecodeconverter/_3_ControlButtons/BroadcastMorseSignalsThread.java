@@ -21,7 +21,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     private Thread thread;
     private Activity activity;
     private boolean threadIsAlive = false;
-    private final int ONE_TIME_UNIT = 100;
+    private final int ONE_TIME_UNIT = 150;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
@@ -129,10 +129,7 @@ class BroadcastMorseSignalsThread implements Runnable {
             playVibration(time);
 
         if (SoundButton.initAndGetInstance(getActivity()).isActive())
-            if (SoundButton.initAndGetInstance(getActivity()).isPermissionGranted())
-                playSound(time);
-            else
-                allPermissionsGranted = false;
+            playSound(time);
 
         if (FlashlightButton.initAndGetInstance(getActivity()).isActive())
             if (FlashlightButton.initAndGetInstance(getActivity()).isPermissionGranted())
@@ -185,6 +182,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void playSound(int time) {
+        SoundButton.initAndGetInstance(getActivity()).start(time);
     }
 
     private void playFlashlight(int time) {
