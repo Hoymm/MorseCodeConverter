@@ -4,24 +4,49 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter.Singleton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 19.07.17.
  */
 
-public class TextBoxes {
+public class TextBoxes implements Singleton {
     private static Toast editOnlyWhenStopActive = null;
+    private static EditText upperBox = null, bottomBox = null;
 
     public static EditText initAndGetUpperBox(Activity activity){
-        return (EditText) activity.findViewById(R.id.upper_edit_text_box);
+        if (upperBox == null) {
+            upperBox = (EditText) activity.findViewById(R.id.upper_edit_text_box);
+            setUpperTextBehaviorWhenOnClicked(activity);
+        }
+        return upperBox;
+    }
+
+    private static void setUpperTextBehaviorWhenOnClicked(final Activity activity) {
+        upperBox.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN
+                        && !StopButton.initAndGetInstance(activity).isActive())
+                    TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(activity);
+                return false;
+            }
+        });
     }
 
     public static EditText initAndGetBottomBox(Activity activity){
-        return (EditText) activity.findViewById(R.id.bottom_text_view_box);
+        if (bottomBox == null)
+            bottomBox = (EditText) activity.findViewById(R.id.bottom_text_view_box);
+        return bottomBox;
     }
 
     public static void setUpperBoxScrollable(Activity activity){
@@ -37,7 +62,7 @@ public class TextBoxes {
     public static void showToastEditTextAllowedOnlyWhenStopButtonActive(Activity activity) {
         if (editOnlyWhenStopActive != null)
             editOnlyWhenStopActive.cancel();
-        editOnlyWhenStopActive = Toast.makeText(activity, R.string.edit_only_when_stop_active, Toast.LENGTH_LONG);
+        editOnlyWhenStopActive = Toast.makeText(activity, R.string.edit_only_when_stop_active, Toast.LENGTH_SHORT);
         editOnlyWhenStopActive.show();
     }
 
@@ -71,5 +96,10 @@ public class TextBoxes {
     private static void restoreBottomTextBox(Activity activity) {
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
         TextBoxes.initAndGetBottomBox(activity).setText(sharedPref.getString(getBottomBoxSPKey(activity), ""));
+    }
+
+    @Override
+    public void setNull() {
+        upperBox = bottomBox = null;
     }
 }

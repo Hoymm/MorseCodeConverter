@@ -28,7 +28,6 @@ abstract class WriteButton extends ImageButton {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("WriteBUTTON", "...clicked.");
                 if (StopButton.initAndGetInstance(getActivity()).isActive())
                     setOnClickAction(insertChar);
                 else
