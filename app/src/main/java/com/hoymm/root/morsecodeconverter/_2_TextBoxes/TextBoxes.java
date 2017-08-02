@@ -7,19 +7,16 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
-import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 19.07.17.
  */
 
-public class TextBoxes implements Singleton {
+public class TextBoxes {
     private static Toast editOnlyWhenStopActive = null;
     private static EditText upperBox = null, bottomBox = null;
 
@@ -35,7 +32,7 @@ public class TextBoxes implements Singleton {
         upperBox.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN
+                if(event.getAction() == MotionEvent.ACTION_UP
                         && !StopButton.initAndGetInstance(activity).isActive())
                     TextBoxes.showToastEditTextAllowedOnlyWhenStopButtonActive(activity);
                 return false;
@@ -98,8 +95,7 @@ public class TextBoxes implements Singleton {
         TextBoxes.initAndGetBottomBox(activity).setText(sharedPref.getString(getBottomBoxSPKey(activity), ""));
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         upperBox = bottomBox = null;
     }
 }

@@ -186,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
         PauseButton.initAndGetInstance(getActivity()).setNull();
         StopButton.initAndGetInstance(getActivity()).setNull();
 
+        TextBoxes.setNull();
+
         ((SpaceButton)SpaceButton.initAndGetInstance(getActivity())).setNull();
         ((DotButton)DotButton.initAndGetInstance(getActivity())).setNull();
         ((LineButton)LineButton.initAndGetInstance(getActivity())).setNull();
