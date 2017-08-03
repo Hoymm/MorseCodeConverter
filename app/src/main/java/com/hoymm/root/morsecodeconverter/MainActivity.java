@@ -2,6 +2,7 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.LineButton;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardSharedPreferences;
 import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.SpaceButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightPermissions;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
@@ -156,6 +158,11 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    private void ifPlayButtonActiveThenCallPause() {
+        if (PlayButton.initAndGetInstance(getActivity()).isActive())
+            PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
+    }
+
     private void saveDataToSharedPreferences() {
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
@@ -169,11 +176,6 @@ public class MainActivity extends AppCompatActivity {
         destroyed = true;
         setObjectsNull();
         super.onDestroy();
-    }
-
-    private void ifPlayButtonActiveThenCallPause() {
-        if (PlayButton.initAndGetInstance(getActivity()).isActive())
-            PauseButton.initAndGetInstance(getActivity()).ifButtonInactiveThenCallOnclick();
     }
 
     private void setObjectsNull() {
@@ -198,5 +200,14 @@ public class MainActivity extends AppCompatActivity {
         SoundButton.initAndGetInstance(getActivity()).setNull();
         FlashlightButton.initAndGetInstance(getActivity()).setNull();
         ScreenButton.initAndGetInstance(getActivity()).setNull();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case FlashlightPermissions.FLASHLIGHT_BUTTON_PERMISSIONS:
+                FlashlightPermissions.callOnClickIfPermissionGranted(grantResults, getActivity());
+                break;
+        }
     }
 }

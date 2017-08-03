@@ -61,7 +61,7 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
                 sleepAThread(time);
                 pauseBeepSound();
             }
-        }).run();
+        }).start();
     }
 
     private void playNewOrResumeBeepSound() {

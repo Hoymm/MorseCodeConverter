@@ -10,6 +10,9 @@
     <string name="swap_button">Swap Button</string>
     <string name="please_activate_at_least_one_broadcast_mode">Please activate at least one broadcast mode.</string>
     <string name="edit_only_when_stop_active">Text edit is allowed only when stop button activated.</string>
+    <string name="ok">OK</string>
+    <string name="camera_use_explanation_text">To use flashlight converting mode feature the application must be granted with camera permission.</string>
+    <string name="permission_is_required">Permission is required</string>
 
     <string-array name="speedsIntervals">
         <item>0.2</item>
