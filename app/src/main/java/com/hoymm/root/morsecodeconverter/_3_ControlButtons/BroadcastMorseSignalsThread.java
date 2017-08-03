@@ -186,6 +186,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void playFlashlight(int time) {
+        FlashlightButton.initAndGetInstance(getActivity()).start(time);
     }
 
     private void playScreen(int time) {

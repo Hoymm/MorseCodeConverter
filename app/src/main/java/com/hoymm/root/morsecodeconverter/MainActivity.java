@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initButtons() {
+    private void initAndAdjustButtonsState() {
         copyToClipboard = new SetToClipboardButtonBehavior(getActivity());
         initializateControlPanelButtons();
         initializateFooterButtons();
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         restoreDataFromSharedPreferences();
         refreshAndAdjustApplicationComponentsState();
-        initButtons();
+        initAndAdjustButtonsState();
     }
 
     private void restoreDataFromSharedPreferences() {

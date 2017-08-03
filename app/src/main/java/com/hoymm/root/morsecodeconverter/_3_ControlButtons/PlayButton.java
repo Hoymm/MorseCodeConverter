@@ -19,6 +19,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 public class PlayButton extends ButtonsTemplate implements Singleton {
     private static PlayButton instance = null;
     private BroadcastMorseSignalsThread broadcastMorseSignalsThread;
+    private static Toast plaseActivateBroadcastMode;
 
     public static PlayButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -99,8 +100,12 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(),
-                        R.string.please_activate_at_least_one_broadcast_mode, Toast.LENGTH_SHORT).show();
+                if (plaseActivateBroadcastMode != null)
+                    plaseActivateBroadcastMode.cancel();
+                plaseActivateBroadcastMode =
+                        Toast.makeText(getActivity(), R.string.please_activate_at_least_one_broadcast_mode, Toast.LENGTH_SHORT);
+                plaseActivateBroadcastMode.show();
+
             }
         });}
 

@@ -20,6 +20,7 @@
         style="@style/footerImageButtons"
         android:id="@+id/flashlight_button_id"
         android:src="@drawable/flash_on"
+
         />
     <ImageButton
         style="@style/footerImageButtons"
