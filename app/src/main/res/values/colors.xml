@@ -33,6 +33,6 @@
     <color name="footerButtonActive">#272454</color>
     <color name="footerButtonActiveStroke">#2d2a5c</color>
     <color name="footerButtonActiveUnderscore">#f2f2ef</color>
-    <color name="footerButtonDisabled">#6c6c6c</color>
-    <color name="footerButtonDisabledStroke">#4d4d4d</color>
+    <color name="footerButtonDisabled">#7e7e7e</color>
+    <color name="footerButtonDisabledStroke">#353535</color>
 </resources>

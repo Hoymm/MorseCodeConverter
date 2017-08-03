@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
@@ -15,7 +14,6 @@ import com.hoymm.root.morsecodeconverter.Singleton;
 
 public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
     private static FlashlightButton instance;
-    private static Toast deviceDoesNotSupportFlash;
 
     public static FlashlightButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -39,25 +37,13 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "I CANNOT CLICK", Toast.LENGTH_SHORT).show();
-                if (hasDeviceAFlashlight())
-                    button.setActivated(!button.isActivated());
-                else
-                    showToastThatYourDeviceDoesNotSupportTorch();
+                button.setActivated(!button.isActivated());
             }
         });
     }
 
     private boolean hasDeviceAFlashlight() {
         return getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-    }
-
-    private void showToastThatYourDeviceDoesNotSupportTorch() {
-        if (deviceDoesNotSupportFlash != null)
-            deviceDoesNotSupportFlash.cancel();
-        deviceDoesNotSupportFlash =
-                Toast.makeText(getActivity(), "Sorry, your device does not support that feature.", Toast.LENGTH_SHORT);
-        deviceDoesNotSupportFlash.show();
     }
 
     @Override
