@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         VibrationButton.initAndGetInstance(getActivity()).setNull();
         SoundButton.initAndGetInstance(getActivity()).setNull();
-        FlashlightButton.initAndGetInstance(getActivity()).setNull();
+        FlashlightButton.initAndGetInstance(getActivity()).ifNotNullSetNullAndReleaseCamera();
         ScreenButton.initAndGetInstance(getActivity()).setNull();
     }
 

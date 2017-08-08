@@ -3,7 +3,6 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -16,8 +15,7 @@ import com.hoymm.root.morsecodeconverter.Singleton;
  */
 
 public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
-    private static FlashlightButton instance;
-    private static TorchFeature torchFeature;
+    private static FlashlightButton instance = null;
 
     public static FlashlightButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -69,8 +67,18 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
         return true;
     }
 
+    public void ifNotNullSetNullAndReleaseCamera() {
+        setNull();
+        releaseCameraIfTorchFeatureNotNull();
+    }
+
     @Override
     public void setNull() {
         instance = null;
+    }
+
+    private void releaseCameraIfTorchFeatureNotNull(){
+        if (!TorchFeature.isNull())
+            TorchFeature.initAndGetInstance(getActivity()).setNullAndReleaseCamera();
     }
 }

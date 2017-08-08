@@ -3,6 +3,7 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PermissionInfo;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
@@ -17,14 +18,14 @@ import com.hoymm.root.morsecodeconverter.Singleton;
 
 class TorchFeature implements Singleton {
     private Activity activity;
-    private static TorchFeature instance= null;
+    private static TorchFeature instance = null;
 
     // new way >=21API
-    private CameraManager camManager;
+    private CameraManager newCamera;
     private String cameraId = null;
 
     // old way <21API
-    private Camera camera;
+    private Camera oldCamera = null;
     private Camera.Parameters cameraParameters;
 
 
@@ -39,36 +40,33 @@ class TorchFeature implements Singleton {
         initializateCameraObjects();
     }
 
-    private void initializateCameraObjects() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+    private void initializateCameraObjects() {/*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             initializateNewWayCamObjects();
-        }
-        else{
+        else*/
             initializateOldWayCamObjects();
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initializateNewWayCamObjects() {
-        camManager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
+        newCamera = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         try {
-            cameraId = camManager.getCameraIdList()[0];
+            cameraId = newCamera.getCameraIdList()[0];
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
     }
 
     private void initializateOldWayCamObjects() {
-        camera = Camera.open();
-        cameraParameters = camera.getParameters();
-        cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-        camera.setParameters(cameraParameters);
+        oldCamera = Camera.open();
+        oldCamera.startPreview();
+        cameraParameters = oldCamera.getParameters();
     }
 
-    public void turnOnFlashlight(int time) {
+    public void turnOnFlashlight(int time) {/*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             useFlashlightNewWay(time);
-        else
+        else*/
             useFlashlightOldWay(time);
     }
 
@@ -77,8 +75,11 @@ class TorchFeature implements Singleton {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.i("Flashlight", "turn ON");
                 newWayTurnOnTorch();
+                Log.i("Flashlight", "sleep for " + time);
                 sleepThreadWithTryCatch(time);
+                Log.i("Flashlight", "turn OFF");
                 newWayTurnOffTorch();
             }
         }).start();
@@ -87,7 +88,8 @@ class TorchFeature implements Singleton {
     @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.M)
     private void newWayTurnOnTorch() {
         try {
-            camManager.setTorchMode(cameraId, true);   //Turn ON
+
+            newCamera.setTorchMode(cameraId, true);   //Turn ON
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -104,7 +106,7 @@ class TorchFeature implements Singleton {
     @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.M)
     private void newWayTurnOffTorch() {
         try {
-            camManager.setTorchMode(cameraId, false);
+            newCamera.setTorchMode(cameraId, false);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -115,18 +117,31 @@ class TorchFeature implements Singleton {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                camera.startPreview();
+                turnOnOldWay();
                 sleepThreadWithTryCatch(time);
-                camera.stopPreview();
+                turnOffOldWay();
             }
         }).start();
     }
 
+    private void turnOnOldWay() {
+        cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        oldCamera.setParameters(cameraParameters);
+    }
+
+    private void turnOffOldWay() {
+        cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        oldCamera.setParameters(cameraParameters);
+    }
+
+    public void setNullAndReleaseCamera() {
+        releaseCameraUsages();
+        setNull();
+    }
 
     @Override
     public void setNull() {
         instance = null;
-        releaseCameraUsages();
     }
 
     private void releaseCameraUsages() {
@@ -134,10 +149,22 @@ class TorchFeature implements Singleton {
             // TODO release (camera2) objects ???
         }
         else
-            camera.release();
+            releaseOldWay();
+    }
+
+    private void releaseOldWay() {
+        if (oldCamera != null) {
+            oldCamera.stopPreview();
+            oldCamera.release();
+            oldCamera = null;
+        }
     }
 
     private Activity getActivity(){
         return activity;
+    }
+
+    public static boolean isNull() {
+        return instance == null;
     }
 }
