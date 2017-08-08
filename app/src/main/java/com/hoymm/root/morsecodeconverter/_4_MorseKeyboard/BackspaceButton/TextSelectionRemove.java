@@ -1,6 +1,9 @@
 package com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton;
 
 import android.app.Activity;
+import android.util.Log;
+
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -26,17 +29,11 @@ class TextSelectionRemove {
     }
 
     private String removeTextAccordingToSelection() {
-        if (isAnyTextSelected()) {
-            newSelectionIndex =
-                    TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int textSelectionStart = newSelectionIndex = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        if (isAnyTextSelected())
             return getTextWithSelectionCuttedOff();
-        }
-        else {
-            newSelectionIndex =
-                    TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() == 0
-                    ? 0 : TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart()-1;
-            return getTextWithCharToTheLeftOfSelectionDeleted();
-        }
+        else
+            return removeSingleCharacter(textSelectionStart);
     }
 
     private boolean isAnyTextSelected() {
@@ -50,6 +47,31 @@ class TextSelectionRemove {
         return result;
     }
 
+    private String removeSingleCharacter(int textSelectionStart) {
+        if (isMediumGapToDelete()) {
+            Log.i("isMediumGapToDelete()", "true");
+            newSelectionIndex = textSelectionStart - MorseCodeCipher.MEDIUM_GAP.length();
+        } else {
+            Log.i("isMediumGapToDelete()", "false");
+            newSelectionIndex = textSelectionStart == 0 ? 0 : TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() - 1;
+        }
+        return removeSubstringFromText(newSelectionIndex, textSelectionStart);
+    }
+
+    private boolean isMediumGapToDelete() {
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int mediumGapLength = MorseCodeCipher.MEDIUM_GAP.length();
+
+        if (selectionStart >= mediumGapLength)
+            return currentText.substring(selectionStart - mediumGapLength, selectionStart).equals(MorseCodeCipher.MEDIUM_GAP);
+
+        return false;
+    }
+
+    private String getTextWithMediumGapToTheLeftOfSelectionDeleted() {
+        return null;
+    }
+
     private String getTextToTheLeftOfSelection() {
         return currentText.substring(0, TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart());
     }
@@ -58,11 +80,11 @@ class TextSelectionRemove {
         return currentText.substring(TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd());
     }
 
-    private String getTextWithCharToTheLeftOfSelectionDeleted() {
+    private String removeSubstringFromText(int startIndex, int endIndex) {
         String result = "";
-        if (TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() != 0)
-            result = currentText.substring(0, TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() - 1);
-        return result + currentText.substring(TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart());
+        if (startIndex > 0)
+            result = currentText.substring(0, startIndex);
+        return result + currentText.substring(endIndex);
     }
 
     private Activity getActivity(){
