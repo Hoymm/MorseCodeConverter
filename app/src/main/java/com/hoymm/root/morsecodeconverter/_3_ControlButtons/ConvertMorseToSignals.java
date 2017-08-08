@@ -26,7 +26,6 @@ public class ConvertMorseToSignals implements Singleton {
     int textCharStart = -1;
     int textCharEnd = -1;
     private Activity activity;
-    private boolean lastTimeWasAMediumGap = false;
 
     public static ConvertMorseToSignals initAndGetInstance(Activity activity) {
         if (instance == null)
@@ -97,8 +96,8 @@ public class ConvertMorseToSignals implements Singleton {
     void moveBroadcastingPositionForwardIfPlayButtonActive() {
         if (!MainActivity.destroyed &&
                 PlayButton.initAndGetInstance(getActivity()).isActive()) {
-            moveMorse();
             moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
+            moveMorse();
         }
     }
 
@@ -108,11 +107,8 @@ public class ConvertMorseToSignals implements Singleton {
     }
 
     private void moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime() {
-        if (lastTimeWasAMediumGap || isShortOrMediumGapRightNow()) {
+        if (isShortOrMediumGapRightNow())
             moveTextIndex();
-            lastTimeWasAMediumGap = isMediumGapRightNow();
-        }
-
     }
 
     private boolean isShortOrMediumGapRightNow() {
@@ -123,7 +119,7 @@ public class ConvertMorseToSignals implements Singleton {
         return morseCharStart == morseCharEnd - SHORT_GAP.length() && isCurIndexIsAShortGap(morseCharStart, getMorseWholeText());
     }
 
-    boolean isMediumGapRightNow() {
+    private boolean isMediumGapRightNow() {
         return morseCharStart == morseCharEnd - MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
     }
 

@@ -69,7 +69,8 @@ class BroadcastMorseSignalsThread implements Runnable {
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
             ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
 
-            if (!broadcastSignalOrGapSuccesfully()) break;
+            if (!broadcastSignalOrGapSuccesfully())
+                break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForwardIfPlayButtonActive();
         }
     }

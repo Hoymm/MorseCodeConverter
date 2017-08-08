@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter.Singleton;
@@ -80,6 +81,7 @@ public class ChangingTextColors implements Singleton {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = getColoredTextStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingTextIndex();
+        Log.i("ColorText", "Start: " + startIndex + ", End: " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
@@ -93,6 +95,7 @@ public class ChangingTextColors implements Singleton {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = getColoredMorseStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingMorseIndex();
+        Log.i("ColorMorse", "Start: " + startIndex + ", End: " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }

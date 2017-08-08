@@ -93,8 +93,9 @@ public class MorseCodeCipher {
     }
 
     private void initMorseToTextCoding() {
-
         morseToTextCoding.put(MEDIUM_GAP, " ");
+        morseToTextCoding.put(SHORT_GAP, "");
+        morseToTextCoding.put("", "");
         morseToTextCoding.put("·−", "A");
         morseToTextCoding.put("−···", "B");
         morseToTextCoding.put("−·−·", "C");

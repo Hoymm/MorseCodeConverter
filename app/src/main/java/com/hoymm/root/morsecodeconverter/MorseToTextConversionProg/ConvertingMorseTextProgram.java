@@ -47,6 +47,8 @@ public class ConvertingMorseTextProgram {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO this method is invoke for every text change that is necessary
+                // TODO but also when text has been colored and in that case translating is not needed
                 translateStringAndInsertToBottomBox();
             }
 
@@ -145,8 +147,15 @@ public class ConvertingMorseTextProgram {
     private String translateSingleWordMorseToText(String morseWord) {
         String textWord = "";
         String [] morseLetter = morseWord.split(MorseCodeCipher.SHORT_GAP);
+
+        Log.i("ConvertToText", "morseLetter: |" + morseWord + "|");
+        for (int i = 0 ; i < morseLetter.length; ++i)
+            Log.i("ConvertToText", "morseLetter[" + i + "] == |" + morseLetter[i] + "|");
+
+
         for (String morseChar : morseLetter) {
             textWord += MorseCodeCipher.getInstance().convertToText(morseChar);
+            Log.i("ConvertToText", "textWord: |" + textWord + "|");
         }
         return textWord;
     }
