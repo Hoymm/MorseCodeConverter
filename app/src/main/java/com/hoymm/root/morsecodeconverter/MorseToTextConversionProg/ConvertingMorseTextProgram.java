@@ -147,16 +147,8 @@ public class ConvertingMorseTextProgram {
     private String translateSingleWordMorseToText(String morseWord) {
         String textWord = "";
         String [] morseLetter = morseWord.split(MorseCodeCipher.SHORT_GAP);
-
-        Log.i("ConvertToText", "morseLetter: |" + morseWord + "|");
-        for (int i = 0 ; i < morseLetter.length; ++i)
-            Log.i("ConvertToText", "morseLetter[" + i + "] == |" + morseLetter[i] + "|");
-
-
-        for (String morseChar : morseLetter) {
+        for (String morseChar : morseLetter)
             textWord += MorseCodeCipher.getInstance().convertToText(morseChar);
-            Log.i("ConvertToText", "textWord: |" + textWord + "|");
-        }
         return textWord;
     }
 

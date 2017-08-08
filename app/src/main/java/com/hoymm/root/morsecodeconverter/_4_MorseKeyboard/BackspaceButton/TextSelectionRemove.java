@@ -48,13 +48,10 @@ class TextSelectionRemove {
     }
 
     private String removeSingleCharacter(int textSelectionStart) {
-        if (isMediumGapToDelete()) {
-            Log.i("isMediumGapToDelete()", "true");
+        if (isMediumGapToDelete())
             newSelectionIndex = textSelectionStart - MorseCodeCipher.MEDIUM_GAP.length();
-        } else {
-            Log.i("isMediumGapToDelete()", "false");
+        else
             newSelectionIndex = textSelectionStart == 0 ? 0 : TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() - 1;
-        }
         return removeSubstringFromText(newSelectionIndex, textSelectionStart);
     }
 

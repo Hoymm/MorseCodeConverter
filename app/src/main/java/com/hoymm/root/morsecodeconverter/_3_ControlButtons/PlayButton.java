@@ -49,7 +49,6 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
     private void changeActiveStatesThenRunBroadcastThread(View button) {
         if (!broadcastMorseSignalsThread.isThreadAlive()) {
             if (!button.isActivated()) {
-                Log.i("setUpperBoxSelectable", " set to false.");
                 setUpperBoxSelectable(false);
                 setTextBoxesScrollable();
                 makeButtonActiveIfNotYet();
@@ -110,10 +109,8 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
         });}
 
 
-    public void setUpperBoxNotSelectableIfPlayOrPauseButtonActive() {
-        if (PlayButton.initAndGetInstance(getActivity()).isActive()||
-                PauseButton.initAndGetInstance(getActivity()).isActive())
-            setUpperBoxSelectable(false);
+    public void decideSetUpperBoxSelectableDueToControlButtonActive() {
+        setUpperBoxSelectable(StopButton.initAndGetInstance(getActivity()).isActive());
     }
 
     @Override

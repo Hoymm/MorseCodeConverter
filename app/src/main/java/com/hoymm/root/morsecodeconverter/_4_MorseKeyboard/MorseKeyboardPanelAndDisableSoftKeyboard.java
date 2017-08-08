@@ -125,7 +125,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     public void disableOrEnableSystemKeyboard() {
-        if(MorseToTextArrowsSwap.isConvertingTextToMorse)
+        if (MorseToTextArrowsSwap.isConvertingTextToMorse)
             enableSystemKeyboard();
         else
             disableSystemKeyboard();
@@ -140,7 +140,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
                 mImm.showSoftInput(TextBoxes.initAndGetUpperBox(getActivity()), InputMethodManager.SHOW_IMPLICIT);
             }
         });
-        Log.i("System keyboard", "enabled (when converting text-> morse).");
+        Log.i("SystemKeyboard", "enabled (when converting text-> morse).");
     }
 
     private void disableSystemKeyboard() {
@@ -149,7 +149,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
             public void onClick(View v) {
             }
         });
-        Log.i("System keyboard", "disabled (when converting morse-> text)..");
+        Log.i("SystemKeyboard", "disabled (when converting morse-> text)..");
     }
 
     private boolean isAnyAnimationRunning() {

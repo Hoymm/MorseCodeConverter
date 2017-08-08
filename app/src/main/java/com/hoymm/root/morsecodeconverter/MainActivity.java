@@ -36,7 +36,6 @@ import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndD
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
-    private TopBarSpeedSpinner topBarSpeedSpinner;
     private MorseToTextArrowsSwap morseToTextSwappingPanel;
     private HandleTextBoxesConversion handleTextBoxesConversion;
     private SetToClipboardButtonBehavior copyToClipboard;
@@ -84,15 +83,14 @@ public class MainActivity extends AppCompatActivity {
                     handleTextBoxesConversion.swapTextInsideBoxes();
                     morseToTextSwappingPanel.rotateArrowAnimation();
                     refreshAndAdjustApplicationComponentsState();
-                    decideAndSetUpperBoxSelectable();
                     handleTextBoxesConversion.setSelectionsAtTheEnd();
                 }
             }
         });
     }
 
-    private void decideAndSetUpperBoxSelectable() {
-        PlayButton.initAndGetInstance(getActivity()).setUpperBoxNotSelectableIfPlayOrPauseButtonActive();
+    private void ifStopButtonDisabledSetTextSelectableFalse() {
+        PlayButton.initAndGetInstance(getActivity()).decideSetUpperBoxSelectableDueToControlButtonActive();
     }
 
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         morseToTextSwappingPanel.refreshTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
-        decideAndSetUpperBoxSelectable();
+        ifStopButtonDisabledSetTextSelectableFalse();
     }
 
     private void adjustCompomentsViaAnimation() {

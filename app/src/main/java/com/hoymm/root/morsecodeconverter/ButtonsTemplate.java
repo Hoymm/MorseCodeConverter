@@ -58,12 +58,12 @@ public abstract class ButtonsTemplate implements ControlButtonsInterface {
     }
 
 
-    protected void setUpperBoxSelectable(final boolean editable) {
+    protected void setUpperBoxSelectable(final boolean selectable) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextBoxes.initAndGetUpperBox(getActivity()).setTextIsSelectable(editable);
-                TextBoxes.initAndGetUpperBox(getActivity()).setFocusable(editable);
+                TextBoxes.initAndGetUpperBox(getActivity()).setTextIsSelectable(selectable);
+                TextBoxes.initAndGetUpperBox(getActivity()).setFocusable(selectable);
             }
         });
     }
