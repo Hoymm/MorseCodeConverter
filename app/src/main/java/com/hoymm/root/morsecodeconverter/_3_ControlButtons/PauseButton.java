@@ -7,6 +7,7 @@ import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
@@ -37,6 +38,7 @@ public class PauseButton extends ButtonsTemplate {
                     PlayButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                     StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                     TextBoxes.setProperTextColor(getActivity());
+                    ScreenButton.initAndGetInstance(getActivity()).makeForegroundFullyTransparent();
                 }
             }
         });

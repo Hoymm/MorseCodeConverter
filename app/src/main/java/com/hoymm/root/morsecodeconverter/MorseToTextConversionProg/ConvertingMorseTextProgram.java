@@ -19,7 +19,6 @@ public class ConvertingMorseTextProgram {
     private boolean skipAddingShortGap = false;
     private static boolean isTranslatingInProgress = false;
     private boolean isConversionEnabled = false;
-    private static TextWatcher textWatcher;
 
     public static ConvertingMorseTextProgram initAndGetInstance(Activity activity){
         if (instance == null)
@@ -30,9 +29,6 @@ public class ConvertingMorseTextProgram {
     private ConvertingMorseTextProgram(Activity activity) {
         this.activity = activity;
         enableConversion();
-        // TODO addTextChangedListener is not refreshing when textWatcher changed.
-
-
         TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(
                 new TextWatcher() {
                     @Override

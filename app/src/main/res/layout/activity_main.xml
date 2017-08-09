@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.hoymm.root.morsecodeconverter.MainActivity"
@@ -9,49 +9,13 @@
     android:id="@+id/MAIN_LAYOUT_ID"
     android:focusableInTouchMode="true"
     >
-    <include layout="@layout/app_header"
+    <include layout="@layout/menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/headerId"
+        android:layout_height="match_parent"
         />
-    <include layout="@layout/morse_text_swap"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/headerId"
-        android:id="@+id/swappingPanelId"
+        android:layout_height="match_parent"
+        android:id="@+id/screen_mode_foreground_layout_id"
         />
-    <include layout="@layout/text_upper_box"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
-        android:layout_below="@id/swappingPanelId"
-        android:id="@+id/inputEditTextFieldId"
-        />
-    <include layout="@layout/text_bottom_box"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_below="@id/inputEditTextFieldId"
-        android:id="@+id/outputEditTextFieldId"
-        />
-    <include layout="@layout/middle_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/playButtonSize"
-        android:layout_below="@id/inputEditTextFieldId"
-        android:layout_marginTop="-30dp"
-        />
-    <include
-        layout="@layout/footer"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/applicationFooterId"
-        />
-    <include layout="@layout/morse_keyboard"
-        android:layout_above="@id/applicationFooterId"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/morse_keyboard_height"
-        />
-</android.support.percent.PercentRelativeLayout>
+</RelativeLayout>

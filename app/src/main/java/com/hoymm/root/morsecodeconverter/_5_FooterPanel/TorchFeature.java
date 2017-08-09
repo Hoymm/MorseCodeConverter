@@ -37,8 +37,8 @@ class TorchFeature {
         initializateCameraObjects();
     }
 
-    private void initializateCameraObjects() {/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    private void initializateCameraObjects() {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             initializateNewWayCamObjects();
         else*/
             initializateOldWayCamObjects();
@@ -60,8 +60,8 @@ class TorchFeature {
         cameraParameters = oldCamera.getParameters();
     }
 
-    public void turnOnFlashlight(int time) {/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+    public void turnOnFlashlight(int time) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             useFlashlightNewWay(time);
         else*/
             useFlashlightOldWay(time);
@@ -69,15 +69,16 @@ class TorchFeature {
 
     @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.M)
     void useFlashlightNewWay(final int time) {
+        Log.i("UseFlashlight", " new way");
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("Flashlight", "turn ON");
                 newWayTurnOnTorch();
-                Log.i("Flashlight", "sleep for " + time);
+                Log.i("Flashlight", "turn ON");
                 sleepThreadWithTryCatch(time);
-                Log.i("Flashlight", "turn OFF");
+                Log.i("Flashlight", "sleep for " + time);
                 newWayTurnOffTorch();
+                Log.i("Flashlight", "turn OFF");
             }
         }).start();
     }
@@ -137,10 +138,10 @@ class TorchFeature {
     }
 
     private void releaseCameraUsages() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // TODO release (camera2) objects ???
         }
-        else
+        else*/
             releaseOldWay();
     }
 

@@ -191,6 +191,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private void playScreen(int time) {
+        ScreenButton.initAndGetInstance(getActivity()).start(time);
     }
 
     private void pushToSleep(int ms) {
