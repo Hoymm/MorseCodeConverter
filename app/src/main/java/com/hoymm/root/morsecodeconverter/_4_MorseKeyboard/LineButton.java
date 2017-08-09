@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class LineButton extends WriteButton implements Singleton {
+public class LineButton extends WriteButton {
     private static ImageButton instance = null;
 
     public static ImageButton initAndGetInstance(Activity activity){
@@ -25,8 +24,7 @@ public class LineButton extends WriteButton implements Singleton {
         setWriteButtonBehavior(instance, '−');// this is not a minus
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

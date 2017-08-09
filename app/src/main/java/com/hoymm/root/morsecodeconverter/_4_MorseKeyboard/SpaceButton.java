@@ -6,7 +6,6 @@ import android.widget.ImageButton;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
@@ -14,7 +13,7 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
  * File created by Damian Muca - Kaizen on 27.06.17.
  */
 
-public class SpaceButton extends ImageButton implements Singleton {
+public class SpaceButton extends ImageButton {
     private static ImageButton instance = null;
     private Activity activity;
 
@@ -147,8 +146,7 @@ public class SpaceButton extends ImageButton implements Singleton {
         return activity;
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

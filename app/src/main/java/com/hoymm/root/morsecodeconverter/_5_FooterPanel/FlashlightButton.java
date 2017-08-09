@@ -8,13 +8,12 @@ import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
+public class FlashlightButton extends ButtonsTemplate implements FooterButtonsInterface {
     private static FlashlightButton instance = null;
 
     public static FlashlightButton initAndGetInstance(Activity activity){
@@ -67,18 +66,17 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
         return true;
     }
 
-    public void ifNotNullSetNullAndReleaseCamera() {
+    public static void ifNotNullSetNullAndReleaseCamera(Activity activity) {
         setNull();
-        releaseCameraIfTorchFeatureNotNull();
+        releaseCameraIfTorchFeatureNotNull(activity);
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 
-    private void releaseCameraIfTorchFeatureNotNull(){
+    private static void releaseCameraIfTorchFeatureNotNull(Activity activity){
         if (!TorchFeature.isNull())
-            TorchFeature.initAndGetInstance(getActivity()).setNullAndReleaseCamera();
+            TorchFeature.initAndGetInstance(activity).setNullAndReleaseCamera();
     }
 }

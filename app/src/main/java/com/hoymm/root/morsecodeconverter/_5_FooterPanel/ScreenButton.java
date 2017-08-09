@@ -2,18 +2,15 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
+public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterface {
     private static ScreenButton instance;
 
     public static ScreenButton initAndGetInstance(Activity activity){
@@ -46,8 +43,7 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
         return true;
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

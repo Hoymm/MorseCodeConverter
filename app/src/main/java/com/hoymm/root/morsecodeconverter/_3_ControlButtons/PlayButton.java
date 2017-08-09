@@ -1,14 +1,12 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
-import com.hoymm.root.morsecodeconverter.MainActivity;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 
@@ -16,7 +14,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class PlayButton extends ButtonsTemplate implements Singleton {
+public class PlayButton extends ButtonsTemplate {
     private static PlayButton instance = null;
     private BroadcastMorseSignalsThread broadcastMorseSignalsThread;
     private static Toast plaseActivateBroadcastMode;
@@ -53,6 +51,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
                 setTextBoxesScrollable();
                 makeButtonActiveIfNotYet();
                 runMorseBroadcastThread();
+                ConvertingMorseTextProgram.initAndGetInstance(getActivity()).disableConversion();
                 PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
             }
@@ -113,8 +112,7 @@ public class PlayButton extends ButtonsTemplate implements Singleton {
         setUpperBoxSelectable(StopButton.initAndGetInstance(getActivity()).isActive());
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

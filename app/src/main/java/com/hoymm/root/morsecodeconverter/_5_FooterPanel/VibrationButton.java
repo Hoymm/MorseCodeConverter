@@ -5,17 +5,15 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class VibrationButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
+public class VibrationButton extends ButtonsTemplate implements FooterButtonsInterface {
     private static VibrationButton instance = null;
     private Vibrator vibrator;
 
@@ -55,8 +53,7 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
         return true;
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

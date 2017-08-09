@@ -1,19 +1,18 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
+import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class StopButton extends ButtonsTemplate implements Singleton {
+public class StopButton extends ButtonsTemplate {
     private static StopButton instance = null;
 
     public static StopButton initAndGetInstance(Activity activity){
@@ -37,6 +36,7 @@ public class StopButton extends ButtonsTemplate implements Singleton {
                     makeButtonActiveIfNotYet();
                     deactivateOtherButtons();
                     TextBoxes.setProperTextColor(getActivity());
+                    ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableConversion();
                 }
             }
         });
@@ -82,8 +82,7 @@ public class StopButton extends ButtonsTemplate implements Singleton {
         });
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

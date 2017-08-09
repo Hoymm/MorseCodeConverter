@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private MorseToTextArrowsSwap morseToTextSwappingPanel;
     private HandleTextBoxesConversion handleTextBoxesConversion;
     private SetToClipboardButtonBehavior copyToClipboard;
-    private ConvertingMorseTextProgram convertingMorseTextProgram;
     private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
 
     public static boolean destroyed;
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         TopBarSpeedSpinner.initAndGetInstance(getActivity());
         morseToTextSwappingPanel = new MorseToTextArrowsSwap(getActivity());
         handleTextBoxesConversion = new HandleTextBoxesConversion(getActivity());
-        convertingMorseTextProgram = new ConvertingMorseTextProgram(getActivity());
         morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
     }
 
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private void refreshAndAdjustApplicationComponentsState() {
         adjustCompomentsViaAnimation();
         hideSystemKeyboard(getActivity());
-        convertingMorseTextProgram.disableTranslationTemporaryForAnimationTime();
+        ConvertingMorseTextProgram.initAndGetInstance(getActivity()).disableTranslationTemporaryForAnimationTime();
         morseToTextSwappingPanel.refreshTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
@@ -178,26 +176,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void setObjectsNull() {
         Log.i("onDestroy()", " set all objects null");
-        ConvertMorseToSignals.initAndGetInstance(getActivity()).setNull();
-        ChangingTextColors.initAndGetInstance(getActivity()).setNull();
+        ConvertMorseToSignals.setNull();
+        ChangingTextColors.setNull();
+        ConvertingMorseTextProgram.setNull();
 
-        TopBarSpeedSpinner.initAndGetInstance(getActivity()).setNull();
+        TopBarSpeedSpinner.setNull();
 
-        PlayButton.initAndGetInstance(getActivity()).setNull();
-        PauseButton.initAndGetInstance(getActivity()).setNull();
-        StopButton.initAndGetInstance(getActivity()).setNull();
+        PlayButton.setNull();
+        PauseButton.setNull();
+        StopButton.setNull();
 
         TextBoxes.setNull();
 
-        ((SpaceButton)SpaceButton.initAndGetInstance(getActivity())).setNull();
-        ((DotButton)DotButton.initAndGetInstance(getActivity())).setNull();
-        ((LineButton)LineButton.initAndGetInstance(getActivity())).setNull();
-        ((BackspaceButton)BackspaceButton.initAndGetInstance(getActivity())).setNull();
+        SpaceButton.setNull();
+        DotButton.setNull();
+        LineButton.setNull();
+        BackspaceButton.setNull();
 
-        VibrationButton.initAndGetInstance(getActivity()).setNull();
-        SoundButton.initAndGetInstance(getActivity()).setNull();
-        FlashlightButton.initAndGetInstance(getActivity()).ifNotNullSetNullAndReleaseCamera();
-        ScreenButton.initAndGetInstance(getActivity()).setNull();
+        VibrationButton.setNull();
+        SoundButton.setNull();
+        FlashlightButton.ifNotNullSetNullAndReleaseCamera(getActivity());
+        ScreenButton.setNull();
     }
 
     @Override

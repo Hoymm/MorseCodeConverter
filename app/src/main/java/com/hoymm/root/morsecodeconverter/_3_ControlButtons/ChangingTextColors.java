@@ -8,7 +8,6 @@ import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
@@ -16,7 +15,7 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
  * File created by Damian Muca - Kaizen on 19.07.17.
  */
 
-public class ChangingTextColors implements Singleton {
+public class ChangingTextColors {
     private Activity activity;
     private static ChangingTextColors instance = null;
 
@@ -108,8 +107,7 @@ public class ChangingTextColors implements Singleton {
         return activity;
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

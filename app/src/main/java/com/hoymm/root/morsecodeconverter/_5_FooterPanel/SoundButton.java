@@ -9,17 +9,16 @@ import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 10.07.17.
  */
 
-public class SoundButton extends ButtonsTemplate implements FooterButtonsInterface, Singleton {
+public class SoundButton extends ButtonsTemplate implements FooterButtonsInterface {
     private static SoundButton instance = null;
     private static SoundPool beepSound = null;
     private static int mSoundId = 0;
-    private boolean ifBeepSoundStarted = false;
+    private static boolean ifBeepSoundStarted = false;
 
 
     public static SoundButton initAndGetInstance(Activity activity){
@@ -94,8 +93,7 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
         return true;
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
         beepSound.stop(mSoundId);
         beepSound.release();

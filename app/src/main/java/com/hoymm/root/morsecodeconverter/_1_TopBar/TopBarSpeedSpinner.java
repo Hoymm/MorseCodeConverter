@@ -10,13 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * Created by root on 05.05.17.
  */
 
-public class TopBarSpeedSpinner extends Spinner implements Singleton {
+public class TopBarSpeedSpinner extends Spinner {
     private static TopBarSpeedSpinner instance = null;
     private Spinner speedSpinner;
     private Activity activity;
@@ -105,9 +104,7 @@ public class TopBarSpeedSpinner extends Spinner implements Singleton {
         return activity;
     }
 
-
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

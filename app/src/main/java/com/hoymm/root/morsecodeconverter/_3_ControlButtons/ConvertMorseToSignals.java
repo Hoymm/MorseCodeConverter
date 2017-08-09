@@ -1,13 +1,8 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MainActivity;
-import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
@@ -19,7 +14,7 @@ import static com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseC
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class ConvertMorseToSignals implements Singleton {
+public class ConvertMorseToSignals {
     private static ConvertMorseToSignals instance = null;
     int morseCharStart = -1;
     int morseCharEnd = -1;
@@ -166,8 +161,7 @@ public class ConvertMorseToSignals implements Singleton {
 
     }
 
-    @Override
-    public void setNull() {
+    public static void setNull() {
         instance = null;
     }
 }

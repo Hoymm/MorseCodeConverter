@@ -1,11 +1,9 @@
 package com.hoymm.root.morsecodeconverter.MorseToTextConversionProg;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
@@ -16,12 +14,19 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
  */
 
 public class ConvertingMorseTextProgram {
+    private static ConvertingMorseTextProgram instance;
     private Activity activity;
     private boolean skipAddingShortGap = false;
     private static boolean isTranslatingInProgress = false;
 
-    public ConvertingMorseTextProgram(Context context) {
-        this.activity = (Activity)context;
+    public static ConvertingMorseTextProgram initAndGetInstance(Activity activity){
+        if (instance == null)
+            instance = new ConvertingMorseTextProgram(activity);
+        return instance;
+    }
+
+    private ConvertingMorseTextProgram(Activity activity) {
+        this.activity = activity;
         enableConversion();
     }
 
@@ -40,7 +45,7 @@ public class ConvertingMorseTextProgram {
         }).start();
     }
 
-    private void enableConversion() {
+    public void enableConversion() {
         TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,7 +69,7 @@ public class ConvertingMorseTextProgram {
         });
     }
 
-    private void disableConversion() {
+    public void disableConversion() {
         TextBoxes.initAndGetUpperBox(getActivity())
                 .addTextChangedListener(new TextWatcher() {
             @Override
@@ -194,5 +199,9 @@ public class ConvertingMorseTextProgram {
 
     private Activity getActivity(){
         return activity;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 }

@@ -9,13 +9,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
 import com.hoymm.root.morsecodeconverter.R;
-import com.hoymm.root.morsecodeconverter.Singleton;
 
 /**
  * File created by Damian Muca - Kaizen on 03.08.17.
  */
 
-public class FlashlightPermissions implements Singleton {
+public class FlashlightPermissions {
     private static FlashlightPermissions instance = null;
     public static final int FLASHLIGHT_BUTTON_PERMISSIONS = 1;
     private Activity activity;
@@ -90,12 +89,11 @@ public class FlashlightPermissions implements Singleton {
         }
     }
 
-    @Override
-    public void setNull() {
-        instance = null;
-    }
-
     private Activity getActivity(){
         return activity;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 }

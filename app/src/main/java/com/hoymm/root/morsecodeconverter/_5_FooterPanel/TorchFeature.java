@@ -3,20 +3,17 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PermissionInfo;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.util.Log;
 
-import com.hoymm.root.morsecodeconverter.Singleton;
-
 /**
  * File created by Damian Muca - Kaizen on 03.08.17.
  */
 
-class TorchFeature implements Singleton {
+class TorchFeature {
     private Activity activity;
     private static TorchFeature instance = null;
 
@@ -139,11 +136,6 @@ class TorchFeature implements Singleton {
         setNull();
     }
 
-    @Override
-    public void setNull() {
-        instance = null;
-    }
-
     private void releaseCameraUsages() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // TODO release (camera2) objects ???
@@ -162,6 +154,10 @@ class TorchFeature implements Singleton {
 
     private Activity getActivity(){
         return activity;
+    }
+
+    public static void setNull() {
+        instance = null;
     }
 
     public static boolean isNull() {
