@@ -7,8 +7,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -18,6 +18,7 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 public class ConvertingMorseTextProgram {
     private Activity activity;
     private boolean skipAddingShortGap = false;
+    private static boolean isTranslatingInProgress = false;
 
     public ConvertingMorseTextProgram(Context context) {
         this.activity = (Activity)context;
@@ -47,13 +48,18 @@ public class ConvertingMorseTextProgram {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO this method is invoke for every text change that is necessary
-                // TODO but also when text has been colored and in that case translating is not needed
-                translateStringAndInsertToBottomBox();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                // TODO this method is invoked many times when only one time need and causes terrible app performance
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!isTranslatingInProgress)
+                            ifConditionMetTranslateStringAndInsertToBottomBox();
+                    }
+                }).start();
             }
         });
     }
@@ -75,16 +81,23 @@ public class ConvertingMorseTextProgram {
         });
     }
 
-    private void translateStringAndInsertToBottomBox() {
+    private void ifConditionMetTranslateStringAndInsertToBottomBox() {
+        isTranslatingInProgress = true;
         final String text = String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
-        translateAndInsertToBottomBox(text);
+        insertToBottomBox(convertToDestination(text));
+        isTranslatingInProgress = false;
     }
 
-    private void translateAndInsertToBottomBox(final String text) {
+    @NonNull
+    private String convertToDestination(String text) {
+        return MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text);
+    }
+
+    private void insertToBottomBox(final String text) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextBoxes.initAndGetBottomBox(getActivity()).setText(MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text));
+                TextBoxes.initAndGetBottomBox(getActivity()).setText(text);
             }
         });
     }
