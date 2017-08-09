@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -18,6 +18,8 @@ public class ConvertingMorseTextProgram {
     private Activity activity;
     private boolean skipAddingShortGap = false;
     private static boolean isTranslatingInProgress = false;
+    private boolean isConversionEnabled = false;
+    private static TextWatcher textWatcher;
 
     public static ConvertingMorseTextProgram initAndGetInstance(Activity activity){
         if (instance == null)
@@ -28,62 +30,35 @@ public class ConvertingMorseTextProgram {
     private ConvertingMorseTextProgram(Activity activity) {
         this.activity = activity;
         enableConversion();
+        // TODO addTextChangedListener is not refreshing when textWatcher changed.
+
+
+        TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (isConversionEnabled)
+                            ifNoCurrentlyRunningStartNewConversionInASeparateThread();
+                    }
+                });
     }
 
-    public void disableTranslationTemporaryForAnimationTime(){
+    private void ifNoCurrentlyRunningStartNewConversionInASeparateThread() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                disableConversion();
-                try {
-                    Thread.sleep(ResizingTextBoxesAnimation.animationTime + 50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                enableConversion();
+                if (!isTranslatingInProgress)
+                    ifConditionMetTranslateStringAndInsertToBottomBox();
             }
         }).start();
-    }
-
-    public void enableConversion() {
-        TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO this method is invoked many times when only one time need and causes terrible app performance
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!isTranslatingInProgress)
-                            ifConditionMetTranslateStringAndInsertToBottomBox();
-                    }
-                }).start();
-            }
-        });
-    }
-
-    public void disableConversion() {
-        TextBoxes.initAndGetUpperBox(getActivity())
-                .addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
     }
 
     private void ifConditionMetTranslateStringAndInsertToBottomBox() {
@@ -91,6 +66,14 @@ public class ConvertingMorseTextProgram {
         final String text = String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
         insertToBottomBox(convertToDestination(text));
         isTranslatingInProgress = false;
+    }
+
+    public void enableConversion() {
+        isConversionEnabled = true;
+    }
+
+    public void disableConversion() {
+        isConversionEnabled = false;
     }
 
     @NonNull

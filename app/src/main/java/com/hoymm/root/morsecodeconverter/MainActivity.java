@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     private void refreshAndAdjustApplicationComponentsState() {
         adjustCompomentsViaAnimation();
         hideSystemKeyboard(getActivity());
-        ConvertingMorseTextProgram.initAndGetInstance(getActivity()).disableTranslationTemporaryForAnimationTime();
         morseToTextSwappingPanel.refreshTextHeaders();
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
