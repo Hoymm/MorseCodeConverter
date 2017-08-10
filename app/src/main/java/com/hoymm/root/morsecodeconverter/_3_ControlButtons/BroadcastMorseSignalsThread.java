@@ -21,7 +21,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     private Thread thread;
     private Activity activity;
     private boolean threadIsAlive = false;
-    private final int ONE_TIME_UNIT = 250;
+    private final int ONE_TIME_UNIT = 220;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
@@ -67,8 +67,8 @@ class BroadcastMorseSignalsThread implements Runnable {
                 isThereTextLeftToBroadcast()
                 && PlayButton.initAndGetInstance(getActivity()).isActive()
                 && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
-            ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
 
+            ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
             if (!broadcastSignalOrGapSuccesfully())
                 break;
             ConvertMorseToSignals.initAndGetInstance(getActivity()).moveBroadcastingPositionForwardIfPlayButtonActive();

@@ -1,6 +1,7 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MainActivity;
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
@@ -91,7 +92,7 @@ public class ConvertMorseToSignals {
     void moveBroadcastingPositionForwardIfPlayButtonActive() {
         if (!MainActivity.destroyed &&
                 PlayButton.initAndGetInstance(getActivity()).isActive()) {
-            moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime();
+            moveTextIndexIfGapRightNow();
             moveMorse();
         }
     }
@@ -101,13 +102,20 @@ public class ConvertMorseToSignals {
         morseCharEnd = calculateEndIndexOfMorseChar(morseCharStart);
     }
 
-    private void moveTextIndexIfShortOrMediumGapOrIfMediumGapWasLastTime() {
-        if (isShortOrMediumGapRightNow())
+    private void moveTextIndexIfGapRightNow() {
+        Log.i("textCharStart",
+                "shortGap: " + isShortGapRightNow()
+                        + ", mediumGap: " + isMediumGapRightNow()
+                        + ", inFront: " + isMediumGapInFront()
+        );
+        if (isShortOrMediumGapRightNowOrMediumGapWillBeNext()) {
             moveTextIndex();
+            Log.i("textCharStart", "from " + textCharStart + ", to " + textCharEnd);
+        }
     }
 
-    private boolean isShortOrMediumGapRightNow() {
-        return isShortGapRightNow() || isMediumGapRightNow();
+    private boolean isShortOrMediumGapRightNowOrMediumGapWillBeNext() {
+        return isShortGapRightNow() || isMediumGapRightNow() || isMediumGapInFront();
     }
 
     private boolean isShortGapRightNow() {
@@ -116,6 +124,18 @@ public class ConvertMorseToSignals {
 
     private boolean isMediumGapRightNow() {
         return morseCharStart == morseCharEnd - MEDIUM_GAP.length() && isCurIndexIsAMediumGap(morseCharStart, getMorseWholeText());
+    }
+
+    private boolean isMediumGapInFront() {
+        return mediumGapCanFitInFront() && theresAMediumGapInFront();
+    }
+
+    private boolean mediumGapCanFitInFront() {
+        return morseCharEnd + MorseCodeCipher.MEDIUM_GAP.length() <= getMorseWholeText().length();
+    }
+
+    private boolean theresAMediumGapInFront() {
+        return getMorseWholeText().substring(morseCharEnd, morseCharEnd+MorseCodeCipher.MEDIUM_GAP.length()).equals(MorseCodeCipher.MEDIUM_GAP);
     }
 
     private boolean isCurIndexIsAMediumGap(int morseCharStart, String morseText) {
