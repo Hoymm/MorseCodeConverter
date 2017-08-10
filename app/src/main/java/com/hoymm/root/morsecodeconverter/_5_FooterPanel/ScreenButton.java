@@ -2,6 +2,7 @@ package com.hoymm.root.morsecodeconverter._5_FooterPanel;
 
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
@@ -73,7 +74,9 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                long time = System.currentTimeMillis();
                 foregroundView.setBackground(ContextCompat.getDrawable(getActivity(), R.color.screenModeGapForeground));
+                Log.i("ChangeForeground", "dark " + (System.currentTimeMillis()-time) + "ms.");
             }
         });
     }
@@ -82,7 +85,9 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                long time = System.currentTimeMillis();
                 foregroundView.setBackground(ContextCompat.getDrawable(getActivity(), R.color.screenModeSignalForeground));
+                Log.i("ChangeForeground", "white " + (System.currentTimeMillis()-time) + "ms.");
             }
         });
     }
@@ -91,7 +96,9 @@ public class ScreenButton extends ButtonsTemplate implements FooterButtonsInterf
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                long time = System.currentTimeMillis();
                 foregroundView.setBackground(ContextCompat.getDrawable(getActivity(), R.color.transparent));
+                Log.i("ChangeForeground", "transparent " + (System.currentTimeMillis()-time) + "ms.");
             }
         });
     }

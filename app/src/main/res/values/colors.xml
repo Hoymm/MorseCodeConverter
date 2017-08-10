@@ -26,8 +26,8 @@
     <color name="morseKeyboardButton">#514D84</color>
     <color name="morseKeyboardButtonActive">#49427C</color>
 
-    <color name="screenModeGapForeground">#e4000000</color>
-    <color name="screenModeSignalForeground">#e4ffffff</color>
+    <color name="screenModeGapForeground">#d6000000</color>
+    <color name="screenModeSignalForeground">#d6ffffff</color>
 
     <color name="footerButton">#49427C</color>
     <color name="footerButtonStroke">#4e4781</color>

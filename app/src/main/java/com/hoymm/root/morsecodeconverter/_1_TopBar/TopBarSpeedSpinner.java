@@ -44,16 +44,10 @@ public class TopBarSpeedSpinner extends Spinner {
     }
 
     private void setCustomAdapter() {
-        String [] spinnerValuesArray = getSpinnerValues();
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter<>(this.getContext(), R.layout.speed_spinner_custom_view, spinnerValuesArray);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        ArrayAdapter<CharSequence> spinnerAdapter =
+                ArrayAdapter.createFromResource(this.getContext(), R.array.speedsIntervals, R.layout.spinner_apperance);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_list_dropdown);
         speedSpinner.setAdapter(spinnerAdapter);
-    }
-
-    @NonNull
-    private String[] getSpinnerValues() {
-        return this.getContext().getResources().getStringArray(R.array.speedsIntervals);
     }
 
     private void setOnItemClickBehavior() {
@@ -89,6 +83,11 @@ public class TopBarSpeedSpinner extends Spinner {
                 break;
             }
         }
+    }
+
+    @NonNull
+    private String[] getSpinnerValues() {
+        return this.getContext().getResources().getStringArray(R.array.speedsIntervals);
     }
 
     private boolean ifValuesAreQual(String stringValue, float floatValue) {

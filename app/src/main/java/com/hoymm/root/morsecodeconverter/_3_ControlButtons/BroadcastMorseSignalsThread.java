@@ -80,16 +80,18 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private boolean broadcastSignalOrGapSuccesfully() {
-        int time = calculateCurrentPlayTime();
-        if (isAGap(time))
-            time = Math.abs(time);
+        int signalTime = calculateCurrentPlayTime();
+        if (isAGap(signalTime)) {
+            signalTime = Math.abs(signalTime);
+            Log.i("GapTime", signalTime + "");
+        }
         else {
-            boolean signalsHasBeenPlayed = broadcastSignal(time);
-            if (!signalsHasBeenPlayed){
+            boolean signalsHasBeenPlayed = broadcastSignal(signalTime);
+            if (!signalsHasBeenPlayed) {
                 return false;
             }
         }
-        pushToSleep(time + getOneUnitMultiplerTime());
+        pushToSleep(signalTime + getOneUnitMultiplerTime());
         return true;
     }
 
@@ -104,8 +106,7 @@ class BroadcastMorseSignalsThread implements Runnable {
          */
         String charToBroadcast =
                 ConvertMorseToSignals.initAndGetInstance(getActivity()).getMorseSignToBeBroadcasted();
-        float spinerSpeedMultiplier =
-                TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
+        float spinerSpeedMultiplier = TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
         switch (charToBroadcast){
             case "·":
                 return (int) (getOneUnitMultiplerTime()/spinerSpeedMultiplier);

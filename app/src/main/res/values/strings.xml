@@ -15,6 +15,7 @@
     <string name="permission_is_required">Permission is required</string>
 
     <string-array name="speedsIntervals">
+        <item>0.1</item>
         <item>0.2</item>
         <item>0.3</item>
         <item>0.5</item>

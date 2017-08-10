@@ -80,7 +80,6 @@ public class ChangingTextColors {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = getColoredTextStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingTextIndex();
-        Log.i("ColorText", "Start: " + startIndex + ", End: " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
@@ -94,7 +93,6 @@ public class ChangingTextColors {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = getColoredMorseStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingMorseIndex();
-        Log.i("ColorMorse", "Start: " + startIndex + ", End: " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }

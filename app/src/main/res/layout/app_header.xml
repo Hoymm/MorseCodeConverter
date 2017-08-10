@@ -43,6 +43,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/speed_spinner_id"
                 android:gravity="end|bottom"
+                android:spinnerMode="dropdown"
                 />
         </LinearLayout>
     </LinearLayout>
