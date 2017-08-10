@@ -91,8 +91,13 @@ class BroadcastMorseSignalsThread implements Runnable {
                 return false;
             }
         }
-        pushToSleep(signalTime + getOneUnitMultiplerTime());
+        pushToSleep(signalTime + shortGapTime());
         return true;
+    }
+
+    private int shortGapTime() {
+        float spinerSpeedMultiplier = TopBarSpeedSpinner.initAndGetInstance(getActivity()).getLastSpeedFromSharedPreferences();
+        return (int) (getOneUnitMultiplerTime() / spinerSpeedMultiplier);
     }
 
     private int calculateCurrentPlayTime() {
