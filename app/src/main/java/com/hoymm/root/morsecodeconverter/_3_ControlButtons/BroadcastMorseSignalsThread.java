@@ -21,7 +21,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     private Thread thread;
     private Activity activity;
     private boolean threadIsAlive = false;
-    private final int ONE_TIME_UNIT = 150;
+    private final int ONE_TIME_UNIT = 250;
 
     BroadcastMorseSignalsThread(Activity activity) {
         this.activity = activity;
