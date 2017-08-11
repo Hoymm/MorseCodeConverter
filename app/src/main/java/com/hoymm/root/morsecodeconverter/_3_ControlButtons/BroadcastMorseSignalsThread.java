@@ -83,7 +83,6 @@ class BroadcastMorseSignalsThread implements Runnable {
         int signalTime = calculateCurrentPlayTime();
         if (isAGap(signalTime)) {
             signalTime = Math.abs(signalTime);
-            Log.i("GapTime", signalTime + "");
         }
         else {
             boolean signalsHasBeenPlayed = broadcastSignal(signalTime);
@@ -91,8 +90,18 @@ class BroadcastMorseSignalsThread implements Runnable {
                 return false;
             }
         }
-        pushToSleep(signalTime + shortGapTime());
+        pushToSleepWithSomeIntervalsCheckingWhetherStillBroadcasting(signalTime + shortGapTime());
         return true;
+    }
+
+    private void pushToSleepWithSomeIntervalsCheckingWhetherStillBroadcasting(int ms) {
+        while (ms > 0 && PlayButton.initAndGetInstance(getActivity()).isActive()) {
+            if (ms > 85)
+                pushToSleep(85);
+            else
+                pushToSleep(ms);
+            ms -= 85;
+        }
     }
 
     private int shortGapTime() {

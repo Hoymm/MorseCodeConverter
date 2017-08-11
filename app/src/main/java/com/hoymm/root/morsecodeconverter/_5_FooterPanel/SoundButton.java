@@ -39,8 +39,6 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
         else
             beepSound = new SoundPool(1, AudioManager.STREAM_MUSIC, 1);
         mSoundId = beepSound.load(getActivity(), R.raw.beep, 1);
-
-        Log.i("BroadcastMorse", " sound play");
     }
 
     private void setButtonBehavior() {

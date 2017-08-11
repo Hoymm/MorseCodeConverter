@@ -44,7 +44,6 @@ public class VibrationButton extends ButtonsTemplate implements FooterButtonsInt
 
     @Override
     public void start(int time) {
-        Log.i("BroadcastMorse", " vibration play");
         vibrator.vibrate(time);
     }
 
