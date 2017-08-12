@@ -29,7 +29,8 @@
         </shape>
     </item>
 
-    <item android:state_activated="true" android:drawable="@drawable/footer_button_activated"/>
+    <item android:state_activated="true"
+        android:drawable="@drawable/footer_button_activated"/>
 
     <item android:bottom="5dp"  android:top="5dp">
         <shape>
