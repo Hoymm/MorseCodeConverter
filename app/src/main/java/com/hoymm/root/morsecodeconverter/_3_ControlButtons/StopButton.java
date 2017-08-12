@@ -37,7 +37,7 @@ public class StopButton extends ButtonsTemplate {
                     makeButtonActiveIfNotYet();
                     deactivateOtherButtons();
                     TextBoxes.setProperTextColor(getActivity());
-                    ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableConversion();
+                    ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableDynamicTextConversionIfStopButtonActive();
                     ScreenButton.initAndGetInstance(getActivity()).makeForegroundFullyTransparent();
                 }
             }

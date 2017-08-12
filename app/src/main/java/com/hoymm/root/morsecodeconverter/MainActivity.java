@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
         ifStopButtonDisabledSetTextSelectableFalse();
-        ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableConversion();
+        ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableDynamicTextConversionIfStopButtonActive();
     }
 
     private void adjustCompomentsViaAnimation() {

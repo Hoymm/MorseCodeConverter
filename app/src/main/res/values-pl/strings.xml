@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Konwerter Sygnałów Morse\'a</string>
+    <string name="morse_code">Kod Morse\'a</string>
+    <string name="speed">Szybkość</string>
+    <string name="text">Tekst</string>
+    <string name="morse">Morse</string>
+    <string name="copied_to_clipboard">Skopiowane do schowka</string>
+    <string name="swap_button">Przycisk zamiany</string>
+    <string name="please_activate_at_least_one_broadcast_mode">Proszę, aktywuj przynajmniej jeden tryb nadawania sygnału.</string>
+    <string name="edit_only_when_stop_active">Edytowanie tekstu jest możliwa jedynie gdy wciśnięty jest przycisk stop.</string>
+    <string name="ok">OK</string>
+    <string name="camera_use_explanation_text">Aby nadawać sygnał Morse\'a przy użyciu lampy błyskowej telefonu potrzebuję zezwolenia dostępu do kamery.</string>
+    <string name="permission_is_required">Wymagane zezwolenie dostępu</string>
+
+    <string-array name="speedsIntervals">
+        <item>0.2</item>
+        <item>0.3</item>
+        <item>0.5</item>
+        <item>0.7</item>
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+        <item>3.0</item>
+        <item>4.0</item>
+        <item>5.0</item>
+    </string-array>
+</resources>

@@ -30,6 +30,7 @@ public class FlashlightButton extends ButtonsTemplate implements FooterButtonsIn
 
     private void disableButtonIfNoFlashlight() {
         if (!hasDeviceAFlashlight()) {
+            // TODO uncomment !!!! : )
             button.setEnabled(false);
             button.setImageAlpha(100);
         }

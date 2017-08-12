@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
  * File created by Damian Muca - Kaizen on 27.06.17.
@@ -28,7 +29,7 @@ public class ConvertingMorseTextProgram {
 
     private ConvertingMorseTextProgram(Activity activity) {
         this.activity = activity;
-        enableConversion();
+        enableDynamicTextConversionIfStopButtonActive();
         TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(
                 new TextWatcher() {
                     @Override
@@ -64,8 +65,8 @@ public class ConvertingMorseTextProgram {
         isTranslatingInProgress = false;
     }
 
-    public void enableConversion() {
-        isConversionEnabled = true;
+    public void enableDynamicTextConversionIfStopButtonActive() {
+        isConversionEnabled = StopButton.initAndGetInstance(getActivity()).isActive();
     }
 
     public void disableConversion() {

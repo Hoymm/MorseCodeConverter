@@ -4,8 +4,6 @@
     <string name="speed">Speed</string>
     <string name="text">Text</string>
     <string name="morse">Morse</string>
-    <string name="text_tag">text</string>
-    <string name="morse_tag">morse</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="swap_button">Swap Button</string>
     <string name="please_activate_at_least_one_broadcast_mode">Please activate at least one broadcast mode.</string>
@@ -15,7 +13,6 @@
     <string name="permission_is_required">Permission is required</string>
 
     <string-array name="speedsIntervals">
-        <item>0.1</item>
         <item>0.2</item>
         <item>0.3</item>
         <item>0.5</item>
