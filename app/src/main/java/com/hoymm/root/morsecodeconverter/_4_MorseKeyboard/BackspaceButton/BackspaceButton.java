@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 
 /**
  * File created by Damian Muca - Kaizen on 26.06.17.
@@ -61,7 +62,6 @@ public class BackspaceButton extends ImageButton {
             case MotionEvent.ACTION_UP:
                 stopRemoving();
                 break;
-
         }
     }
 

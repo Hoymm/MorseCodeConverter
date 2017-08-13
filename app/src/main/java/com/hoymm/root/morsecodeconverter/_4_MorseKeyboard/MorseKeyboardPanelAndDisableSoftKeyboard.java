@@ -134,7 +134,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
             disableSystemKeyboard(activity);
     }
 
-    private static void enableSystemKeyboard(final Activity activity) {
+    public static void enableSystemKeyboard(final Activity activity) {
 
         TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +149,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
         Log.i("SystemKeyboard", "enabled (when converting text-> morse).");
     }
 
-    private static void disableSystemKeyboard(final Activity activity) {
+    public static void disableSystemKeyboard(final Activity activity) {
 
         TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +159,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
 
         TextBoxes.initAndGetUpperBox(activity).setKeyListener(null);
-        TextBoxes.initAndGetUpperBox(activity).setCursorVisible(true);
+        TextBoxes.initAndGetUpperBox(activity).setTextIsSelectable(true);
         Log.i("SystemKeyboard", "disabled (when converting morse-> text)..");
     }
 

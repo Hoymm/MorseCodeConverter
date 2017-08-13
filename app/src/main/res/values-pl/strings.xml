@@ -10,6 +10,7 @@
     <string name="ok">OK</string>
     <string name="camera_use_explanation_text">Aby nadawać sygnał Morse\'a przy użyciu lampy błyskowej telefonu potrzebuję zezwolenia dostępu do kamery.</string>
     <string name="permission_is_required">Wymagane zezwolenie dostępu</string>
+    <string name="please_insert_text">Prosze wprowadź tekst.</string>
 
     <string-array name="speedsIntervals">
         <item>0.2</item>
