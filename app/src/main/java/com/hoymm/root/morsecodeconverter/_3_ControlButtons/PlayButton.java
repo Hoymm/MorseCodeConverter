@@ -17,7 +17,7 @@ import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 public class PlayButton extends ButtonsTemplate {
     private static PlayButton instance = null;
     private BroadcastMorseSignalsThread broadcastMorseSignalsThread;
-    private static Toast plaseActivateBroadcastMode;
+    private static Toast plaseActivateBroadcastMode, pleaseInsertText;
 
     public static PlayButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -35,11 +35,27 @@ public class PlayButton extends ButtonsTemplate {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FooterButtons.atLeastOneFooterButtonActive(getActivity()))
-                    changeActiveStatesThenRunBroadcastThread(v);
-                else
+                if (TextBoxes.initAndGetUpperBox(getActivity()).getText().toString().equals(""))
+                    showMessageToTheUserToInsertText();
+                else if (!FooterButtons.atLeastOneFooterButtonActive(getActivity()))
                     showMessageToTheUserToActivateAtLeastBroadcastOneMode();
+                else
+                    changeActiveStatesThenRunBroadcastThread(v);
                 TextBoxes.setProperTextColor(getActivity());
+            }
+        });
+    }
+
+    private void showMessageToTheUserToInsertText() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (pleaseInsertText != null)
+                    pleaseInsertText.cancel();
+                pleaseInsertText =
+                        Toast.makeText(getActivity(), R.string.please_insert_text, Toast.LENGTH_SHORT);
+                pleaseInsertText.show();
+
             }
         });
     }
@@ -105,7 +121,8 @@ public class PlayButton extends ButtonsTemplate {
                 plaseActivateBroadcastMode.show();
 
             }
-        });}
+        });
+    }
 
 
     public void decideSetUpperBoxSelectableDueToControlButtonActive() {

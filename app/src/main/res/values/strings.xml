@@ -11,6 +11,7 @@
     <string name="ok">OK</string>
     <string name="camera_use_explanation_text">To use flashlight converting mode feature the application must be granted with camera permission.</string>
     <string name="permission_is_required">Permission is required</string>
+    <string name="please_insert_text">Please insert text.</string>
 
     <string-array name="speedsIntervals">
         <item>0.2</item>
