@@ -8,7 +8,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
@@ -159,7 +158,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
 
 
     private void changeButtonsBehavior() {
-        BackspaceButton.setNewBackspaceButtonBehavior();
+        BackspaceButton.setBackspaceButtonBehavior();
     }
 
     private Activity getActivity() {

@@ -17,8 +17,7 @@ class TextSelectionRemove {
 
     TextSelectionRemove(Activity activity) {
         this.activity = activity;
-        this.currentText =
-                TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
+        this.currentText = TextBoxes.initAndGetUpperBox(getActivity()).getText().toString();
     }
 
     void removeTextAccordingToSelectionAndSetNewTextAndSetSelection() {
@@ -33,7 +32,7 @@ class TextSelectionRemove {
         if (isAnyTextSelected())
             return getTextWithSelectionCuttedOff();
         else
-            return removeSingleCharacter(textSelectionStart);
+            return removeNonSelectedText(textSelectionStart);
     }
 
     private boolean isAnyTextSelected() {
@@ -47,11 +46,13 @@ class TextSelectionRemove {
         return result;
     }
 
-    private String removeSingleCharacter(int textSelectionStart) {
+    private String removeNonSelectedText(int textSelectionStart) {
         if (isMediumGapToDelete())
-            newSelectionIndex = textSelectionStart - MorseCodeCipher.MEDIUM_GAP.length();
+            newSelectionIndex = getSelectionForRemoveMediumGap(textSelectionStart);
         else
-            newSelectionIndex = textSelectionStart == 0 ? 0 : TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() - 1;
+            newSelectionIndex = getSelectionForRemoveSingleCharOrNothing(textSelectionStart);
+        if (ifTheresShortGapOnTheRightOfSelectionAndWillBeGapOnTheLeftAfterDelete())
+            textSelectionStart += MorseCodeCipher.SHORT_GAP.length();
         return removeSubstringFromText(newSelectionIndex, textSelectionStart);
     }
 
@@ -65,8 +66,56 @@ class TextSelectionRemove {
         return false;
     }
 
-    private String getTextWithMediumGapToTheLeftOfSelectionDeleted() {
-        return null;
+    private int getSelectionForRemoveMediumGap(int textSelectionStart) {
+        return textSelectionStart - MorseCodeCipher.MEDIUM_GAP.length();
+    }
+
+    private int getSelectionForRemoveSingleCharOrNothing(int textSelectionStart) {
+        return textSelectionStart == 0 ? 0 : TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart() - 1;
+    }
+
+    private boolean ifTheresShortGapOnTheRightOfSelectionAndWillBeGapOnTheLeftAfterDelete() {
+            return ifShortGapToTheRightOfSelection() && ifThereWillBeGapAfterDeleteToTheLeftOfSelection();
+    }
+
+    private boolean ifShortGapToTheRightOfSelection() {
+        if (canThereFitMediumGap()) {
+            if (isThereMediumGap())
+                return false;
+            return isThereShortGap();
+        }
+        return false;
+    }
+
+    private boolean canThereFitMediumGap() {
+        int selectionEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
+        return currentText.length() >= selectionEnd + MorseCodeCipher.MEDIUM_GAP.length();
+    }
+
+    private boolean isThereMediumGap() {
+        int selectionEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
+        return currentText.substring(selectionEnd, selectionEnd + MorseCodeCipher.MEDIUM_GAP.length()).equals(MorseCodeCipher.MEDIUM_GAP);
+    }
+
+    private boolean isThereShortGap() {
+        int selectionEnd = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
+        return currentText.substring(selectionEnd, selectionEnd + MorseCodeCipher.SHORT_GAP.length()).equals(MorseCodeCipher.SHORT_GAP);
+    }
+
+    private boolean ifThereWillBeGapAfterDeleteToTheLeftOfSelection() {
+        return ifAfterDeletionThereWillBeAnyCharToTheLeft() && ifThatCharIsGointToBeShortGap();
+    }
+
+    private boolean ifAfterDeletionThereWillBeAnyCharToTheLeft() {
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int shortGapLength = MorseCodeCipher.SHORT_GAP.length();
+        return selectionStart-1-shortGapLength>=0;
+    }
+
+    private boolean ifThatCharIsGointToBeShortGap() {
+        int selectionStart = TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
+        int shortGapLength = MorseCodeCipher.SHORT_GAP.length();
+        return currentText.substring(selectionStart-1-shortGapLength, selectionStart-1).equals(MorseCodeCipher.SHORT_GAP);
     }
 
     private String getTextToTheLeftOfSelection() {

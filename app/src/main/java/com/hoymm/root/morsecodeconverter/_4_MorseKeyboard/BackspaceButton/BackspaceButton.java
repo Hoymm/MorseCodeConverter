@@ -28,14 +28,14 @@ public class BackspaceButton extends ImageButton {
         super(activity);
         BackspaceButton.activity = activity;
         initObjects();
-        setNewBackspaceButtonBehavior();
+        setBackspaceButtonBehavior();
     }
 
     private void initObjects() {
         instance = (ImageButton) getActivity().findViewById(R.id.backspace_button_id);
     }
 
-    public static void setNewBackspaceButtonBehavior() {
+    public static void setBackspaceButtonBehavior() {
         instance.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
