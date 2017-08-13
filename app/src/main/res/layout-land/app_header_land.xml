@@ -9,26 +9,26 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
+        android:layout_weight="0.35"
         android:text="@string/morse_code"
-        android:textSize="22sp"
+        android:textSize="19sp"
         android:gravity="bottom|center"
         style="@style/appFontStyle"
         />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.13"
         style="@style/appFontStyle"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:gravity="center"
         android:id="@+id/left_text_swap_id"
         android:text="@string/morse"
         />
     <ImageButton
-        android:layout_width="65dp"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp"
+        android:layout_width="45dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
         android:contentDescription="@string/swap_button"
         android:layout_height="match_parent"
         android:scaleType="centerInside"
@@ -39,9 +39,9 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15"
+        android:layout_weight="0.13"
         style="@style/appFontStyle"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:gravity="center"
         android:id="@+id/right_text_swap_id"
         android:text="@string/text"
@@ -49,7 +49,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.35"
         android:orientation="horizontal"
         >
         <TextView
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:text="@string/speed"
             style="@style/appFontStyle"
-            android:textSize="15dp"
+            android:textSize="19dp"
             android:gravity="center|end"
             />
         <Spinner

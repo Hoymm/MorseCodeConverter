@@ -2,7 +2,6 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("onCreate()", "method called.");
         initializeProgramComponents();
         setArrowsSwapButtonBehavior();
         destroyed = false;
@@ -91,10 +88,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void ifStopButtonDisabledSetTextSelectableFalse() {
-        PlayButton.initAndGetInstance(getActivity()).decideSetUpperBoxSelectableDueToControlButtonActive();
-    }
-
     private void refreshTextColorsIfNotFirstIndexCurrentlyBroadcast() {
         if (ConvertMorseToSignals.initAndGetInstance(getActivity()).getStartBroadcastingMorseIndex() != 0)
             ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
@@ -105,10 +98,9 @@ public class MainActivity extends AppCompatActivity {
         adjustCompomentsViaAnimation();
         hideSystemKeyboard(getActivity());
         morseToTextSwappingPanel.refreshTextHeaders();
-        morseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
-        ifStopButtonDisabledSetTextSelectableFalse();
-        ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableDynamicTextConversionIfStopButtonActive();
+        MorseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard(getActivity());
+        PlayButton.initAndGetInstance(getActivity()).decideSetUpperBoxSelectable();
     }
 
     private void adjustCompomentsViaAnimation() {
@@ -145,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
     private void restoreDataFromSharedPreferences() {
         morseToTextSwappingPanel.restoreTranslationDirection();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
-        Log.i("SPDATA", "I'm restoring SP data");
         BroadcastingTextIndexesSharedPreferencesHandle.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
         ControlButtonsSharedPreferences.restoreLatelyActivatedButton(getActivity());
         MorseKeyboardSharedPreferences.restoreLatelyActiveButtons(getActivity());
@@ -165,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveDataToSharedPreferences() {
-        Log.i("SPDATA", "I'm saving SP data");
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
         BroadcastingTextIndexesSharedPreferencesHandle.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
@@ -175,14 +165,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.i("onDestroy()", "method called.");
         destroyed = true;
         setObjectsNull();
         super.onDestroy();
     }
 
     private void setObjectsNull() {
-        Log.i("onDestroy()", " set all objects null");
         ConvertMorseToSignals.setNull();
         ChangingTextColors.setNull();
         ConvertingMorseTextProgram.setNull();

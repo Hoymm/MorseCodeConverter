@@ -43,6 +43,7 @@ abstract class WriteButton extends ImageButton {
                 TextBoxes.initAndGetUpperBox(getActivity()).getSelectionStart();
         int selectionEnd =
                 TextBoxes.initAndGetUpperBox(getActivity()).getSelectionEnd();
+        Log.i("Selection", "start " + selectionStart + ", end" + selectionEnd);
         currentText =
                 currentText.substring(0, selectionStart)
                         + insertChar

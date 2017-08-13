@@ -6,6 +6,7 @@ import android.view.View;
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 
@@ -37,7 +38,6 @@ public class StopButton extends ButtonsTemplate {
                     makeButtonActiveIfNotYet();
                     deactivateOtherButtons();
                     TextBoxes.setProperTextColor(getActivity());
-                    ConvertingMorseTextProgram.initAndGetInstance(getActivity()).enableDynamicTextConversionIfStopButtonActive();
                     ScreenButton.initAndGetInstance(getActivity()).makeForegroundFullyTransparent();
                 }
             }

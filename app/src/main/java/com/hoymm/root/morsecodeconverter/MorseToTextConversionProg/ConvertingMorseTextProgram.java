@@ -19,7 +19,6 @@ public class ConvertingMorseTextProgram {
     private static ConvertingMorseTextProgram instance;
     private Activity activity;
     private boolean skipAddingShortGap = false;
-    private boolean isConversionEnabled = false;
 
     public static ConvertingMorseTextProgram initAndGetInstance(Activity activity){
         if (instance == null)
@@ -29,7 +28,6 @@ public class ConvertingMorseTextProgram {
 
     private ConvertingMorseTextProgram(Activity activity) {
         this.activity = activity;
-        enableDynamicTextConversionIfStopButtonActive();
         TextBoxes.initAndGetUpperBox(getActivity()).addTextChangedListener(
                 new TextWatcher() {
                     @Override
@@ -42,7 +40,7 @@ public class ConvertingMorseTextProgram {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        if (isConversionEnabled)
+                        if (PlayButton.initAndGetInstance(getActivity()).isActive())
                             ifNoCurrentlyRunningStartNewConversionInASeparateThread();
                     }
                 });
@@ -56,17 +54,6 @@ public class ConvertingMorseTextProgram {
                 insertToBottomBoxIfPlayButtonInactive(convertToDestination(text));
             }
         }).start();
-    }
-
-    private void ifConditionMetTranslateStringAndInsertToBottomBox() {
-    }
-
-    public void enableDynamicTextConversionIfStopButtonActive() {
-        isConversionEnabled = StopButton.initAndGetInstance(getActivity()).isActive();
-    }
-
-    public void disableConversion() {
-        isConversionEnabled = false;
     }
 
     @NonNull

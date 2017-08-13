@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.hoymm.root.morsecodeconverter.ButtonsTemplate;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 import com.hoymm.root.morsecodeconverter.R;
+import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 
 /**
@@ -69,7 +70,6 @@ public class PlayButton extends ButtonsTemplate {
                 setTextBoxesScrollable();
                 makeButtonActiveIfNotYet();
                 runMorseBroadcastThread();
-                ConvertingMorseTextProgram.initAndGetInstance(getActivity()).disableConversion();
                 PauseButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
                 StopButton.initAndGetInstance(getActivity()).deactivateIfNotYetInactive();
             }
@@ -112,7 +112,7 @@ public class PlayButton extends ButtonsTemplate {
         broadcastMorseSignalsThread.startTheThread();
     }
 
-    public void decideSetUpperBoxSelectableDueToControlButtonActive() {
+    public void decideSetUpperBoxSelectable() {
         setUpperBoxSelectable(StopButton.initAndGetInstance(getActivity()).isActive());
     }
 
