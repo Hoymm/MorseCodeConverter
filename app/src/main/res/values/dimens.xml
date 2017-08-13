@@ -2,5 +2,6 @@
 <resources>
     <dimen name="shadowSize">1dp</dimen>
     <dimen name="playButtonSize">50dp</dimen>
-    <dimen name="morse_keyboard_height">70dp</dimen>
+    <dimen name="morse_keyboard_height">45dp</dimen>
+    <dimen name="footer_buttons_height">55dp</dimen>
 </resources>

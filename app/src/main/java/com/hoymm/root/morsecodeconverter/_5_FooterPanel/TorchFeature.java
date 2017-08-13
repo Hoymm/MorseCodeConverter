@@ -128,8 +128,10 @@ class TorchFeature {
     }
 
     private void turnOffOldWay() {
-        cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-        oldCamera.setParameters(cameraParameters);
+        if (oldCamera != null) {
+            cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            oldCamera.setParameters(cameraParameters);
+        }
     }
 
     public void setNullAndReleaseCamera() {
