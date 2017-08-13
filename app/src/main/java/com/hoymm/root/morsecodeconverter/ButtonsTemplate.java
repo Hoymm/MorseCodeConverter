@@ -1,7 +1,9 @@
 package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
+import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
+import android.text.method.TextKeyListener;
 import android.util.Log;
 import android.widget.ImageButton;
 
