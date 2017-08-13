@@ -65,6 +65,7 @@ public class ChangingTextColors {
         Spannable spannable;
         if (MorseToTextArrowsSwap.isConvertingTextToMorse) {
             spannable = getColoredMorse(bottomBoxText);
+            Log.i("MorseBottomIndexes", "1");
             TextBoxes.initAndGetBottomBox(getActivity()).setText(spannable);
             TextBoxes.initAndGetBottomBox(getActivity()).setSelection(getColoredMorseStartIndex());
         }
@@ -93,6 +94,7 @@ public class ChangingTextColors {
         int backgroundColor = ContextCompat.getColor(getActivity(), R.color.backgroundTextColorWhenBroadcast);
         int startIndex = getColoredMorseStartIndex();
         int endIndex = ConvertMorseToSignals.initAndGetInstance(getActivity()).getEndBroadcastingMorseIndex();
+        Log.i("MorseBottomIndexes", startIndex + " -> " + endIndex);
         spannable.setSpan(new BackgroundColorSpan(backgroundColor), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }

@@ -16,7 +16,7 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
  */
 
 abstract class WriteButton extends ImageButton {
-    private Activity activity;
+    private static Activity activity;
 
     WriteButton(Context context) {
         super(context);
@@ -51,7 +51,7 @@ abstract class WriteButton extends ImageButton {
         TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart + 1);
     }
 
-    protected Activity getActivity() {
+    protected static Activity getActivity() {
         return activity;
     }
 }

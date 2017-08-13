@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
     private void restoreDataFromSharedPreferences() {
         morseToTextSwappingPanel.restoreTranslationDirection();
         TextBoxes.restoreTextBoxesContentFromSharedPreferences(getActivity());
+        Log.i("SPDATA", "I'm restoring SP data");
         BroadcastingTextIndexesSharedPreferencesHandle.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
         ControlButtonsSharedPreferences.restoreLatelyActivatedButton(getActivity());
         MorseKeyboardSharedPreferences.restoreLatelyActiveButtons(getActivity());
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveDataToSharedPreferences() {
+        Log.i("SPDATA", "I'm saving SP data");
         morseToTextSwappingPanel.saveTranslatingDirectionToSP();
         TextBoxes.saveTextBoxesContentDataToSP(getActivity());
         BroadcastingTextIndexesSharedPreferencesHandle.saveIndexesOfCurrentlyBroadcastingTextToSP(getActivity());
@@ -206,6 +209,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

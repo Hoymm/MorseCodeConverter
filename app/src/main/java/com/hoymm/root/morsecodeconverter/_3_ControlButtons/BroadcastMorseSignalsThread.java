@@ -8,7 +8,6 @@ import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCiph
 import com.hoymm.root.morsecodeconverter._1_TopBar.TopBarSpeedSpinner;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
-import com.hoymm.root.morsecodeconverter._5_FooterPanel.FooterButtons;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
@@ -65,8 +64,7 @@ class BroadcastMorseSignalsThread implements Runnable {
     private void broadcastMorseAndChangeCharColors() {
         while (!MainActivity.destroyed &&
                 isThereTextLeftToBroadcast()
-                && PlayButton.initAndGetInstance(getActivity()).isActive()
-                && FooterButtons.atLeastOneFooterButtonActive(getActivity())) {
+                && PlayButton.initAndGetInstance(getActivity()).isActive()) {
 
             ChangingTextColors.initAndGetInstance(getActivity()).refreshColors();
             if (!broadcastSignalOrGapSuccesfully())
@@ -80,18 +78,23 @@ class BroadcastMorseSignalsThread implements Runnable {
     }
 
     private boolean broadcastSignalOrGapSuccesfully() {
-        int signalTime = calculateCurrentPlayTime();
-        if (isAGap(signalTime)) {
-            signalTime = Math.abs(signalTime);
-        }
-        else {
-            boolean signalsHasBeenPlayed = broadcastSignal(signalTime);
-            if (!signalsHasBeenPlayed) {
-                return false;
+        try {
+            int signalTime = calculateCurrentPlayTime();
+            if (isAGap(signalTime)) {
+                signalTime = Math.abs(signalTime);
+            } else {
+                boolean signalsHasBeenPlayed = broadcastSignal(signalTime);
+                if (!signalsHasBeenPlayed) {
+                    return false;
+                }
             }
+            pushToSleepWithSomeIntervalsCheckingWhetherStillBroadcasting(signalTime + shortGapTime());
+            return true;
         }
-        pushToSleepWithSomeIntervalsCheckingWhetherStillBroadcasting(signalTime + shortGapTime());
-        return true;
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void pushToSleepWithSomeIntervalsCheckingWhetherStillBroadcasting(int ms) {
@@ -175,6 +178,7 @@ class BroadcastMorseSignalsThread implements Runnable {
 
     private static void makeBottomBoxTextWhite(Activity activity) {
         String bottomText = TextBoxes.initAndGetBottomBox(activity).getText().toString();
+        Log.i("MorseBottomIndexes", "2");
         TextBoxes.initAndGetBottomBox(activity).setText(bottomText);
     }
 

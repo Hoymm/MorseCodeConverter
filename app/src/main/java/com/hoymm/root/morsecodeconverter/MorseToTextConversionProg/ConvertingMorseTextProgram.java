@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
+import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 /**
@@ -18,7 +19,6 @@ public class ConvertingMorseTextProgram {
     private static ConvertingMorseTextProgram instance;
     private Activity activity;
     private boolean skipAddingShortGap = false;
-    private static boolean isTranslatingInProgress = false;
     private boolean isConversionEnabled = false;
 
     public static ConvertingMorseTextProgram initAndGetInstance(Activity activity){
@@ -52,17 +52,13 @@ public class ConvertingMorseTextProgram {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (!isTranslatingInProgress)
-                    ifConditionMetTranslateStringAndInsertToBottomBox();
+                final String text = String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
+                insertToBottomBoxIfPlayButtonInactive(convertToDestination(text));
             }
         }).start();
     }
 
     private void ifConditionMetTranslateStringAndInsertToBottomBox() {
-        isTranslatingInProgress = true;
-        final String text = String.valueOf(TextBoxes.initAndGetUpperBox(getActivity()).getText());
-        insertToBottomBox(convertToDestination(text));
-        isTranslatingInProgress = false;
     }
 
     public void enableDynamicTextConversionIfStopButtonActive() {
@@ -78,11 +74,12 @@ public class ConvertingMorseTextProgram {
         return MorseToTextArrowsSwap.isConvertingTextToMorse ? toMorse(text) : toText(text);
     }
 
-    private void insertToBottomBox(final String text) {
+    private void insertToBottomBoxIfPlayButtonInactive(final String text) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextBoxes.initAndGetBottomBox(getActivity()).setText(text);
+                if (!PlayButton.initAndGetInstance(getActivity()).isActive())
+                    TextBoxes.initAndGetBottomBox(getActivity()).setText(text);
             }
         });
     }

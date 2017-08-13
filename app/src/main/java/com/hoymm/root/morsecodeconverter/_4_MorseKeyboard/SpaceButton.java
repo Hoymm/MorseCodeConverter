@@ -15,7 +15,7 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 
 public class SpaceButton extends ImageButton {
     private static ImageButton instance = null;
-    private Activity activity;
+    private static Activity activity;
 
     public static ImageButton initAndGetInstance(Activity activity){
         if (instance == null)
@@ -142,7 +142,7 @@ public class SpaceButton extends ImageButton {
         TextBoxes.initAndGetUpperBox(getActivity()).setSelection(selectionStart + 1);
     }
 
-    private Activity getActivity(){
+    private static Activity getActivity(){
         return activity;
     }
 

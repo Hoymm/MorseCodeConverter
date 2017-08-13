@@ -24,8 +24,9 @@ public class ConvertMorseToSignals {
     private Activity activity;
 
     public static ConvertMorseToSignals initAndGetInstance(Activity activity) {
-        if (instance == null)
+        if (instance == null) {
             instance = new ConvertMorseToSignals(activity);
+        }
         return instance;
     }
 
@@ -174,10 +175,10 @@ public class ConvertMorseToSignals {
     }
 
     String getMorseSignToBeBroadcasted() {
-        if (morseCharEnd - morseCharStart > 1)
+        if (getEndBroadcastingMorseIndex() - getStartBroadcastingMorseIndex() > 1)
             return MEDIUM_GAP;
         else
-            return getMorseWholeText().substring(morseCharStart, morseCharEnd);
+            return getMorseWholeText().substring(getStartBroadcastingMorseIndex(), getEndBroadcastingMorseIndex());
 
     }
 

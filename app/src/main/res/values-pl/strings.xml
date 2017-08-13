@@ -6,7 +6,6 @@
     <string name="morse">Morse</string>
     <string name="copied_to_clipboard">Skopiowane do schowka</string>
     <string name="swap_button">Przycisk zamiany</string>
-    <string name="please_activate_at_least_one_broadcast_mode">Proszę, aktywuj przynajmniej jeden tryb nadawania sygnału.</string>
     <string name="edit_only_when_stop_active">Edytowanie tekstu jest możliwa jedynie gdy wciśnięty jest przycisk stop.</string>
     <string name="ok">OK</string>
     <string name="camera_use_explanation_text">Aby nadawać sygnał Morse\'a przy użyciu lampy błyskowej telefonu potrzebuję zezwolenia dostępu do kamery.</string>

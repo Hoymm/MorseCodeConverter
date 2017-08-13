@@ -22,11 +22,13 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 public class TextBoxes {
     private static Toast editOnlyWhenStopActive = null;
     private static EditText upperBox = null, bottomBox = null;
+    private static Activity activity;
 
     public static EditText initAndGetUpperBox(Activity activity){
         if (upperBox == null) {
-            upperBox = (EditText) activity.findViewById(R.id.upper_edit_text_box);
-            setUpperTextBehaviorWhenOnClicked(activity);
+            TextBoxes.activity = activity;
+            upperBox = (EditText) getActivity().findViewById(R.id.upper_edit_text_box);
+            setUpperTextBehaviorWhenOnClicked(getActivity());
         }
         return upperBox;
     }
@@ -44,8 +46,10 @@ public class TextBoxes {
     }
 
     public static EditText initAndGetBottomBox(Activity activity){
-        if (bottomBox == null)
+        if (bottomBox == null) {
+            TextBoxes.activity = activity;
             bottomBox = (EditText) activity.findViewById(R.id.bottom_text_view_box);
+        }
         return bottomBox;
     }
 
@@ -117,5 +121,9 @@ public class TextBoxes {
     public static void setTextBroadcastColor(Activity activity){
         initAndGetUpperBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.broadcastTextColor));
         initAndGetBottomBox(activity).setTextColor(ContextCompat.getColor(activity, R.color.broadcastTextColor));
+    }
+
+    private static Activity getActivity(){
+        return activity;
     }
 }
