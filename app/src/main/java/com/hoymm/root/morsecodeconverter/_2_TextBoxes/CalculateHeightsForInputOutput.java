@@ -60,6 +60,8 @@ class CalculateHeightsForInputOutput {
 
     private int getSwappingPanelHeight() {
         LinearLayout swappingTranslatingModePanel = (LinearLayout) getActivity().findViewById(R.id.swappingPanelId);
+        if (swappingTranslatingModePanel == null)
+            return 0;
         return swappingTranslatingModePanel.getLayoutParams().height;
     }
 
