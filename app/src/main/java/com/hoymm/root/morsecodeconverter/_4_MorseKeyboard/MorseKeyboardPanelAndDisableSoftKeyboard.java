@@ -40,7 +40,6 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     private void initializateButtons() {
-        Log.i("WriteBUTTON", "initializate buttons.");
         SpaceButton.initAndGetInstance(getActivity());
         DotButton.initAndGetInstance(getActivity());
         LineButton.initAndGetInstance(getActivity());

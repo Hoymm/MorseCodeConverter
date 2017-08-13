@@ -1,6 +1,7 @@
 package com.hoymm.root.morsecodeconverter._3_ControlButtons;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ public class PlayButton extends ButtonsTemplate {
     private static Toast plaseActivateBroadcastMode, pleaseInsertText;
 
     public static PlayButton initAndGetInstance(Activity activity){
-        if (instance == null)
+        if (instance == null || instance.getActivity().hashCode() != activity.hashCode())
             instance = new PlayButton(activity);
         return instance;
     }
@@ -35,6 +36,7 @@ public class PlayButton extends ButtonsTemplate {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("PlayButton", "clicked.");
                 if (TextBoxes.initAndGetUpperBox(getActivity()).getText().toString().equals(""))
                     showMessageToTheUserToInsertText();
                 else if (!FooterButtons.atLeastOneFooterButtonActive(getActivity()))

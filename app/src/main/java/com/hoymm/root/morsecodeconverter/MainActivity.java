@@ -2,6 +2,8 @@ package com.hoymm.root.morsecodeconverter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        destroyed = false;
+        Log.i("onCreate()", "method called.");
         initializeProgramComponents();
         setArrowsSwapButtonBehavior();
+        destroyed = false;
     }
 
     private void initializeProgramComponents() {
@@ -169,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Log.i("onDestroy()", "method called.");
         destroyed = true;
         setObjectsNull();
         super.onDestroy();
@@ -197,6 +201,16 @@ public class MainActivity extends AppCompatActivity {
         SoundButton.setNull();
         FlashlightButton.ifNotNullSetNullAndReleaseCamera(getActivity());
         ScreenButton.setNull();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
