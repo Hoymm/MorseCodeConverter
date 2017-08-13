@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         BroadcastingTextIndexesSharedPreferencesHandle.restoreIndexesOfCurBroadcastTextOrSetToDefaultIfNotStoredSP(getActivity());
         ControlButtonsSharedPreferences.restoreLatelyActivatedButton(getActivity());
         MorseKeyboardSharedPreferences.restoreLatelyActiveButtons(getActivity());
+        ConvertingMorseTextProgram.initAndGetInstance(getActivity());
     }
 
     @Override
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         handleTextBoxesConversion.clearSelection();
         ifPlayButtonActiveThenCallPause();
         saveDataToSharedPreferences();
+        FlashlightButton.ifNotNullSetNullAndReleaseCamera(getActivity());
         super.onPause();
     }
 

@@ -141,7 +141,6 @@ class TorchFeature {
 
     private void releaseCameraUsages() {
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            // TODO release (camera2) objects ???
         }
         else*/
             releaseOldWay();

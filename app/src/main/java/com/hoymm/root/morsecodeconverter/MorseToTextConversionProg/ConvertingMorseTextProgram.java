@@ -40,7 +40,8 @@ public class ConvertingMorseTextProgram {
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        if (PlayButton.initAndGetInstance(getActivity()).isActive())
+                        Log.i("StartConversion", "WHETHER");
+                        if (!PlayButton.initAndGetInstance(getActivity()).isActive())
                             ifNoCurrentlyRunningStartNewConversionInASeparateThread();
                     }
                 });
