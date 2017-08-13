@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation;
@@ -134,12 +135,31 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
     }
 
     private static void enableSystemKeyboard(final Activity activity) {
-        TextBoxes.initAndGetUpperBox(activity).setKeyListener(TextBoxes.getDefaultKeyListener());
+
+        TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager mImm = (InputMethodManager)
+                        activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                mImm.showSoftInput(TextBoxes.initAndGetUpperBox(activity), InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+        TextBoxes.initAndGetUpperBox(activity).setKeyListener(new EditText(activity).getKeyListener());
         Log.i("SystemKeyboard", "enabled (when converting text-> morse).");
     }
 
     private static void disableSystemKeyboard(final Activity activity) {
+
+        TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
         TextBoxes.initAndGetUpperBox(activity).setKeyListener(null);
+        TextBoxes.initAndGetUpperBox(activity).setCursorVisible(true);
         Log.i("SystemKeyboard", "disabled (when converting morse-> text)..");
     }
 
