@@ -92,11 +92,16 @@ public class SoundButton extends ButtonsTemplate implements FooterButtonsInterfa
     }
 
     public static void setNull() {
-        instance = null;
-        beepSound.stop(mSoundId);
-        beepSound.release();
-        beepSound = null;
-        mSoundId = 0;
-        ifBeepSoundStarted = false;
+        try {
+            instance = null;
+            beepSound.stop(mSoundId);
+            beepSound.release();
+            beepSound = null;
+            mSoundId = 0;
+            ifBeepSoundStarted = false;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
