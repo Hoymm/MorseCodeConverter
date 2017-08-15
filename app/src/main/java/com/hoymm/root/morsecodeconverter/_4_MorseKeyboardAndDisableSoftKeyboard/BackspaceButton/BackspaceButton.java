@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.BackspaceButton;
 
 import android.app.Activity;
 import android.view.MotionEvent;
@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
 
 /**
  * File created by Damian Muca - Kaizen on 26.06.17.

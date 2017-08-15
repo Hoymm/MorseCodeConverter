@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard;
 
 import android.app.Activity;
 import android.widget.ImageButton;
@@ -9,19 +9,19 @@ import com.hoymm.root.morsecodeconverter.R;
  * File created by Damian Muca - Kaizen on 11.07.17.
  */
 
-public class LineButton extends WriteButton {
+public class DotButton extends WriteButton {
     private static ImageButton instance = null;
 
     public static ImageButton initAndGetInstance(Activity activity){
         if (instance == null)
-            instance = new LineButton(activity);
+            instance = new DotButton(activity);
         return instance;
     }
 
-    public LineButton(Activity activity) {
+    public DotButton(Activity activity) {
         super(activity);
-        instance = (ImageButton) getActivity().findViewById(R.id.line_button_id);
-        setWriteButtonBehavior(instance, '−');// this is not a minus
+        instance = (ImageButton) getActivity().findViewById(R.id.dot_button_id);
+        setWriteButtonBehavior(instance, '·');// this is not a dot
     }
 
     public static void setNull() {

@@ -1,13 +1,11 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
 

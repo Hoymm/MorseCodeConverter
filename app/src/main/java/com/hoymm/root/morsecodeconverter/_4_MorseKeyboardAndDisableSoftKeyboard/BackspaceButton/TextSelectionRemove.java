@@ -1,7 +1,6 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.BackspaceButton;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.MorseCodeCipher;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;

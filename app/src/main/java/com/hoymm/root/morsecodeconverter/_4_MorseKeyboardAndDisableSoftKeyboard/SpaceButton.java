@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard;
 
 import android.app.Activity;
 import android.view.View;

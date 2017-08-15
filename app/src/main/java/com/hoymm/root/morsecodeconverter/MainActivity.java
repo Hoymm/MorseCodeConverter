@@ -6,7 +6,6 @@ import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -21,26 +20,25 @@ import com.hoymm.root.morsecodeconverter._3_ControlButtons.ConvertMorseToSignals
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PauseButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.PlayButton;
 import com.hoymm.root.morsecodeconverter._3_ControlButtons.StopButton;
-import com.hoymm.root.morsecodeconverter._2_TextBoxes.SetToClipboardButtonBehavior;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.DotButton;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.LineButton;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardSharedPreferences;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.SpaceButton;
+import com.hoymm.root.morsecodeconverter._2_TextBoxes.CopyToClipboardButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.BackspaceButton.BackspaceButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.DotButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.LineButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.MorseKeyboardSharedPreferences;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.SpaceButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.FlashlightPermissions;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.ScreenButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.SoundButton;
 import com.hoymm.root.morsecodeconverter._5_FooterPanel.VibrationButton;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.HandleTextBoxesConversion;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.MorseKeyboardPanelAndDisableSoftKeyboard;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.MorseKeyboardAndDisableSoftKeyboard;
 import com.hoymm.root.morsecodeconverter.MorseToTextConversionProg.ConvertingMorseTextProgram;
 
 public class MainActivity extends AppCompatActivity {
     private MorseToTextArrowsSwap morseToTextSwappingPanel;
     private HandleTextBoxesConversion handleTextBoxesConversion;
-    private SetToClipboardButtonBehavior copyToClipboard;
-    private MorseKeyboardPanelAndDisableSoftKeyboard morseKeyboardPanelAndDisableSoftKeyboard;
+    private MorseKeyboardAndDisableSoftKeyboard morseKeyboardAndDisableSoftKeyboard;
 
     public static boolean destroyed;
     @Override
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         TopBarSpeedSpinner.initAndGetInstance(getActivity());
         morseToTextSwappingPanel = new MorseToTextArrowsSwap(getActivity());
         handleTextBoxesConversion = new HandleTextBoxesConversion(getActivity());
-        morseKeyboardPanelAndDisableSoftKeyboard = new MorseKeyboardPanelAndDisableSoftKeyboard(getActivity());
+        morseKeyboardAndDisableSoftKeyboard = new MorseKeyboardAndDisableSoftKeyboard(getActivity());
     }
 
     private void initializateControlPanelButtons() {
@@ -99,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
         hideSystemKeyboard(getActivity());
         morseToTextSwappingPanel.refreshTextHeaders();
         refreshTextColorsIfNotFirstIndexCurrentlyBroadcast();
-        MorseKeyboardPanelAndDisableSoftKeyboard.disableOrEnableSystemKeyboard(getActivity());
+        MorseKeyboardAndDisableSoftKeyboard.disableOrEnableSystemKeyboard(getActivity());
         PlayButton.initAndGetInstance(getActivity()).decideSetUpperBoxSelectable();
     }
 
     private void adjustCompomentsViaAnimation() {
         handleTextBoxesConversion.resizeBoxesAnimation();
-        morseKeyboardPanelAndDisableSoftKeyboard.hideOrShowMorsePanelAnimation();
+        morseKeyboardAndDisableSoftKeyboard.hideOrShowMorsePanelAnimation();
     }
 
     public static void hideSystemKeyboard(Activity activity) {
@@ -117,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAndAdjustButtonsState() {
-        copyToClipboard = new SetToClipboardButtonBehavior(getActivity());
         initializateControlPanelButtons();
+        CopyToClipboardButton.setBehavior(getActivity());
         initializateFooterButtons();
     }
 
@@ -184,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         StopButton.setNull();
 
         TextBoxes.setNull();
+        CopyToClipboardButton.setNull();
 
         SpaceButton.setNull();
         DotButton.setNull();

@@ -1,4 +1,4 @@
-package com.hoymm.root.morsecodeconverter._4_MorseKeyboard;
+package com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -18,19 +17,18 @@ import com.hoymm.root.morsecodeconverter._2_TextBoxes.ResizingTextBoxesAnimation
 import com.hoymm.root.morsecodeconverter._1_TopBar.MorseToTextArrowsSwap;
 import com.hoymm.root.morsecodeconverter.R;
 import com.hoymm.root.morsecodeconverter._2_TextBoxes.TextBoxes;
-import com.hoymm.root.morsecodeconverter._4_MorseKeyboard.BackspaceButton.BackspaceButton;
+import com.hoymm.root.morsecodeconverter._4_MorseKeyboardAndDisableSoftKeyboard.BackspaceButton.BackspaceButton;
 
 /**
  * File created by Damian Muca - Kaizen on 20.06.17.
  */
 
-public class MorseKeyboardPanelAndDisableSoftKeyboard {
+public class MorseKeyboardAndDisableSoftKeyboard {
     private Context context;
     private LinearLayout morseKeyboardPanel;
     private ValueAnimator hidePanelAnimation, showPanelAnimation;
-    private static View.OnTouchListener upperTextBoxListener;
 
-    public MorseKeyboardPanelAndDisableSoftKeyboard(Context context) {
+    public MorseKeyboardAndDisableSoftKeyboard(Context context) {
         this.context = context;
         initObjects();
         initAnimation();
@@ -134,7 +132,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
             disableSystemKeyboard(activity);
     }
 
-    public static void enableSystemKeyboard(final Activity activity) {
+    private static void enableSystemKeyboard(final Activity activity) {
 
         TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +147,7 @@ public class MorseKeyboardPanelAndDisableSoftKeyboard {
         Log.i("SystemKeyboard", "enabled (when converting text-> morse).");
     }
 
-    public static void disableSystemKeyboard(final Activity activity) {
+    private static void disableSystemKeyboard(final Activity activity) {
 
         TextBoxes.initAndGetUpperBox(activity).setOnClickListener(new View.OnClickListener() {
             @Override
